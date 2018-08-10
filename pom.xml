@@ -11,6 +11,7 @@
     <module>module-application</module>
     <module>module-organization</module>
     <module>module-comment</module>
+    <module>module-department</module>
   </modules>
 
     <dependencies>

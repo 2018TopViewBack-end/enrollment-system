@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="module-application" />
         <module name="module-comment" />
+        <module name="module-department" />
         <module name="module-organization" />
       </profile>
     </annotationProcessing>

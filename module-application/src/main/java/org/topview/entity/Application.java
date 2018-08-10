@@ -4,31 +4,31 @@ import java.util.List;
 import java.util.Map;
 
 public class Application {
-    int id;
+    private int id;
 
-    String stuName;
+    private String stuName;
 
-    String gender;
+    private String gender;
 
-    String academy;
+    private String academy;
 
-    String majorAndClass;
+    private String majorAndClass;
 
-    String wechat;
+    private String wechat;
 
-    String tel;
+    private String tel;
 
-    String stuId;
+    private String stuId;
 
-    String intentionDepartment;
+    private String intentionDepartment;
 
-    String dormitory;
+    private String dormitory;
 
-    boolean adjustable; //是否允许调剂
+    private boolean adjustable; //是否允许调剂
 
-    String introduction;
+    private String introduction;
 
-    List<ApplicationResult> results;//用于保存每个阶段结果
+    private List<ApplicationResult> results;//用于保存每个阶段结果
 
-    Map<Integer,String> customValues;//key为自定义字段customField的id，value为字段值
+    private Map<Integer,String> customValues;//key为自定义字段customField的id，value为字段值
 }

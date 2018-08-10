@@ -4,13 +4,13 @@ import java.util.Date;
 
 public class ApplicationResult {
 
-    int applicationId;
+    private int applicationId;
 
-    int stageId;
+    private int stageId;
 
-    int status;
+    private int status;
 
-    Date endTime;
+    private Date endTime;
 
     //应有一个不含date的构造函数
 }

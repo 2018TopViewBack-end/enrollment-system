@@ -4,11 +4,11 @@ package org.topview.entity;
  * 轮播图实体类
  */
 public class Slideshow {
-    int id;
+    private int id;
 
-    String url;
+    private String url;
 
-    int organizationId;
+    private int organizationId;
 
-    int status;
+    private int status;
 }
