@@ -1,5 +1,7 @@
 package org.topview.entity.department;
 
+import org.topview.entity.organization.User;
+
 import java.util.List;
 import java.util.Map;
 
@@ -22,16 +24,9 @@ public class Department {
 
     private List<String> stages;//用于保存部门所有阶段名称，需排序
 
-    public Department() {
-    }
+    private User departAdmin;//部门管理员
 
-    public Department(String name, String logoUrl, Map<Integer, String> pics, String introduction, Integer messageNum, List<String> stages) {
-        this.name = name;
-        this.logoUrl = logoUrl;
-        this.pics = pics;
-        this.introduction = introduction;
-        this.messageNum = messageNum;
-        this.stages = stages;
+    public Department() {
     }
 
     public int getId() {
@@ -88,5 +83,27 @@ public class Department {
 
     public void setStages(List<String> stages) {
         this.stages = stages;
+    }
+
+    public User getDepartAdmin() {
+        return departAdmin;
+    }
+
+    public void setDepartAdmin(User departAdmin) {
+        this.departAdmin = departAdmin;
+    }
+
+    @Override
+    public String toString() {
+        return "Department{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", logoUrl='" + logoUrl + '\'' +
+                ", pics=" + pics +
+                ", introduction='" + introduction + '\'' +
+                ", messageNum=" + messageNum +
+                ", stages=" + stages +
+                ", departAdmin=" + departAdmin +
+                '}';
     }
 }

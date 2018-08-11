@@ -17,21 +17,19 @@ public class User {
 
     private int roleId;
 
-    private int organizationId;
-
-    private int departmentId;
-
     public User() {
     }
 
-    public User(String username, String password, String tel, String email, int roleId, int organizationId, int departmentId) {
-        this.username = username;
-        this.password = password;
-        this.tel = tel;
-        this.email = email;
-        this.roleId = roleId;
-        this.organizationId = organizationId;
-        this.departmentId = departmentId;
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", tel='" + tel + '\'' +
+                ", email='" + email + '\'' +
+                ", roleId=" + roleId +
+                '}';
     }
 
     public int getId() {
@@ -82,19 +80,5 @@ public class User {
         this.roleId = roleId;
     }
 
-    public int getOrganizationId() {
-        return organizationId;
-    }
 
-    public void setOrganizationId(int organizationId) {
-        this.organizationId = organizationId;
-    }
-
-    public int getDepartmentId() {
-        return departmentId;
-    }
-
-    public void setDepartmentId(int departmentId) {
-        this.departmentId = departmentId;
-    }
 }

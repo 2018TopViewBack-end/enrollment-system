@@ -35,22 +35,9 @@ public class Organization {
 
     private BigDecimal accountBalance;//短信平台剩余金额
 
-    public Organization() {
-    }
+    private User organizationAdmin;
 
-    public Organization(String name, String logoUrl, String tel, String category, String introduction, String linkman,
-                        List<Department> departments, Map<Integer, String> pics, Integer status, String apikey,BigDecimal accountBalance) {
-        this.name = name;
-        this.logoUrl = logoUrl;
-        this.tel = tel;
-        this.category = category;
-        this.introduction = introduction;
-        this.linkman = linkman;
-        this.departments = departments;
-        this.pics = pics;
-        this.status = status;
-        this.apikey = apikey;
-        this.accountBalance = accountBalance;
+    public Organization() {
     }
 
     public int getId() {
@@ -147,5 +134,32 @@ public class Organization {
 
     public void setAccountBalance(BigDecimal accountBalance) {
         this.accountBalance = accountBalance;
+    }
+
+    public User getOrganizationAdmin() {
+        return organizationAdmin;
+    }
+
+    public void setOrganizationAdmin(User organizationAdmin) {
+        this.organizationAdmin = organizationAdmin;
+    }
+
+    @Override
+    public String toString() {
+        return "Organization{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", logoUrl='" + logoUrl + '\'' +
+                ", tel='" + tel + '\'' +
+                ", category='" + category + '\'' +
+                ", introduction='" + introduction + '\'' +
+                ", linkman='" + linkman + '\'' +
+                ", departments=" + departments +
+                ", pics=" + pics +
+                ", status=" + status +
+                ", apikey='" + apikey + '\'' +
+                ", accountBalance=" + accountBalance +
+                ", organizationAdmin=" + organizationAdmin +
+                '}';
     }
 }
