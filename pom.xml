@@ -7,13 +7,6 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-  <modules>
-    <module>module-application</module>
-    <module>module-organization</module>
-    <module>module-comment</module>
-    <module>module-department</module>
-  </modules>
-
     <dependencies>
         <dependency>
             <groupId>log4j</groupId>
@@ -205,11 +198,11 @@
                 <plugin>
                     <artifactId>maven-war-plugin</artifactId>
                     <version>3.2.0</version>
-                    <!--<configuration>-->
-                    <!--&lt;!&ndash; 设置WebContent目录为Web目录 &ndash;&gt;-->
-                    <!--<webappDirectory>${basedir}/web</webappDirectory>-->
+                    <configuration>
+                    <!-- 设置WebContent目录为Web目录 -->
+                    <webappDirectory>${basedir}/src/web</webappDirectory>
                     <!--<warSourceDirectory>${basedir}/web</warSourceDirectory>-->
-                    <!--</configuration>-->
+                    </configuration>
                 </plugin>
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>
