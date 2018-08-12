@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.topview.util.MessageUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -62,28 +63,34 @@ public class TestMessage {
 
     @Test
     public void test3(){
-        String srcImg = "d:/img/1.jpg";
-        String tarDir = "d:/img/";
-        URL url = ImageUtil.class.getResource("1.jpg");
+        String srcImg = "d:/img/alipay.jpg";
+        String tarDir = "d:/img/wechat.jpg";
+        URL url = ImageUtil.class.getResource("alipay.jpg");
         File srcfile = null;
 
             srcfile = new File(srcImg);
 
-        System.out.println(url);
+            File tarfile = new File(tarDir);
+//        System.out.println(url);
         System.out.println(srcfile.exists() + ", dir=" + srcfile.getParent());
         tarDir = srcfile.getParent();
         srcImg = srcfile.getPath();
 //        System.out.println("srcImg=" + srcImg);
         long startTime = new Date().getTime();
 //        resize(srcImg, tarDir + "car_1_maxLength_1-200px.jpg", 200);
-//        cut(srcfile, tarDir+ "car_1_maxLength_3.jpg",300,300,300, 264654);
+//        cut(srcfile, tarDir,300,300,300, 264654);
 //        Tosmallerpic(srcImg, tarDir + "car_1_maxLength_2.jpg", 0.5F);
 //        resize(srcImg, tarDir + "car_1_maxLength_3.jpg", 400, 500);
 //        resize(srcImg, tarDir + "car_1_maxLength_4-400x400.jpg", 220, 220);
-//        resize(srcImg, tarDir + "car_1_maxLength_11-220px-yinhui.jpg", 220, 0.7F);
+//        cut(srcImg, tarDir + "aliyun.jpg", 220, 0,100,100);
 //        Tosmallerpic(srcImg, tarDir + "car_1_maxLength_22.jpg", 0.5F, 0.8F);
 //        resize(srcImg, tarDir + "car_1_maxLength_33.jpg", 400, 500, 0.8F);
 
+        try {
+            cut(srcfile,tarfile,0,0,1200,1200);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println(new Date().getTime() - startTime);
     }
 }
