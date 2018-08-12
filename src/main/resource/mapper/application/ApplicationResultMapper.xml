@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.topview.dao.application.ApplicationResultMapper">
+
+
+</mapper>
+    <!--<select id="getUserRole" resultType="int">-->
+    <!--select rid from user_role where uid=#{id}-->
+    <!--</select>-->
+
+    <!--<select id="isValid" parameterType="User" resultType="User">-->
+    <!--select * from t_user where name=#{name} and password=#{password}-->
+    <!--</select>-->
+
+    <!--<select id="selectUserByName" resultType="User" parameterType="string">-->
+        <!--select * from t_user where name=#{name}-->
+    <!--</select>-->
+
+    <!--<select id="selectUserById" resultType="User">-->
+        <!--select * from t_user where id=#{id}-->
+    <!--</select>-->
+    <!--&lt;!&ndash;<select id="checkUserByName" parameterType="String" resultType="User">&ndash;&gt;-->
+    <!--&lt;!&ndash;select * from t_user where name=#{name}&ndash;&gt;-->
+    <!--&lt;!&ndash;</select>&ndash;&gt;-->
+
+    <!--<select id="getRole" parameterType="int"  resultType="java.lang.Integer" >-->
+        <!--select rid from user_role where uid=#{userId}-->
+    <!--</select>-->
+    <!--&lt;!&ndash;<resultMap id="roleMap" type="java.util.Map">&ndash;&gt;-->
+    <!--&lt;!&ndash;<result property="roleId" column="rid" jdbcType="INTEGER"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;</resultMap>&ndash;&gt;-->
+
+    <!--<select id="checkEmail" resultType="java.lang.String">-->
+        <!--select email from t_user where email=#{email}-->
+    <!--</select>-->
+
+    <!--<select id="getMerchantById" resultType="java.lang.String" parameterType="int">-->
+        <!--select shopName from t_merchant where userid=#{userId}-->
+    <!--</select>-->
+
+    <!--<insert id="addUser" parameterType="User">-->
+        <!--insert into t_user(name,password,email,tel,addr,state,activeCode) values(#{name},#{password},#{email},#{tel},#{addr},#{state},#{activeCode})-->
+    <!--</insert>-->
+
+    <!--<delete id="deleteUserById" parameterType="int">-->
+        <!--delete from t_user where id =#{id}-->
+    <!--</delete>-->
+
+    <!--<select id="listAllUser" resultType="user">-->
+        <!--select * from t_user-->
+    <!--</select>-->
+
+    <!--<update id="updateInfo" parameterType="User">-->
+        <!--update t_user set password=#{password} ,email =#{email} ,tel=#{tel} ,addr=#{addr} where name=#{name}-->
+    <!--</update>-->
+
+    <!--<update id="activeUser" parameterType="String">-->
+        <!--update t_user set state=1 where activeCode=#{activeCode}-->
+    <!--</update>-->
+
