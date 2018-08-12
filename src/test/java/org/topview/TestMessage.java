@@ -19,7 +19,7 @@ public class TestMessage {
     @Test
     public void test1(){
 //        Map<String, String> params = new HashMap<String, String>();//请求参数集合
-        List<String> mobile = new ArrayList<>();
+        List<String> mobile = new ArrayList<String>();
 //        mobile.add("15521070771");
         mobile.add("15521079814");//清林
         mobile.add("15521301561");
@@ -44,7 +44,7 @@ public class TestMessage {
 
     @Test
     public void test2() {
-       List<String> mobile = new ArrayList<>();
+       List<String> mobile = new ArrayList<String>();
 
        StringBuffer sb = new StringBuffer();
        //将号码列表转换为以逗号分隔的字符串形式
