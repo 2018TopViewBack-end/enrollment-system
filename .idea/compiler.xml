@@ -10,6 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="enrollment-system" target="1.8" />
       <module name="liqinglin_onlineOrderMealSystemSystem" target="1.5" />
     </bytecodeTargetLevel>
   </component>
