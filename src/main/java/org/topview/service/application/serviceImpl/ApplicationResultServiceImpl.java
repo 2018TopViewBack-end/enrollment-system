@@ -22,7 +22,6 @@ public class ApplicationResultServiceImpl implements ApplicationResultService {
         int applicationId = applicationMapper.getId(tel, studentId);
 
         //getResult
-        ApplicationResult result = applicationResultMapper.selectByPrimaryKey(applicationId);
-        return null;
+        return applicationResultMapper.selectByPrimaryKey(applicationId);
     }
 }
