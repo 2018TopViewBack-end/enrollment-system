@@ -169,8 +169,21 @@
         </dependency>
     </dependencies>
 
+
+
     <build>
-        <finalName>maven-web</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <!-- 规定jdk版本~~ -->
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+        <!--<finalName>maven-web</finalName>-->
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
                 <plugin>
@@ -201,7 +214,7 @@
                     <configuration>
                     <!-- 设置WebContent目录为Web目录 -->
                     <webappDirectory>${basedir}/src/web</webappDirectory>
-                    <!--<warSourceDirectory>${basedir}/web</warSourceDirectory>-->
+                    <warSourceDirectory>${basedir}/src/web</warSourceDirectory>
                     </configuration>
                 </plugin>
                 <plugin>

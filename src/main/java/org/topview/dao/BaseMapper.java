@@ -3,6 +3,13 @@ package org.topview.dao;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Mapper父接口
+ *
+ * @param <T>
+ * @param <PK>
+ * @author Medwin。
+ */
 public interface BaseMapper<T, PK extends Serializable> {
 
     T selectByPrimaryKey(PK pk);  //根据主键选择对象
