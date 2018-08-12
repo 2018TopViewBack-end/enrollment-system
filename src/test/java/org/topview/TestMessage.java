@@ -17,6 +17,8 @@ import static org.topview.util.ImgUtil.resize;
 
 public class TestMessage {
 
+
+
     @Test
     public void test1(){
 //        Map<String, String> params = new HashMap<String, String>();//请求参数集合
