@@ -1,16 +1,13 @@
 package org.topview.entity.department.po;
 
-import org.topview.entity.organization.po.User;
-
-import java.util.List;
-import java.util.Map;
-
 /**
  * 部门实体类
  * @author Medwin。
  */
 public class Department {
     private int id;
+
+    private int organizationId;
 
     private String name;
 
@@ -20,18 +17,9 @@ public class Department {
 
     private Integer messageNum;//发送短信数量，便于统计
 
-
-    private Integer userId;//部门管理员id
+    private int userId;//部门管理员id
 
     public Department() {
-    }
-
-    public Department(String name, String logoUrl, String introduction, Integer messageNum, Integer userId) {
-        this.name = name;
-        this.logoUrl = logoUrl;
-        this.introduction = introduction;
-        this.messageNum = messageNum;
-        this.userId = userId;
     }
 
     public int getId() {
@@ -40,6 +28,14 @@ public class Department {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(int organizationId) {
+        this.organizationId = organizationId;
     }
 
     public String getName() {
@@ -74,24 +70,24 @@ public class Department {
         this.messageNum = messageNum;
     }
 
-    public Integer getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
     @Override
-
     public String toString() {
         return "Department{" +
                 "id=" + id +
+                ", organizationId=" + organizationId +
                 ", name='" + name + '\'' +
                 ", logoUrl='" + logoUrl + '\'' +
                 ", introduction='" + introduction + '\'' +
                 ", messageNum=" + messageNum +
-                ", departAdmin=" + userId +
+                ", userId=" + userId +
                 '}';
     }
 }
