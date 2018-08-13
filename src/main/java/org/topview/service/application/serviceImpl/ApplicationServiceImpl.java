@@ -1,27 +1,20 @@
 package org.topview.service.application.serviceImpl;
 
-<<<<<<< HEAD
-import org.springframework.stereotype.Service;
-import org.topview.service.application.ApplicationService;
-import org.topview.service.organization.UserService;
-=======
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.topview.dao.application.ApplicationMapper;
 import org.topview.dao.application.ApplicationResultMapper;
 import org.topview.entity.application.po.Application;
-import org.topview.entity.application.po.ApplicationResult;
 import org.topview.service.application.ApplicationService;
 
-import java.util.ArrayList;
 import java.util.List;
->>>>>>> a0b860245429652611597a456504229a419a9062
+
 
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
 
-<<<<<<< HEAD
-=======
+
     @Autowired
     private ApplicationMapper applicationMapper;
 
@@ -49,5 +42,4 @@ public class ApplicationServiceImpl implements ApplicationService {
 ////        }
         return null;
     }
->>>>>>> a0b860245429652611597a456504229a419a9062
 }

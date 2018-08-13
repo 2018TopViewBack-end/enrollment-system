@@ -17,6 +17,6 @@ public class UserController {
     @ResponseBody
     @RequestMapping("/checkOldPassword")
     public Result checkOldPassword() {
-
+        return null;
     }
 }
