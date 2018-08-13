@@ -1,6 +1,7 @@
 package org.topview.entity.department;
 
 public class Stage {
+
     private int id;
 
     private int departmentId;
