@@ -12,7 +12,7 @@ import org.topview.util.Result;
 public class OrganizationController {
 
 
-    @RequestMapping(value = "/updateOrganization", method = RequestMethod.POST)
+
     @ResponseBody
     public Result updateOrganization() {
         return null;
