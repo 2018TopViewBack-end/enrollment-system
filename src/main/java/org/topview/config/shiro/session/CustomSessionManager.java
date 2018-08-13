@@ -1,15 +1,10 @@
 package org.topview.config.shiro.session;
 
 
-import com.sojson.common.model.User;
-import com.sojson.common.utils.LoggerUtils;
-import com.sojson.common.utils.StringUtils;
-import com.sojson.core.shiro.CustomShiroSessionDAO;
-import com.sojson.user.bo.UserOnlineBo;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.support.DefaultSubjectContext;
-import org.topview.entity.organization.User;
+import org.topview.entity.organization.po.User;
 
 import java.util.*;
 

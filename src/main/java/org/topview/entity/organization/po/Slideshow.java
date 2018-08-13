@@ -1,4 +1,4 @@
-package org.topview.entity.organization;
+package org.topview.entity.organization.po;
 
 /**
  * 轮播图实体类

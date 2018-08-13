@@ -68,7 +68,7 @@ public class MessageUtil {
         try {
             HttpPost method = new HttpPost(url);
             if (paramsMap != null) {
-                List<NameValuePair> paramList = new ArrayList<>();
+                List<NameValuePair> paramList = new ArrayList<NameValuePair>();
                 for (Map.Entry < String, String > param: paramsMap.entrySet()) {
                     NameValuePair pair = new BasicNameValuePair(param.getKey(),
                             param.getValue());
