@@ -2,6 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.topview.dao.organization.OrganizationMapper">
-
+    <update id="updateByPrimaryKey">
+        UPDATE organization
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="logoUrl != null">logo_url = #{logoUrl},</if>
+            <if test="tel != null">tel = #{tel},</if>
+            <if test="category != null">category = #{categorly},</if>
+            <if test="introduction != null">introduction = #{introduction},</if>
+            <if test="linkman != null">linkman = #{linkman},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="apikey != null">apikey = #{apikey},</if>
+            <if test="accountBalance != null">account_balance = #{accountBalance},</if>
+            <if test="organizationAdmin != null and organizationAdmin.id != 0">admin_id = #{organizationAdmin.id}</if>
+        </set>
+        <where>id = #{id}</where>
+    </update>
 
 </mapper>
