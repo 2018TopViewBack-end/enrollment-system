@@ -16,8 +16,6 @@ public class Department {
 
     private String logoUrl;
 
-    private Map<String,String> pics; //key为标识，value为url
-
     private String introduction;
 
     private Integer messageNum;//发送短信数量，便于统计
@@ -51,14 +49,6 @@ public class Department {
 
     public void setLogoUrl(String logoUrl) {
         this.logoUrl = logoUrl;
-    }
-
-    public Map<String, String> getPics() {
-        return pics;
-    }
-
-    public void setPics(Map<String, String> pics) {
-        this.pics = pics;
     }
 
     public String getIntroduction() {
@@ -99,7 +89,7 @@ public class Department {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", logoUrl='" + logoUrl + '\'' +
-                ", pics=" + pics +
+                ", pics=" +
                 ", introduction='" + introduction + '\'' +
                 ", messageNum=" + messageNum +
                 ", stages=" + stages +
