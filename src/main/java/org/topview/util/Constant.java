@@ -5,4 +5,16 @@ package org.topview.util;
  */
 public class Constant {
     public static final String OK = "OK";
+
+    public static final String NOT_FOUND = "没有找到请求资源";
+
+    public static final String PASSED = "已通过";
+
+    public static final String DID_NOT_PASS = "未通过";
+
+    public static final String TO_BE_DECIDED = "待审核";
+
+    public static final String INFO_NOT_FOUND = "没有找到您的信息";
+
+
 }
