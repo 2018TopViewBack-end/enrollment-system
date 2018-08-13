@@ -1,7 +1,16 @@
 package org.topview.controller.organization;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.topview.entity.organization.User;
 
 @Controller
+@RequestMapping("/organization")
 public class CommentController {
+    @RequestMapping("")
+    @ResponseBody
+    public String  aaa(){
+
+    }
 }

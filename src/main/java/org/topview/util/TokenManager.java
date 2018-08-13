@@ -2,11 +2,16 @@ package org.topview.util;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
+import org.topview.config.shiro.realm.SampleRealm;
 import org.topview.entity.ShiroToken;
 import org.topview.entity.organization.User;
 
 import java.util.List;
 
+/**
+ * @author 63023
+ * Shiro管理下的Token工具类
+ */
 public class TokenManager {
     //用户登录管理
     public static final SampleRealm realm = SpringContextUtil.getBean("sampleRealm", SampleRealm.class);

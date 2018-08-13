@@ -16,14 +16,18 @@ import org.topview.util.TokenManager;
 import java.util.Date;
 import java.util.Set;
 
+/**
+ * @author 63023
+ * shiro 认证 + 授权
+ */
 public class SampleRealm extends AuthorizingRealm {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    PermissionService permissionService;
+    private PermissionService permissionService;
     @Autowired
-    RoleService roleService;
+    private RoleService roleService;
 
     public SampleRealm() {
         super();
