@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.topview.util.Result;
 
 @Controller
+@RequestMapping(value = "/organization")
 public class OrganizationController {
 
 
