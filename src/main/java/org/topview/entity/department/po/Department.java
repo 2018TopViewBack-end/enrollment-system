@@ -1,6 +1,6 @@
-package org.topview.entity.department;
+package org.topview.entity.department.po;
 
-import org.topview.entity.organization.User;
+import org.topview.entity.organization.po.User;
 
 import java.util.List;
 import java.util.Map;
@@ -16,7 +16,7 @@ public class Department {
 
     private String logoUrl;
 
-    private Map<Integer,String> pics; //key为标识，value为url
+    private Map<String,String> pics; //key为标识，value为url
 
     private String introduction;
 
@@ -53,11 +53,11 @@ public class Department {
         this.logoUrl = logoUrl;
     }
 
-    public Map<Integer, String> getPics() {
+    public Map<String, String> getPics() {
         return pics;
     }
 
-    public void setPics(Map<Integer, String> pics) {
+    public void setPics(Map<String, String> pics) {
         this.pics = pics;
     }
 

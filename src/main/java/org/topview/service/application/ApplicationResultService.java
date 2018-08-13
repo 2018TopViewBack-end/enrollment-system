@@ -1,7 +1,7 @@
 package org.topview.service.application;
 
 import org.springframework.stereotype.Service;
-import org.topview.entity.application.ApplicationResult;
+import org.topview.entity.application.po.ApplicationResult;
 
 @Service
 public interface ApplicationResultService {

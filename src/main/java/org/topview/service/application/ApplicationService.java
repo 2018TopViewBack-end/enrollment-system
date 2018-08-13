@@ -1,7 +1,7 @@
 package org.topview.service.application;
 
 import org.springframework.stereotype.Service;
-import org.topview.entity.application.Application;
+import org.topview.entity.application.po.Application;
 
 import java.util.List;
 

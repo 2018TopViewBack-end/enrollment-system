@@ -1,4 +1,4 @@
-package org.topview.entity.department;
+package org.topview.entity.department.po;
 
 public class Stage {
 

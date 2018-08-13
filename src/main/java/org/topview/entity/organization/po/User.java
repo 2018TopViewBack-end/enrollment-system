@@ -1,4 +1,4 @@
-package org.topview.entity.organization;
+package org.topview.entity.organization.po;
 
 /**
  * 用户实体类

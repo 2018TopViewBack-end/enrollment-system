@@ -1,22 +1,26 @@
-package org.topview.entity.department;
+package org.topview.entity.organization.po;
 
 /**
- * 短信模板实体类
+ * 留言实体类
  * @author Medwin。
  */
-public class SMS {
+public class Comment {
     private int id;
 
     private int departmentId;
 
-    private String content;//模板内容
+    private String content;//留言内容
 
-    public SMS() {
+    private String reply;//回复内容
+
+    public Comment() {
     }
 
-    public SMS(int departmentId, String content) {
+    public Comment(int departmentId, String content, String reply) {
+
         this.departmentId = departmentId;
         this.content = content;
+        this.reply = reply;
     }
 
     public int getId() {
@@ -41,5 +45,13 @@ public class SMS {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getReply() {
+        return reply;
+    }
+
+    public void setReply(String reply) {
+        this.reply = reply;
     }
 }

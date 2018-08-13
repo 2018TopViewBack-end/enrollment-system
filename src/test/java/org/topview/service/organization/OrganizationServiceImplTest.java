@@ -7,9 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.topview.dao.organization.OrganizationMapper;
-import org.topview.entity.organization.Organization;
-
-import static org.junit.Assert.*;
+import org.topview.entity.organization.po.Organization;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
