@@ -1,5 +1,6 @@
 package org.topview.service.application.serviceImpl;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.topview.dao.application.ApplicationMapper;
@@ -28,4 +29,5 @@ public class ApplicationResultServiceImpl implements ApplicationResultService {
 //        applicationResultMapper.selectByPrimaryKey(applicationId);
         return null;
     }
+
 }
