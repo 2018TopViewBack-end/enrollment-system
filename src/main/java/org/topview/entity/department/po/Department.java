@@ -16,17 +16,22 @@ public class Department {
 
     private String logoUrl;
 
-    private Map<String,String> pics; //key为标识，value为url
-
     private String introduction;
 
     private Integer messageNum;//发送短信数量，便于统计
 
-    private List<String> stages;//用于保存部门所有阶段名称，需排序
 
-    private User departAdmin;//部门管理员
+    private Integer userId;//部门管理员id
 
     public Department() {
+    }
+
+    public Department(String name, String logoUrl, String introduction, Integer messageNum, Integer userId) {
+        this.name = name;
+        this.logoUrl = logoUrl;
+        this.introduction = introduction;
+        this.messageNum = messageNum;
+        this.userId = userId;
     }
 
     public int getId() {
@@ -53,14 +58,6 @@ public class Department {
         this.logoUrl = logoUrl;
     }
 
-    public Map<String, String> getPics() {
-        return pics;
-    }
-
-    public void setPics(Map<String, String> pics) {
-        this.pics = pics;
-    }
-
     public String getIntroduction() {
         return introduction;
     }
@@ -77,33 +74,24 @@ public class Department {
         this.messageNum = messageNum;
     }
 
-    public List<String> getStages() {
-        return stages;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setStages(List<String> stages) {
-        this.stages = stages;
-    }
-
-    public User getDepartAdmin() {
-        return departAdmin;
-    }
-
-    public void setDepartAdmin(User departAdmin) {
-        this.departAdmin = departAdmin;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     @Override
+
     public String toString() {
         return "Department{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", logoUrl='" + logoUrl + '\'' +
-                ", pics=" + pics +
                 ", introduction='" + introduction + '\'' +
                 ", messageNum=" + messageNum +
-                ", stages=" + stages +
-                ", departAdmin=" + departAdmin +
+                ", departAdmin=" + userId +
                 '}';
     }
 }
