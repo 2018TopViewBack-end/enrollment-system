@@ -18,6 +18,7 @@ public class TokenManager {
     //用户登录管理
     public static final SampleRealm realm = SpringContextUtil.getBean("sampleRealm", SampleRealm.class);
 
+
     /**
      * 获取当前登录的用户User对象
      *

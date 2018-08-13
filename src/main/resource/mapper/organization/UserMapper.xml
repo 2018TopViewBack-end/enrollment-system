@@ -24,5 +24,12 @@
         <include refid="Base_Column_List" />
     </select>
 
+    <select id="checkOldPassword" resultType="java.lang.Integer">
+        select password=md5(#{password}) isEqual from user where id=#{id}
+    </select>
+
+    <update id="updatePassword" >
+        update user set password=md5(#{password}) where id=#{id}
+    </update>
 
 </mapper>
