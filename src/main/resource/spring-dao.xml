@@ -21,8 +21,10 @@ http://www.springframework.org/schema/context ">
         <property name="maxIdle" value="${dbcp.maxIdle}" />
         <property name="minIdle" value="${dbcp.minIdle}" />
         <property name="maxWait" value="${dbcp.maxWait}" />
+
+
     </bean>
-    <!-- spring和MyBatis整合 -->
+    <!-- spring和MyBatis整合123 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <!-- MyBatis的配置文件 -->
