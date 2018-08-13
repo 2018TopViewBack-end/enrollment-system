@@ -7,6 +7,9 @@ import org.topview.dao.application.ApplicationResultMapper;
 import org.topview.entity.application.ApplicationResult;
 import org.topview.service.application.ApplicationResultService;
 
+/**
+ *
+ */
 @Service
 public class ApplicationResultServiceImpl implements ApplicationResultService {
 
