@@ -9,7 +9,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.topview.entity.ShiroToken;
-import org.topview.entity.organization.User;
+import org.topview.entity.organization.po.User;
 import org.topview.service.organization.UserService;
 import org.topview.util.TokenManager;
 

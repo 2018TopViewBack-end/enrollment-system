@@ -2,9 +2,11 @@ package org.topview.util;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.topview.config.shiro.realm.SampleRealm;
 import org.topview.entity.ShiroToken;
 import org.topview.entity.organization.User;
+import org.topview.entity.organization.po.User;
 
 import java.util.List;
 
@@ -15,8 +17,6 @@ import java.util.List;
 public class TokenManager {
     //用户登录管理
     public static final SampleRealm realm = SpringContextUtil.getBean("sampleRealm", SampleRealm.class);
-    //用户session管理
-    public static final CustomSessionManager customSessionManager = SpringContextUtil.getBean("customSessionManager", CustomSessionManager.class);
 
     /**
      * 获取当前登录的用户User对象
@@ -44,7 +44,7 @@ public class TokenManager {
      * @return
      */
     public static String getNickname() {
-        return getToken().getNickname();
+        return getToken().getUsername();
     }
 
     /**
@@ -52,7 +52,7 @@ public class TokenManager {
      *
      * @return
      */
-    public static Long getUserId() {
+    public static Integer getUserId() {
         return getToken() == null ? null : getToken().getId();
     }
 
@@ -66,15 +66,6 @@ public class TokenManager {
         getSession().setAttribute(key, value);
     }
 
-    /**
-     * 从当前登录用户的Session里取值
-     *
-     * @param key
-     * @return
-     */
-    public static Object getVal2Session(Object key) {
-        return getSession().getAttribute(key);
-    }
 
     /**
      * 获取验证码，获取一次后删除
@@ -149,7 +140,7 @@ public class TokenManager {
     /**
      * 根据UserIds 	清空权限信息。
      *
-     * @param id 用户ID
+     * @param userIds 用户ID
      */
     public static void clearUserAuthByUserId(Long... userIds) {
 

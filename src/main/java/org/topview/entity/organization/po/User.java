@@ -13,7 +13,7 @@ public class User {
 
     private String tel;
 
-    private String email;
+    private String wechat;
 
     private int roleId;
 
@@ -27,7 +27,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", tel='" + tel + '\'' +
-                ", email='" + email + '\'' +
+                ", wechat='" + wechat + '\'' +
                 ", roleId=" + roleId +
                 '}';
     }
@@ -64,12 +64,12 @@ public class User {
         this.tel = tel;
     }
 
-    public String getEmail() {
-        return email;
+    public String getWechat() {
+        return wechat;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setWechat(String wechat) {
+        this.wechat = wechat;
     }
 
     public int getRoleId() {
