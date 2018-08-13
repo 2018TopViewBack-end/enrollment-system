@@ -1,4 +1,4 @@
-package org.topview.entity.application;
+package org.topview.entity.application.po;
 
 import java.util.List;
 
@@ -8,6 +8,10 @@ import java.util.List;
  */
 public class Application {
     private int id;
+
+    private int departmentId;
+
+    private int organizationId;
 
     private String stuName;
 
@@ -23,8 +27,6 @@ public class Application {
 
     private String stuId;
 
-    private String intentionDepartment;
-
     private String dormitory;
 
     private boolean adjustable; //是否允许调剂
@@ -36,9 +38,11 @@ public class Application {
     public Application() {
     }
 
-    public Application(String stuName, String gender, String academy, String majorAndClass, String wechat,
-                       String tel, String stuId, String intentionDepartment, String dormitory,
-                       boolean adjustable, String introduction) {
+    public Application(int departmentId, int organizationId, String stuName, String gender, String academy, String majorAndClass,
+                       String wechat, String tel, String stuId, String dormitory, boolean adjustable,
+                       String introduction, List<ApplicationResult> results) {
+        this.departmentId = departmentId;
+        this.organizationId = organizationId;
         this.stuName = stuName;
         this.gender = gender;
         this.academy = academy;
@@ -46,10 +50,10 @@ public class Application {
         this.wechat = wechat;
         this.tel = tel;
         this.stuId = stuId;
-        this.intentionDepartment = intentionDepartment;
         this.dormitory = dormitory;
         this.adjustable = adjustable;
         this.introduction = introduction;
+        this.results = results;
     }
 
     public int getId() {
@@ -58,6 +62,22 @@ public class Application {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(int departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public int getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(int organizationId) {
+        this.organizationId = organizationId;
     }
 
     public String getStuName() {
@@ -114,14 +134,6 @@ public class Application {
 
     public void setStuId(String stuId) {
         this.stuId = stuId;
-    }
-
-    public String getIntentionDepartment() {
-        return intentionDepartment;
-    }
-
-    public void setIntentionDepartment(String intentionDepartment) {
-        this.intentionDepartment = intentionDepartment;
     }
 
     public String getDormitory() {

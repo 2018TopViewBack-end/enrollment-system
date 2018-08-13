@@ -1,4 +1,4 @@
-package org.topview.entity.application;
+package org.topview.entity.application.po;
 
 import java.util.Date;
 

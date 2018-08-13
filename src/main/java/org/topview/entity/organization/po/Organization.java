@@ -1,6 +1,6 @@
-package org.topview.entity.organization;
+package org.topview.entity.organization.po;
 
-import org.topview.entity.department.Department;
+import org.topview.entity.department.po.Department;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -27,7 +27,7 @@ public class Organization {
 
     private List<Department> departments; //社团名下部门
 
-    private Map<Integer,String> pics; //key为标识，value为url
+    private Map<String,String> pics; //key为标识，value为url
 
     private Integer status;           // 0 待审核,1 已通过，2 被封禁
 
@@ -104,11 +104,11 @@ public class Organization {
         this.departments = departments;
     }
 
-    public Map<Integer, String> getPics() {
+    public Map<String, String> getPics() {
         return pics;
     }
 
-    public void setPics(Map<Integer, String> pics) {
+    public void setPics(Map<String, String> pics) {
         this.pics = pics;
     }
 
