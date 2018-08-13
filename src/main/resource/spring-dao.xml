@@ -23,6 +23,7 @@ http://www.springframework.org/schema/context ">
         <property name="maxWait" value="${dbcp.maxWait}" />
 
 
+
     </bean>
     <!-- spring和MyBatis整合123 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
