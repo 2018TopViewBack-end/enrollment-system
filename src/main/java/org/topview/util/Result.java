@@ -9,12 +9,12 @@ public class Result<T> {
     private String msg;
     private T data;
 
-    private Result(boolean success, String msg) {
+    public Result(boolean success, String msg) {
         this.success = success;
         this.msg = msg;
     }
 
-    private Result(boolean success, String msg, T data) {
+    public Result(boolean success, String msg, T data) {
         this.success = success;
         this.msg = msg;
         this.data = data;

@@ -1,18 +1,19 @@
 package org.topview.service.application.serviceImpl;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.topview.dao.application.ApplicationMapper;
 import org.topview.dao.application.ApplicationResultMapper;
 import org.topview.entity.application.po.Application;
-import org.topview.entity.application.po.ApplicationResult;
 import org.topview.service.application.ApplicationService;
 
-import java.util.ArrayList;
 import java.util.List;
+
 
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
+
 
     @Autowired
     private ApplicationMapper applicationMapper;

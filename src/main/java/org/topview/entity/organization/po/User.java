@@ -13,23 +13,13 @@ public class User {
 
     private String tel;
 
-    private String email;
+    private String wechat;
 
     private int roleId;
 
-    public User() {
-    }
+    private int status;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", tel='" + tel + '\'' +
-                ", email='" + email + '\'' +
-                ", roleId=" + roleId +
-                '}';
+    public User() {
     }
 
     public int getId() {
@@ -64,14 +54,6 @@ public class User {
         this.tel = tel;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public int getRoleId() {
         return roleId;
     }
@@ -80,5 +62,32 @@ public class User {
         this.roleId = roleId;
     }
 
+    public String getWechat() {
+        return wechat;
+    }
 
+    public void setWechat(String wechat) {
+        this.wechat = wechat;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", tel='" + tel + '\'' +
+                ", wechat='" + wechat + '\'' +
+                ", roleId=" + roleId +
+                ", status=" + status +
+                '}';
+    }
 }

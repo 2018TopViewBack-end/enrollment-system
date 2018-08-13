@@ -2,21 +2,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.topview.dao.organization.OrganizationMapper">
+
+    <resultMap id="organizationMap" type="Organization">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="logoUrl" column="logo_url"/>
+        <result property="tel" column="tel"/>
+        <result property="category" column="category"/>
+        <result property="introduction" column="introduction"/>
+        <result property="status" column="status"/>
+        <result property="apikey" column="apikey"/>
+        <result property="accountBalance" column="account_balance"/>
+        <result property="userId" column="user_id"/>
+    </resultMap>
+
     <update id="updateByPrimaryKey">
         UPDATE organization
         <set>
             <if test="name != null">name = #{name},</if>
             <if test="logoUrl != null">logo_url = #{logoUrl},</if>
             <if test="tel != null">tel = #{tel},</if>
-            <if test="category != null">category = #{categorly},</if>
+            <if test="category != null">category = #{category},</if>
             <if test="introduction != null">introduction = #{introduction},</if>
             <if test="linkman != null">linkman = #{linkman},</if>
             <if test="status != null">status = #{status},</if>
             <if test="apikey != null">apikey = #{apikey},</if>
             <if test="accountBalance != null">account_balance = #{accountBalance},</if>
-            <if test="organizationAdmin != null and organizationAdmin.id != 0">admin_id = #{organizationAdmin.id}</if>
+            <if test="adminId != 0">admin_id = #{adminId}</if>
         </set>
         <where>id = #{id}</where>
     </update>
+    
+    <select id="selectByPrimaryKey" parameterType="int" resultMap="organizationMap">
+        SELECT
+            id,name,logo_url,tel,
+            category,introduction,linkman,admin_id
+        FROM organization
+        WHERE id = #{organizationId}
+    </select>
+
+
+
 
 </mapper>

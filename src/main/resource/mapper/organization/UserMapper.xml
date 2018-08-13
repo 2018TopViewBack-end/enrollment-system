@@ -3,5 +3,47 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.topview.dao.organization.UserMapper">
 
+    <select id="checkOldPassword" resultType="java.lang.Integer">
+        select password=md5(#{password}) isEqual from user where id=#{id}
+    </select>
+
+    <update id="updatePassword" >
+        update user set password=md5(#{password}) where id=#{id}
+    </update>
+
+    <insert id="addDepartmentAdmin" parameterType="DepartmentAdminVo" keyProperty="user.id" useGeneratedKeys="true">
+        INSERT INTO
+        user(username, password, tel, wechat, role_id, status)
+        VALUE
+        (#{user.username},#{user.password},#{user.tel},#{user.wechat},#{user.roleId},#{user.status});
+    </insert>
+
+    <select id="hasUsername" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM user WHERE username = #{username}
+    </select>
+
+    <select id="getDepartmentAdmin" parameterType="int" resultType="User">
+        SELECT id,username,password,tel,wechat,role_id as roleId
+        FROM user
+        WHERE id = (SELECT user_id From department WHERE id = #{departmentId})
+    </select>
+
+    <update id="updateDepartmentAdmin" parameterType="User">
+        UPDATE user
+        <set>
+            <if test="username != null">username=#{username},</if>
+            <if test="password != null">password=#{password},</if>
+            <if test="tel != null">tel=#{tel},</if>
+            <if test="wechat != null">wechat=#{wechat},</if>
+        </set>
+        <where>
+            id=#{id}
+        </where>
+    </update>
+
+    <delete id="deleteDepartmentAdmin" parameterType="int">
+        DELETE FROM user WHERE id = (SELECT user_id FROM department WHERE id = #{departmentId});
+        UPDATE department SET user_id = 0 WHERE id = #{departmentId}
+    </delete>
 
 </mapper>
