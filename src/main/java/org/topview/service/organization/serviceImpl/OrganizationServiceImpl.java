@@ -25,14 +25,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     private static final String COMMUNITY_CATEGORY_ERROR = "社团类别出错";
     private static final String ORGANIZATION_NOT_EXIST = "该社团不存在";
 
-    private static final String UPDATE_ORGANIZATION_SUCCESS = "更新社团信息成功";
-    private static final String GET_ORGANIZATION_SUCCESS = "获取社团信息成功";
-
-    private static final String ADD_DEPARTMENT_ADMIN_SUCCESS = "添加部门管理员成功";
-    private static final String GET_DEPARTMENT_ADMIN_SUCCESS = "获取部门管理员信息成功";
     private static final String GET_DEPARTMENT_ADMIN_FAILURE = "获取部门管理员信息失败";
-    private static final String UPDATE_DEPARTMENT_ADMIN_SUCCESS = "更新部门管理员信息成功";
-    private static final String DELETE_DEPARTMENT_ADMIN_SUCCESS = "删除部门管理员成功";
     private static final String DELETE_DEPARTMENT_ADMIN_FAILURE = "删除部门管理员失败";
 
     @Autowired
@@ -61,11 +54,16 @@ public class OrganizationServiceImpl implements OrganizationService {
                 //社团类别：兴趣类
                 case Constant.OrganizationCategory.INTERESTS: break;
                 default:
-                    return new Result(false, COMMUNITY_CATEGORY_ERROR);
+                    return Result.fail(COMMUNITY_CATEGORY_ERROR);
             }
         }
+        //判断社团当前的状态
+        Integer status = organizationMapper.getOrganizationStatusById(organization.getId());
+        if(Constant.OrganizationStatus.FORBIDDEN != status) {
+            organization.setStatus(1);
+        }
         organizationMapper.updateByPrimaryKey(organization);
-        return new Result(true, UPDATE_ORGANIZATION_SUCCESS);
+        return Result.success();
     }
 
     /**
@@ -74,12 +72,12 @@ public class OrganizationServiceImpl implements OrganizationService {
      * @return 结果集(请求是否成功,描述信息,社团信息)
      */
     @Override
-    public Result getOrganization(int organizationId) {
+    public Result getOrganization(Integer organizationId) {
         Organization organization = organizationMapper.selectByPrimaryKey(organizationId);
         if(organization == null) {
-            return new Result<>(false, ORGANIZATION_NOT_EXIST);
+            return Result.fail(ORGANIZATION_NOT_EXIST);
         }
-        return new Result<>(true, GET_ORGANIZATION_SUCCESS, organization);
+        return Result.success(organization);
     }
 
     /**
@@ -92,10 +90,10 @@ public class OrganizationServiceImpl implements OrganizationService {
         //判断数据库是否存在该用户名
         String username = departmentAdminVo.getUser().getUsername();
         if(username == null || "".equals(username)) {
-            return new Result(false, USERNAME_NOT_BE_EMPTY);
+            return Result.fail(USERNAME_NOT_BE_EMPTY);
         }
         if(userMapper.hasUsername(username) > 0) {
-            return new Result(false, USERNAME_ALREADY_EXIST);
+            return Result.fail(USERNAME_ALREADY_EXIST);
         }
         departmentAdminVo.getUser().setRoleId(3);
         departmentAdminVo.getUser().setStatus(1);
@@ -104,7 +102,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         //在部门表添加社团管理员的信息
         departmentMapper.updateDepartmentAdmin(departmentAdminVo.getUser().getId(),
                 departmentAdminVo.getDepartmentId());
-        return new Result(true, ADD_DEPARTMENT_ADMIN_SUCCESS);
+        return Result.success();
     }
 
     /**
@@ -113,12 +111,12 @@ public class OrganizationServiceImpl implements OrganizationService {
      * @return 结果集(包含是否操作成功,描述信息,请求结果)
      */
     @Override
-    public Result getDepartmentAdmin(int departmentId) {
+    public Result getDepartmentAdmin(Integer departmentId) {
         User user = userMapper.getDepartmentAdmin(departmentId);
         if(user == null) {
-            return new Result(false, GET_DEPARTMENT_ADMIN_FAILURE);
+            return Result.fail(GET_DEPARTMENT_ADMIN_FAILURE);
         }
-        return new Result<>(true, GET_DEPARTMENT_ADMIN_SUCCESS, user);
+        return Result.success(user);
     }
 
     /**
@@ -130,10 +128,10 @@ public class OrganizationServiceImpl implements OrganizationService {
     public Result updateDepartmentAdmin(User user) {
         String password = user.getPassword();
         if(password == null || "".equals(password)) {
-            return new Result(false, PASSWORD_NOT_BE_EMPTY);
+            return Result.fail(PASSWORD_NOT_BE_EMPTY);
         }
         userMapper.updateDepartmentAdmin(user);
-        return new Result(true, UPDATE_DEPARTMENT_ADMIN_SUCCESS);
+        return Result.success();
     }
 
     /**
@@ -142,12 +140,22 @@ public class OrganizationServiceImpl implements OrganizationService {
      * @return 结果集(包含是否操作成功,描述信息)
      */
     @Override
-    public Result deleteDepartmentAdmin(int departmentId) {
+    public Result deleteDepartmentAdmin(Integer departmentId) {
         if(userMapper.deleteDepartmentAdmin(departmentId) != 0) {
-            return new Result(true, DELETE_DEPARTMENT_ADMIN_SUCCESS);
+            return Result.success();
         } else {
-            return new Result(false, DELETE_DEPARTMENT_ADMIN_FAILURE);
+            return Result.fail(DELETE_DEPARTMENT_ADMIN_FAILURE);
         }
+    }
+
+    /**
+     * 根据社团管理员id获取社团信息
+     * @param adminId 社团管理员的id
+     * @return 社团信息id,查询不到,返回null
+     */
+    @Override
+    public Integer getOrganizationIdByAdminId(Integer adminId) {
+        return organizationMapper.getOrganizationIdByAdminId(adminId);
     }
 
 }

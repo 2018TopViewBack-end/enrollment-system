@@ -41,7 +41,12 @@
         WHERE id = #{organizationId}
     </select>
 
+    <select id="getOrganizationIdByAdminId" parameterType="Integer" resultType="Integer">
+        SELECT id FROM organization WHERE admin_id = #{adminId }
+    </select>
 
-
+    <select id="getOrganizationStatusById" parameterType="Integer" resultType="Integer">
+        SELECT status from organization WHERE id = #{id}
+    </select>
 
 </mapper>

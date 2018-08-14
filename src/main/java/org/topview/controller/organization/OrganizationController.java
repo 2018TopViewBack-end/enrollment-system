@@ -27,7 +27,7 @@ public class OrganizationController {
      */
     @ResponseBody
     @RequestMapping(value = "/getOrganization", method = RequestMethod.POST)
-    public Result getOrganization(@Param("organizationId") int organizationId) {
+    public Result getOrganization(@Param("organizationId") Integer organizationId) {
         return organizationService.getOrganization(organizationId);
     }
 
@@ -60,7 +60,7 @@ public class OrganizationController {
      */
     @ResponseBody
     @RequestMapping(value = "/getDepartmentAdmin", method = RequestMethod.POST)
-    public Result getDepartmentAdmin(@Param("departmentId")int departmentId) {
+    public Result getDepartmentAdmin(@Param("departmentId")Integer departmentId) {
         return organizationService.getDepartmentAdmin(departmentId);
     }
 
@@ -75,9 +75,14 @@ public class OrganizationController {
         return organizationService.updateDepartmentAdmin(user);
     }
 
+    /**
+     * 删除管理员对象
+     * @param departmentId 部门id
+     * @return 返回修改结果
+     */
     @ResponseBody
     @RequestMapping(value = "/deleteDepartmentAdmin", method = RequestMethod.POST)
-    public Result deleteDepartmentAdmin(@Param("departmentId")int departmentId) {
+    public Result deleteDepartmentAdmin(@Param("departmentId")Integer departmentId) {
         return organizationService.deleteDepartmentAdmin(departmentId);
     }
 

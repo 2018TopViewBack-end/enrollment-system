@@ -22,5 +22,10 @@ public class Constant {
         public static final String INTERESTS = "兴趣类";
     }
 
+    public static class OrganizationStatus {
+        public static final int DOWNLINE = 0;
+        public static final int ONLINE = 1;
+        public static final int FORBIDDEN = 2;
+    }
 
 }

@@ -1,5 +1,6 @@
 package org.topview.dao.organization;
 
+import org.apache.ibatis.annotations.Param;
 import org.topview.dao.BaseMapper;
 import org.topview.entity.organization.po.User;
 import org.topview.entity.organization.vo.DepartmentAdminVo;
@@ -43,7 +44,7 @@ public interface UserMapper extends BaseMapper<User, Integer> {
      * @param departmentId 部门id
      * @return 查询到返回对应的user对象，否则返回null
      */
-    User getDepartmentAdmin(int departmentId);
+    User getDepartmentAdmin(Integer departmentId);
 
     /**
      * 修改部门管理员的信息
@@ -57,5 +58,5 @@ public interface UserMapper extends BaseMapper<User, Integer> {
      * @param departmentId 部门id
      * @return 删除成功返回1,否则返回0
      */
-    int deleteDepartmentAdmin(int departmentId);
+    int deleteDepartmentAdmin(Integer departmentId);
 }

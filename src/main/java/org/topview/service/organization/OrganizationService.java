@@ -24,7 +24,7 @@ public interface OrganizationService {
      * @param organizationId 社团信息
      * @return 获取社团信息
      */
-    Result getOrganization(int organizationId);
+    Result getOrganization(Integer organizationId);
 
     /**
      * 添加部门管理员
@@ -38,7 +38,7 @@ public interface OrganizationService {
      * @param departmentId 部门的id
      * @return 结果集(包含是否操作成功,描述信息,请求结果)
      */
-    Result getDepartmentAdmin(int departmentId);
+    Result getDepartmentAdmin(Integer departmentId);
 
     /**
      * 修改部门管理员的信息
@@ -52,6 +52,13 @@ public interface OrganizationService {
      * @param departmentId 部门id
      * @return 结果集(包含是否操作成功,描述信息)
      */
-    Result deleteDepartmentAdmin(int departmentId);
+    Result deleteDepartmentAdmin(Integer departmentId);
+
+    /**
+     * 根据社团管理员id获取社团信息
+     * @param adminId 社团管理员的id
+     * @return 社团信息id,查询不到返回null
+     */
+    Integer getOrganizationIdByAdminId(Integer adminId);
 
 }

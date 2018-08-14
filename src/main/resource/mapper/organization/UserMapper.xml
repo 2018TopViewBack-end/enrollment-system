@@ -18,11 +18,11 @@
         (#{user.username},#{user.password},#{user.tel},#{user.wechat},#{user.roleId},#{user.status});
     </insert>
 
-    <select id="hasUsername" parameterType="String" resultType="int">
+    <select id="hasUsername" parameterType="String" resultType="Integer">
         SELECT COUNT(*) FROM user WHERE username = #{username}
     </select>
 
-    <select id="getDepartmentAdmin" parameterType="int" resultType="User">
+    <select id="getDepartmentAdmin" parameterType="Integer" resultType="User">
         SELECT id,username,password,tel,wechat,role_id as roleId
         FROM user
         WHERE id = (SELECT user_id From department WHERE id = #{departmentId})
@@ -40,7 +40,7 @@
         </where>
     </update>
 
-    <delete id="deleteDepartmentAdmin" parameterType="int">
+    <delete id="deleteDepartmentAdmin" parameterType="Integer">
         DELETE FROM user WHERE id = (SELECT user_id FROM department WHERE id = #{departmentId});
         UPDATE department SET user_id = 0 WHERE id = #{departmentId}
     </delete>

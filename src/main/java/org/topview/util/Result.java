@@ -9,12 +9,12 @@ public class Result<T> {
     private String msg;
     private T data;
 
-    public Result(boolean success, String msg) {
+    private Result(boolean success, String msg) {
         this.success = success;
         this.msg = msg;
     }
 
-    public Result(boolean success, String msg, T data) {
+    private Result(boolean success, String msg, T data) {
         this.success = success;
         this.msg = msg;
         this.data = data;
@@ -24,8 +24,8 @@ public class Result<T> {
         return new Result(true, Constant.OK);
     }
 
-    public static Result success(Object data) {
-        return new Result(true, Constant.OK, data);
+    public static Result<Object> success(Object data) {
+        return new Result<>(true, Constant.OK, data);
     }
 
     public static Result fail(String msg) {
@@ -33,7 +33,7 @@ public class Result<T> {
     }
 
     public static Result fail(String msg, Object data) {
-        return new Result(false, msg, data);
+        return new Result<>(false, msg, data);
     }
 
     public boolean isSuccess() {

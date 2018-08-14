@@ -1,5 +1,7 @@
 package org.topview.entity.organization.po;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 用户实体类
  * @author Medwin。
