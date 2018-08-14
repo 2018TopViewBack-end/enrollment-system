@@ -1,4 +1,4 @@
-package org.topview.entity.organization.vo;
+package org.topview.entity.organization.bo;
 
 import org.topview.entity.organization.po.User;
 
@@ -7,12 +7,12 @@ import org.topview.entity.organization.po.User;
  * @date 2018/8/14
  * 部门管理员的增删查改需要用到的vo类
  */
-public class DepartmentAdminVo {
+public class DepartmentAdminBo {
 
     private Integer departmentId;
     private User user;
 
-    public DepartmentAdminVo() {
+    public DepartmentAdminBo() {
     }
 
     public Integer getDepartmentId() {
@@ -33,7 +33,7 @@ public class DepartmentAdminVo {
 
     @Override
     public String toString() {
-        return "DepartmentAdminVo{" +
+        return "DepartmentAdminBo{" +
                 "departmentId=" + departmentId +
                 ", user=" + user +
                 '}';

@@ -49,4 +49,11 @@
         SELECT status from organization WHERE id = #{id}
     </select>
 
+    <select id="getOrganizationPhotosByCategory" parameterType="String" resultType="OrganizationPhotoVo">
+        SELECT
+        name,logo_url as logoUrl,category
+        FROM organization
+        WHERE category = #{category}
+    </select>
+
 </mapper>

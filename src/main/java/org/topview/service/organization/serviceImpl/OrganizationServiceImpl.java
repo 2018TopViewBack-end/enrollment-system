@@ -1,16 +1,23 @@
 package org.topview.service.organization.serviceImpl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.topview.dao.department.DepartmentMapper;
 import org.topview.dao.organization.OrganizationMapper;
 import org.topview.dao.organization.UserMapper;
+import org.topview.entity.organization.bo.DepartmentAdminBo;
 import org.topview.entity.organization.po.Organization;
 import org.topview.entity.organization.po.User;
-import org.topview.entity.organization.vo.DepartmentAdminVo;
+import org.topview.entity.organization.vo.OrganizationPhotoVo;
 import org.topview.service.organization.OrganizationService;
 import org.topview.util.Constant;
 import org.topview.util.Result;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Pan梓涵
@@ -82,26 +89,26 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     /**
      * 添加部门管理员
-     * @param departmentAdminVo 部门管理员vo对象
+     * @param departmentAdminBo 部门管理员vo对象
      * @return 结果集(包含是否操作成功,以及描述信息)
      */
     @Override
-    public Result addDepartmentAdmin(DepartmentAdminVo departmentAdminVo) {
+    public Result addDepartmentAdmin(DepartmentAdminBo departmentAdminBo) {
         //判断数据库是否存在该用户名
-        String username = departmentAdminVo.getUser().getUsername();
+        String username = departmentAdminBo.getUser().getUsername();
         if(username == null || "".equals(username)) {
             return Result.fail(USERNAME_NOT_BE_EMPTY);
         }
         if(userMapper.hasUsername(username) > 0) {
             return Result.fail(USERNAME_ALREADY_EXIST);
         }
-        departmentAdminVo.getUser().setRoleId(3);
-        departmentAdminVo.getUser().setStatus(1);
+        departmentAdminBo.getUser().setRoleId(3);
+        departmentAdminBo.getUser().setStatus(1);
         //在用户表添加社团管理员的信息
-        userMapper.addDepartmentAdmin(departmentAdminVo);
+        userMapper.addDepartmentAdmin(departmentAdminBo);
         //在部门表添加社团管理员的信息
-        departmentMapper.updateDepartmentAdmin(departmentAdminVo.getUser().getId(),
-                departmentAdminVo.getDepartmentId());
+        departmentMapper.updateDepartmentAdmin(departmentAdminBo.getUser().getId(),
+                departmentAdminBo.getDepartmentId());
         return Result.success();
     }
 
@@ -158,4 +165,35 @@ public class OrganizationServiceImpl implements OrganizationService {
         return organizationMapper.getOrganizationIdByAdminId(adminId);
     }
 
+    /**
+     * 获取首页的社团图片
+     * @return 返回获取的结果
+     */
+    @Override
+    public Result getAllOrganizationPhoto() {
+        //获取校级的图片
+        PageInfo<OrganizationPhotoVo> collegePageInfo = getOrganizationPhoto(Constant.Page.DEFAULT_PAGE_NUM,
+                Constant.Page.PAGE_SIZE, Constant.OrganizationCategory.COLLEGE);
+
+        //获取院级的图片
+        PageInfo<OrganizationPhotoVo> academyPageInfo = getOrganizationPhoto(Constant.Page.DEFAULT_PAGE_NUM,
+                Constant.Page.PAGE_SIZE, Constant.OrganizationCategory.ACADEMY);
+
+        //获取兴趣类的图片
+        PageInfo<OrganizationPhotoVo> interestPageInfo = getOrganizationPhoto(Constant.Page.DEFAULT_PAGE_NUM,
+                Constant.Page.PAGE_SIZE, Constant.OrganizationCategory.INTERESTS);
+
+        Map<String, PageInfo> map = new HashMap<>(3);
+        map.put(Constant.OrganizationCategory.COLLEGE, collegePageInfo);
+        map.put(Constant.OrganizationCategory.ACADEMY, academyPageInfo);
+        map.put(Constant.OrganizationCategory.INTERESTS, interestPageInfo);
+        return Result.success(map);
+    }
+
+    @Override
+    public PageInfo<OrganizationPhotoVo> getOrganizationPhoto(int pageNum, int pageSize, String category) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<OrganizationPhotoVo> list = organizationMapper.getOrganizationPhotosByCategory(category);
+        return new PageInfo<>(list);
+    }
 }

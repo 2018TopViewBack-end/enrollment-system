@@ -28,4 +28,9 @@ public class Constant {
         public static final int FORBIDDEN = 2;
     }
 
+    public static class Page {
+        public static final int DEFAULT_PAGE_NUM = 0;
+        public static final int PAGE_SIZE = 8;
+    }
+
 }

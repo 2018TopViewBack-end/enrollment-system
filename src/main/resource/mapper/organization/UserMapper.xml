@@ -11,7 +11,7 @@
         update user set password=md5(#{password}) where id=#{id}
     </update>
 
-    <insert id="addDepartmentAdmin" parameterType="DepartmentAdminVo" keyProperty="user.id" useGeneratedKeys="true">
+    <insert id="addDepartmentAdmin" parameterType="DepartmentAdminBo" keyProperty="user.id" useGeneratedKeys="true">
         INSERT INTO
         user(username, password, tel, wechat, role_id, status)
         VALUE

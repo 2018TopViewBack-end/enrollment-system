@@ -1,11 +1,8 @@
 package org.topview.dao.organization;
 
-import org.apache.ibatis.annotations.Param;
 import org.topview.dao.BaseMapper;
+import org.topview.entity.organization.bo.DepartmentAdminBo;
 import org.topview.entity.organization.po.User;
-import org.topview.entity.organization.vo.DepartmentAdminVo;
-
-import java.util.List;
 
 public interface UserMapper extends BaseMapper<User, Integer> {
 
@@ -34,10 +31,10 @@ public interface UserMapper extends BaseMapper<User, Integer> {
 
     /**
      * 添加部门管理员
-     * @param departmentAdminVo 部门管理员对象
+     * @param departmentAdminBo 部门管理员对象
      * @return 添加成功返回1,否则返回0
      */
-    int addDepartmentAdmin(DepartmentAdminVo departmentAdminVo);
+    int addDepartmentAdmin(DepartmentAdminBo departmentAdminBo);
 
     /**
      * 获取部门管理员的信息

@@ -1,18 +1,24 @@
 package org.topview.controller.organization;
 
+import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.topview.entity.organization.po.Organization;
 import org.topview.entity.organization.po.User;
-import org.topview.entity.organization.vo.DepartmentAdminVo;
+import org.topview.entity.organization.bo.DepartmentAdminBo;
+import org.topview.entity.organization.vo.OrganizationPhotoVo;
 import org.topview.service.organization.OrganizationService;
+import org.topview.util.Constant;
 import org.topview.util.Result;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 
+/**
+ * @author Pan梓涵
+ */
 @Controller
 @RequestMapping(value = "/organization")
 public class OrganizationController {
@@ -44,13 +50,13 @@ public class OrganizationController {
 
     /**
      * 添加部门管理员
-     * @param departmentAdminVo 部门管理员对象
+     * @param departmentAdminBo 部门管理员对象
      * @return 返回修改的结果
      */
     @ResponseBody
     @RequestMapping(value = "/addDepartmentAdmin", method = RequestMethod.POST)
-    public Result addDepartmentAdmin(@RequestBody DepartmentAdminVo departmentAdminVo) {
-        return organizationService.addDepartmentAdmin(departmentAdminVo);
+    public Result addDepartmentAdmin(@RequestBody DepartmentAdminBo departmentAdminBo) {
+        return organizationService.addDepartmentAdmin(departmentAdminBo);
     }
 
     /**
@@ -84,6 +90,28 @@ public class OrganizationController {
     @RequestMapping(value = "/deleteDepartmentAdmin", method = RequestMethod.POST)
     public Result deleteDepartmentAdmin(@Param("departmentId")Integer departmentId) {
         return organizationService.deleteDepartmentAdmin(departmentId);
+    }
+
+    /**
+     * 第一次获取首页的所有图片
+     * @return 返回获取的结果
+     */
+    @ResponseBody
+    @GetMapping("/getAllOrganizationPhotos")
+    public Result getAllOrganizationPhotos() {
+        return organizationService.getAllOrganizationPhoto();
+    }
+
+    @ResponseBody
+    @PostMapping("getOrganizationPhotosByCategory")
+    public Result getOrganizationPhotosByCategory(@RequestParam("pageNum")Integer pageNum,
+                                                  @RequestParam("category")String category) {
+        PageInfo<OrganizationPhotoVo> pageInfo = organizationService.getOrganizationPhoto(pageNum,
+                Constant.Page.PAGE_SIZE, category);
+        if(pageInfo == null) {
+            return Result.fail("请求图片失败");
+        }
+        return Result.success(pageInfo);
     }
 
     @ModelAttribute
