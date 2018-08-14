@@ -47,23 +47,21 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public boolean checkApplication(String studentId, int departmentId) {
-        return applicationMapper.checkApplication(studentId, departmentId);
-//        if(applicationMapper.checkApplication(studentId, departmentId)){
-//            //若存在
-//            return Result.fail(Constant.SUBMIT_FAILED);
-//        } else {
-//            return Re
-//        }
-    }
-
-    @Override
-    public boolean checkApplicationToPass(int stageId) {
-        List<Application> applications = listApplicationOf(0, stageId);
-        if (null == applications){
-            //若还有未审核报名，返回true
+        if (0 == applicationMapper.checkApplication(studentId, departmentId)){
             return true;
         } else {
             return false;
         }
     }
+//
+//    @Override
+//    public boolean checkApplicationToPass(int stageId) {
+//        List<Application> applications = listApplicationOf(0, stageId);
+//        if (null == applications){
+//            //若还有未审核报名，返回true
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 }
