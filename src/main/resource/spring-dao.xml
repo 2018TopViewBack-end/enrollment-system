@@ -22,6 +22,7 @@ http://www.springframework.org/schema/context ">
         <property name="minIdle" value="${dbcp.minIdle}" />
         <property name="maxWait" value="${dbcp.maxWait}" />
     </bean>
+
     <!-- spring和MyBatis整合 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
@@ -31,10 +32,12 @@ http://www.springframework.org/schema/context ">
         org.topview.entity.department"/>
         <property name="mapperLocations" value="classpath:mapper/*/*.xml" />
     </bean>
+
     <!-- mapper批量扫描 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="org.topview.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
     <context:component-scan base-package="org.topview.service"/>
+
 </beans>
