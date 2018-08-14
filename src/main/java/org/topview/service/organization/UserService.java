@@ -17,10 +17,9 @@ public interface UserService {
     /**
      * 登陆
      * @param username 用户名
-     * @param password 密码
      * @return 返回user完整信息
      */
-    User login(String username, String password);
+    User login(String username);
 
     /**
      * 封装该用户对应的用户与角色信息

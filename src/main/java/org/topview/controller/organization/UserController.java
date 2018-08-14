@@ -43,9 +43,10 @@ public class UserController {
     public Result login(User user, Boolean rememberMe, HttpServletRequest request) {
 
         try {
-
+            System.out.println("in login");
             user = TokenManager.login(user, rememberMe);
 
+            System.out.println("out login");
             //查看该用户的角色
             Set<String> roleNames = userService.getRoleNameByUserIdService(user.getId());
             Iterator iterator = roleNames.iterator();
@@ -60,6 +61,7 @@ public class UserController {
         } catch (DisabledAccountException e) {
             return Result.fail(e.getLocalizedMessage());
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return Result.fail("帐号或密码错误");
         }
     }

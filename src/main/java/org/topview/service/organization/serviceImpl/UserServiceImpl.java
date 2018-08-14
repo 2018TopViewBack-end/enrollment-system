@@ -19,13 +19,13 @@ import java.util.Set;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    UserMapper userMapper;
+    private UserMapper userMapper;
     @Autowired
-    OrganizationService organizationService;
+    private OrganizationService organizationService;
 
     @Override
-    public User login(String username, String password) {
-        return userMapper.login(username, password);
+    public User login(String username) {
+        return userMapper.login(username);
     }
 
     @Override

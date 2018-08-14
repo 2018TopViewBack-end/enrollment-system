@@ -25,7 +25,7 @@
         SELECT
         <include refid="Base_Column_List" />
         FROM user
-        WHERE username=#{username} AND password=#{password}
+        WHERE username=#{username}
     </select>
 
     <select id="checkOldPassword" resultType="java.lang.Integer">
