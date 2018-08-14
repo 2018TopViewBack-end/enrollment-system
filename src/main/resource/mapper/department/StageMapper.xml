@@ -29,7 +29,7 @@
         update stage set stage_name = #{stageName} where id = ${id}
     </update>
 
-    <!--通过主键获取部门-->
+    <!--通过主键获取阶段-->
     <select id="selectByPrimaryKey" parameterType="int" resultMap="stage_map">
         select * from stage where id = #{id}
     </select>

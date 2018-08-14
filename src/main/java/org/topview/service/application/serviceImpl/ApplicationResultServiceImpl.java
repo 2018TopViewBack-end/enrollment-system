@@ -1,10 +1,8 @@
 package org.topview.service.application.serviceImpl;
 
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.topview.dao.application.ApplicationMapper;
 import org.topview.dao.application.ApplicationResultMapper;
@@ -14,16 +12,12 @@ import org.topview.dao.organization.OrganizationMapper;
 import org.topview.entity.application.po.Application;
 import org.topview.entity.application.po.ApplicationResult;
 import org.topview.entity.application.vo.ApplicationResultVo;
-import org.topview.entity.department.po.Department;
-import org.topview.entity.organization.po.Organization;
 import org.topview.service.application.ApplicationResultService;
 import org.topview.util.Constant;
 import org.topview.util.Result;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  *

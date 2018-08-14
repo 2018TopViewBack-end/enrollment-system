@@ -12,4 +12,5 @@
     <update id="updateOrganizationStatus">
         update organization set status=#{status} where id=#{id}
     </update>
+
 </mapper>

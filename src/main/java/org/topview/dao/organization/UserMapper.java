@@ -67,4 +67,11 @@ public interface UserMapper extends BaseMapper<User, Integer> {
      * @return 该社团下的部门管理员 userIdList
      */
     List<Integer> selectDepartmentUserId(Integer organizationId);
+
+    /**
+     * 通过userId获得user
+     * @param userId
+     * @return
+     */
+    User selectByPrimaryKey(Integer userId);
 }

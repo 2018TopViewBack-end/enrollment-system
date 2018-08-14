@@ -5,7 +5,7 @@
 
 
     <select id="listSpecificAppId" resultType="integer">
-        select application_id from application_result where stage_id = #{stageId} and status = #{status}
+        select application_id from application_result where stage_id = #{param2} and status = #{param1}
     </select>
 
     <select id="checkResult" resultType="ApplicationResult">

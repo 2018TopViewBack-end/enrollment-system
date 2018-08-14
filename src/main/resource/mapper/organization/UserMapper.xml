@@ -48,6 +48,10 @@
         select user_id from department where organization_id=#{organizationId}
     </select>
 
+    <select id="selectByPrimaryKey" parameterType="int" resultMap="BaseResultMap">
+        select * from user where id = #{id}
+    </select>
+
     <!--<select id="" parameterType="arraylist">
 
     </select>-->

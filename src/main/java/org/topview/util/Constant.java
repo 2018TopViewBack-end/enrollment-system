@@ -39,4 +39,8 @@ public class Constant {
     public static final String MODIFY_STAGE_FAIL = "修改招新阶段失败";
 
     public static final String MODIFY_DEPARTMENT_FAIL= "修改部门失败";
+
+    public static final String ADD_DEPARTMENT_FAIL = "新增部门失败";
+
+    public static final String EMPTY_DEPARTMENT = "没有部门";
 }
