@@ -8,20 +8,24 @@
         <result column="username" property="username" jdbcType="VARCHAR"/>
         <result column="password" property="password" jdbcType="VARCHAR"/>
         <result column="tel" property="tel" jdbcType="VARCHAR"/>
-        <result column="wechat" property="wechat"
+        <result column="wechat" property="wechat"/>
         <result column="role_id" property="roleId" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
     </resultMap>
 
     <sql id="Base_Column_List" >
-        id, username, password, tel, wechat, role_id
+        id, username, password, tel, wechat, role_id, status
     </sql>
 
     <insert id="insertUser" parameterType="org.topview.entity.organization.po.User" useGeneratedKeys="true">
-        INSERT INTO user (username,password,tel,wechat,role_id)
-        VALUES (#{username},#{password},#{tel},#{wechat},#{role_id})
+        INSERT INTO user (username,password,tel,wechat,role_id,status)
+        VALUES (#{username},#{password},#{tel},#{wechat},#{roleId},#{status})
     </insert>
-    <select id="selectUserByUsername" resultType="org.topview.entity.organization.po.User" parameterType="org.topview.entity.organization.po.User">
+    <select id="login" resultType="org.topview.entity.organization.po.User" parameterType="org.topview.entity.organization.po.User">
+        SELECT
         <include refid="Base_Column_List" />
+        FROM user
+        WHERE username=#{username} AND password=#{password}
     </select>
 
     <select id="checkOldPassword" resultType="java.lang.Integer">
@@ -32,4 +36,7 @@
         update user set password=md5(#{password}) where id=#{id}
     </update>
 
+    <select id="selectRoleByUserId" resultType="java.lang.String" parameterType="java.lang.Integer">
+        SELECT name FROM role r, user u WHERE r.id=u.role_id AND u.id=#{userId}
+    </select>
 </mapper>

@@ -24,10 +24,6 @@ public class SampleRealm extends AuthorizingRealm {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private PermissionService permissionService;
-    @Autowired
-    private RoleService roleService;
 
     public SampleRealm() {
         super();
@@ -47,14 +43,12 @@ public class SampleRealm extends AuthorizingRealm {
             /**
              * 如果用户的status为禁用。那么就抛出<code>DisabledAccountException</code>
              */
-        } else if (User._0.equals(user.getStatus())) {
+        } else if (User.FORBID.equals(user.getStatus())) {
             throw new DisabledAccountException("帐号已经禁止登录！");
-        } else {
-            //更新登录时间 last login time
-            user.setLastLoginTime(new Date());
-            userService.updateByPrimaryKeySelective(user);
+        } else if (User.CHECKING.equals(user.getStatus())){
+            throw new DisabledAccountException("帐号正在审核中！");
         }
-        return new SimpleAuthenticationInfo(user, user.getPswd(), getName());
+        return new SimpleAuthenticationInfo(user, user.getPassword(), getName());
     }
 
     /**
@@ -63,16 +57,12 @@ public class SampleRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 
-        Long userId = TokenManager.getUserId();
+        User user = TokenManager.getToken();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         //根据用户ID查询角色（role），放入到Authorization里。
-        Set<String> roles = roleService.findRoleByUserId(userId);
-        System.out.println("role:" + roles);
-        info.setRoles(roles);
-        //根据用户ID查询权限（permission），放入到Authorization里。
-        Set<String> permissions = permissionService.findPermissionByUserId(userId);
-        System.out.println("permissions:" + permissions);
-        info.setStringPermissions(permissions);
+        Set<String> roleName = userService.getRoleNameByUserIdService(user.getId());
+        System.out.println("role:" + roleName);
+        info.setRoles(roleName);
         return info;
     }
 

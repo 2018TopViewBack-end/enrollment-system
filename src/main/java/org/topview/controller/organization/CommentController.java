@@ -8,9 +8,4 @@ import org.topview.entity.organization.po.User;
 @Controller
 @RequestMapping("/organization")
 public class CommentController {
-    @RequestMapping("")
-    @ResponseBody
-    public String  aaa(){
-
-    }
 }
