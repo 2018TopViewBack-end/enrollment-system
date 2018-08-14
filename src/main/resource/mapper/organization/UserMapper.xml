@@ -11,4 +11,15 @@
         update user set password=md5(#{password}) where id=#{id}
     </update>
 
+    <update id="updateUserStatus">
+        update user set status=#{status} where id=#{id}
+    </update>
+
+    <select id="selectDepartmentUserId" resultType="java.lang.Integer">
+        select user_id from department where organization_id=#{organizationId}
+    </select>
+
+    <!--<select id="" parameterType="arraylist">
+
+    </select>-->
 </mapper>

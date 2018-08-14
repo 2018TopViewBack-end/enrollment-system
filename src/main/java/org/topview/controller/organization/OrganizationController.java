@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.topview.entity.organization.bo.Organization;
+import org.topview.entity.organization.bo.OrganizationBo;
 import org.topview.entity.organization.vo.OrganizationStatus;
 import org.topview.service.organization.OrganizationService;
 import org.topview.util.Result;
@@ -33,8 +33,8 @@ public class OrganizationController {
     @RequestMapping(value = "/selectOrganization/{status}")
     @ResponseBody
     public Result checkOrganization(@PathVariable Integer status) {
-        List<Organization> organizationList = organizationService.selectOrganizationService(status);
-        return new Result(true,"待审核社团",organizationList);
+        List<OrganizationBo> organizationList = organizationService.selectOrganizationService(status);
+        return Result.success(organizationList);
     }
 
     /**
