@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/c"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context ">
+
+    <!-- 引入配置文件 -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:dbcp.properties" />
+    </bean>
+    <!-- 数据库配置 -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${dbcp.driverClassName}"/>
+        <property name="url" value="${dbcp.url}"/>
+        <property name="username" value="${dbcp.username}" />
+        <property name="password" value="${dbcp.password}" />
+        <property name="initialSize" value="${dbcp.initialSize}" />
+        <property name="maxActive" value="${dbcp.maxActive}" />
+        <property name="maxIdle" value="${dbcp.maxIdle}" />
+        <property name="minIdle" value="${dbcp.minIdle}" />
+        <property name="maxWait" value="${dbcp.maxWait}" />
+    </bean>
+    <!-- spring和MyBatis整合 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- MyBatis的配置文件 -->
+        <!--<property name="configLocation" value="classpath:conf.xml" />-->
+        <property name="typeAliasesPackage" value="org.topview.entity"/>
+        <property name="mapperLocations" value="classpath:mapper/*/*.xml" />
+    </bean>
+    <!-- mapper批量扫描 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="org.topview.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+    <context:component-scan base-package="org.topview.service"/>
+</beans>
