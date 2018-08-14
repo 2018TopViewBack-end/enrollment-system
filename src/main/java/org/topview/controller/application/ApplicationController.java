@@ -2,10 +2,7 @@ package org.topview.controller.application;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.topview.service.application.ApplicationResultService;
 import org.topview.service.application.ApplicationService;
 import org.topview.util.Constant;
@@ -48,9 +45,19 @@ public class ApplicationController {
      * @return result
      */
     @ResponseBody
-    @GetMapping("check/{tel}/{studentId}")
-    Result check(@PathVariable String tel, @PathVariable int studentId){
+    @PostMapping("check")
+    Result check(@RequestParam String tel, @RequestParam int studentId){
         return applicationResultService.checkResult(tel, studentId);
     }
-
+//
+//      //查看是否有未审核报名
+//    @ResponseBody
+//    @GetMapping("check/result/")
+//    Result checkPass(@PathVariable int stageId){
+//        if (applicationService.checkApplicationToPass(stageId)){
+//            return Result.success();
+//        } else {
+//            return Result.fail(Constant.NOT_FOUND);
+//        }
+//    }
 }

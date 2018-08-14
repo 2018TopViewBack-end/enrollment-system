@@ -3,4 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.topview.dao.organization.OrganizationMapper">
 
+    <select id="selectOrganizationByStatus" resultType="org.topview.entity.organization.bo.OrganizationBo">
+        select o.id id,o.name name,o.category category,o.introduction introduction,o.linkman linkman,
+            o.tel tel,u.id userId,u.wechat wechat from organization o, user u
+        where status=#{status} and o.admin_id=u.id order by o.id
+    </select>
+
+    <update id="updateOrganizationStatus">
+        update organization set status=#{status} where id=#{id}
+    </update>
 </mapper>

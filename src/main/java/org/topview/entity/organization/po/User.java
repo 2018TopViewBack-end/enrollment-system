@@ -1,10 +1,22 @@
 package org.topview.entity.organization.po;
 
+import java.io.Serializable;
+
 /**
  * 用户实体类
+ *
  * @author Medwin。
  */
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    //0:正在审核
+    public static final Integer CHECKING = 0;
+    //1:正常
+    public static final Integer NORMAL = 1;
+    //2:禁止
+    public static final Integer FORBID = 2;
+
     private int id;
 
     private String username;
@@ -13,12 +25,11 @@ public class User {
 
     private String tel;
 
-    private String email;
+    private String wechat;
 
     private int roleId;
 
-    public User() {
-    }
+    private int status;
 
     @Override
     public String toString() {
@@ -27,9 +38,13 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", tel='" + tel + '\'' +
-                ", email='" + email + '\'' +
+                ", wechat='" + wechat + '\'' +
                 ", roleId=" + roleId +
+                ", status=" + status +
                 '}';
+    }
+
+    public User() {
     }
 
     public int getId() {
@@ -64,12 +79,12 @@ public class User {
         this.tel = tel;
     }
 
-    public String getEmail() {
-        return email;
+    public String getWechat() {
+        return wechat;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setWechat(String wechat) {
+        this.wechat = wechat;
     }
 
     public int getRoleId() {
@@ -80,5 +95,12 @@ public class User {
         this.roleId = roleId;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
 }

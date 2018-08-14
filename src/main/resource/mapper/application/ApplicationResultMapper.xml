@@ -4,25 +4,23 @@
 <mapper namespace="org.topview.dao.application.ApplicationResultMapper">
 
 
+    <select id="listSpecificAppId" resultType="integer">
+        select application_id from application_result where stage_id = #{stageId} and status = #{status}
+    </select>
+
+    <select id="checkResult" resultType="ApplicationResult">
+        select * from application_result where application_id = #{applicationId}
+    </select>
+
+    <select id="selectMaxStageId" parameterType="int">
+        select max(stage_id) from application_result where application_id = #{applicationId}
+    </select>
+
+    <update id="handleApplication" parameterType="int">
+        update application_result set status = #{status} where application_id = #{applicationId}
+    </update>
+
 </mapper>
-    <!--<select id="getUserRole" resultType="int">-->
-    <!--select rid from user_role where uid=#{id}-->
-    <!--</select>-->
-
-    <!--<select id="isValid" parameterType="User" resultType="User">-->
-    <!--select * from t_user where name=#{name} and password=#{password}-->
-    <!--</select>-->
-
-    <!--<select id="selectUserByName" resultType="User" parameterType="string">-->
-        <!--select * from t_user where name=#{name}-->
-    <!--</select>-->
-
-    <!--<select id="selectUserById" resultType="User">-->
-        <!--select * from t_user where id=#{id}-->
-    <!--</select>-->
-    <!--&lt;!&ndash;<select id="checkUserByName" parameterType="String" resultType="User">&ndash;&gt;-->
-    <!--&lt;!&ndash;select * from t_user where name=#{name}&ndash;&gt;-->
-    <!--&lt;!&ndash;</select>&ndash;&gt;-->
 
     <!--<select id="getRole" parameterType="int"  resultType="java.lang.Integer" >-->
         <!--select rid from user_role where uid=#{userId}-->
@@ -31,31 +29,8 @@
     <!--&lt;!&ndash;<result property="roleId" column="rid" jdbcType="INTEGER"/>&ndash;&gt;-->
     <!--&lt;!&ndash;</resultMap>&ndash;&gt;-->
 
-    <!--<select id="checkEmail" resultType="java.lang.String">-->
-        <!--select email from t_user where email=#{email}-->
-    <!--</select>-->
-
-    <!--<select id="getMerchantById" resultType="java.lang.String" parameterType="int">-->
-        <!--select shopName from t_merchant where userid=#{userId}-->
-    <!--</select>-->
-
     <!--<insert id="addUser" parameterType="User">-->
         <!--insert into t_user(name,password,email,tel,addr,state,activeCode) values(#{name},#{password},#{email},#{tel},#{addr},#{state},#{activeCode})-->
     <!--</insert>-->
 
-    <!--<delete id="deleteUserById" parameterType="int">-->
-        <!--delete from t_user where id =#{id}-->
-    <!--</delete>-->
-
-    <!--<select id="listAllUser" resultType="user">-->
-        <!--select * from t_user-->
-    <!--</select>-->
-
-    <!--<update id="updateInfo" parameterType="User">-->
-        <!--update t_user set password=#{password} ,email =#{email} ,tel=#{tel} ,addr=#{addr} where name=#{name}-->
-    <!--</update>-->
-
-    <!--<update id="activeUser" parameterType="String">-->
-        <!--update t_user set state=1 where activeCode=#{activeCode}-->
-    <!--</update>-->
 

@@ -4,8 +4,11 @@
 <mapper namespace="org.topview.dao.application.ApplicationMapper">
 
 
-    <!--<select id="asdasfg" parameterType="Application">-->
-
-
-    <!--</select>-->
+    <select id="getApplication" resultType="Application">
+        select * from application where tel = #{tel} and student_number = #{stuId}
+    </select>
+    
+    <select id="checkApplication" resultType="int">
+        select id from application where department_id = #{departmentId} and student_number = #{stuId}
+    </select>
 </mapper>
