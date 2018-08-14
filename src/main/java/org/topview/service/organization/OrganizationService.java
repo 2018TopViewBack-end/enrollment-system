@@ -1,12 +1,14 @@
 package org.topview.service.organization;
 
 import org.springframework.stereotype.Service;
-import org.topview.entity.organization.bo.Organization;
+import org.topview.entity.organization.bo.OrganizationBo;
+import org.topview.entity.organization.vo.OrganizationStatus;
 
 import java.util.List;
 
 @Service
 public interface OrganizationService {
+
 
     /**
      * 根据社团管理员id获取社团信息
@@ -15,5 +17,6 @@ public interface OrganizationService {
      */
     Integer getOrganizationIdByAdminId(Integer adminId);
 
-    List<Organization> selectOrganizationService(Integer status);
+    List<OrganizationBo> selectOrganizationService(Integer status);
+
 }
