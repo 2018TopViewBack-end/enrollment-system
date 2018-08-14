@@ -12,9 +12,14 @@
         select * from application_result where application_id = #{applicationId}
     </select>
 
+    <select id="selectMaxStageId" parameterType="int">
+        select max(stage_id) from application_result where application_id = #{applicationId}
+    </select>
+
     <update id="handleApplication" parameterType="int">
         update application_result set status = #{status} where application_id = #{applicationId}
     </update>
+
 </mapper>
 
     <!--<select id="getRole" parameterType="int"  resultType="java.lang.Integer" >-->

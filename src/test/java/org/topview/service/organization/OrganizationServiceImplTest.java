@@ -18,16 +18,16 @@ public class OrganizationServiceImplTest {
     @Autowired
     private OrganizationMapper organizationMapper;
 
-    @Test
-    public void testUpdateOrganization() {
-        Organization organization = new Organization();
-        organization.setId(1);
-        organization.setApikey("apikey");
-        organization.setLinkman("pan");
-        int result = organizationMapper.updateByPrimaryKey(organization);
-        System.out.println(result);
-        System.out.println("**************");
-        System.out.println(organization);
-    }
+//    @Test
+//    public void testUpdateOrganization() {
+//        Organization organization = new Organization();
+//        organization.setId(1);
+//        organization.setApikey("apikey");
+//        organization.setLinkman("pan");
+//        int result = organizationMapper.updateByPrimaryKey(organization);
+//        System.out.println(result);
+//        System.out.println("**************");
+//        System.out.println(organization);
+//    }
 
 }
