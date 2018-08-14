@@ -6,6 +6,9 @@ import org.topview.entity.organization.po.User;
 import org.topview.entity.organization.vo.DepartmentAdminVo;
 import org.topview.util.Result;
 
+/**
+ * @author Pan梓涵
+ */
 @Service
 public interface OrganizationService {
 

@@ -31,7 +31,6 @@
     <update id="updateDepartmentAdmin" parameterType="User">
         UPDATE user
         <set>
-            <if test="username != null">username=#{username},</if>
             <if test="password != null">password=#{password},</if>
             <if test="tel != null">tel=#{tel},</if>
             <if test="wechat != null">wechat=#{wechat},</if>

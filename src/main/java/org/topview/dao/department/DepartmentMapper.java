@@ -3,7 +3,6 @@ package org.topview.dao.department;
 import org.apache.ibatis.annotations.Param;
 import org.topview.dao.BaseMapper;
 import org.topview.entity.department.po.Department;
-import org.topview.entity.organization.vo.DepartmentAdminVo;
 
 public interface DepartmentMapper extends BaseMapper<Department, Integer> {
 

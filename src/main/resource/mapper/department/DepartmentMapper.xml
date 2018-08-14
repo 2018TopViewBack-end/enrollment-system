@@ -6,4 +6,13 @@
     <update id="updateDepartmentAdmin">
         UPDATE department SET user_id = #{userId} WHERE id = #{departmentId}
     </update>
+    <resultMap id="department_map" type="Department">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="logoUrl"  column="logo_url"/>
+        <result property="introduction" column="introduction"/>
+        <result property="messageNum" column="message_num"/>
+        <result property="userId" column="user_id"/>
+    </resultMap>
+
 </mapper>

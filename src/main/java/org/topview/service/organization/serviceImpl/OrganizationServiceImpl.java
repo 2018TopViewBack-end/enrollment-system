@@ -9,10 +9,31 @@ import org.topview.entity.organization.po.Organization;
 import org.topview.entity.organization.po.User;
 import org.topview.entity.organization.vo.DepartmentAdminVo;
 import org.topview.service.organization.OrganizationService;
+import org.topview.util.Constant;
 import org.topview.util.Result;
 
+/**
+ * @author Pan梓涵
+ */
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
+
+    private static final String USERNAME_ALREADY_EXIST = "用户名已存在";
+    private static final String USERNAME_NOT_BE_EMPTY = "用户名不能为空";
+    private static final String PASSWORD_NOT_BE_EMPTY = "密码不能为空";
+
+    private static final String COMMUNITY_CATEGORY_ERROR = "社团类别出错";
+    private static final String ORGANIZATION_NOT_EXIST = "该社团不存在";
+
+    private static final String UPDATE_ORGANIZATION_SUCCESS = "更新社团信息成功";
+    private static final String GET_ORGANIZATION_SUCCESS = "获取社团信息成功";
+
+    private static final String ADD_DEPARTMENT_ADMIN_SUCCESS = "添加部门管理员成功";
+    private static final String GET_DEPARTMENT_ADMIN_SUCCESS = "获取部门管理员信息成功";
+    private static final String GET_DEPARTMENT_ADMIN_FAILURE = "获取部门管理员信息失败";
+    private static final String UPDATE_DEPARTMENT_ADMIN_SUCCESS = "更新部门管理员信息成功";
+    private static final String DELETE_DEPARTMENT_ADMIN_SUCCESS = "删除部门管理员成功";
+    private static final String DELETE_DEPARTMENT_ADMIN_FAILURE = "删除部门管理员失败";
 
     @Autowired
     private OrganizationMapper organizationMapper;
@@ -33,17 +54,18 @@ public class OrganizationServiceImpl implements OrganizationService {
         String category = organization.getCategory();
         if(category != null) {
             switch (category) {
-                case "校级":break;
-                case "院级":break;
-                case "兴趣类":break;
+                //社团类别：校级
+                case Constant.OrganizationCategory.COLLEGE: break;
+                //社团类别：院级
+                case Constant.OrganizationCategory.ACADEMY: break;
+                //社团类别：兴趣类
+                case Constant.OrganizationCategory.INTERESTS: break;
                 default:
-                    String message = "社团类别出错";
-                    return new Result(false, message);
+                    return new Result(false, COMMUNITY_CATEGORY_ERROR);
             }
         }
         organizationMapper.updateByPrimaryKey(organization);
-        String message = "更新社团信息成功";
-        return new Result(true, message);
+        return new Result(true, UPDATE_ORGANIZATION_SUCCESS);
     }
 
     /**
@@ -55,9 +77,9 @@ public class OrganizationServiceImpl implements OrganizationService {
     public Result getOrganization(int organizationId) {
         Organization organization = organizationMapper.selectByPrimaryKey(organizationId);
         if(organization == null) {
-            return new Result<>(false, "获取失败,该社团不存在");
+            return new Result<>(false, ORGANIZATION_NOT_EXIST);
         }
-        return new Result<>(true, "获取社团信息成功", organization);
+        return new Result<>(true, GET_ORGANIZATION_SUCCESS, organization);
     }
 
     /**
@@ -69,16 +91,20 @@ public class OrganizationServiceImpl implements OrganizationService {
     public Result addDepartmentAdmin(DepartmentAdminVo departmentAdminVo) {
         //判断数据库是否存在该用户名
         String username = departmentAdminVo.getUser().getUsername();
-        if(userMapper.hasUsername(username) > 0) {
-            return new Result(false, "该用户名已存在");
+        if(username == null || "".equals(username)) {
+            return new Result(false, USERNAME_NOT_BE_EMPTY);
         }
+        if(userMapper.hasUsername(username) > 0) {
+            return new Result(false, USERNAME_ALREADY_EXIST);
+        }
+        departmentAdminVo.getUser().setRoleId(3);
         departmentAdminVo.getUser().setStatus(1);
         //在用户表添加社团管理员的信息
         userMapper.addDepartmentAdmin(departmentAdminVo);
         //在部门表添加社团管理员的信息
         departmentMapper.updateDepartmentAdmin(departmentAdminVo.getUser().getId(),
                 departmentAdminVo.getDepartmentId());
-        return new Result(true, "添加部门管理员成功");
+        return new Result(true, ADD_DEPARTMENT_ADMIN_SUCCESS);
     }
 
     /**
@@ -90,9 +116,9 @@ public class OrganizationServiceImpl implements OrganizationService {
     public Result getDepartmentAdmin(int departmentId) {
         User user = userMapper.getDepartmentAdmin(departmentId);
         if(user == null) {
-            return new Result(false, "获取部门管理员失败");
+            return new Result(false, GET_DEPARTMENT_ADMIN_FAILURE);
         }
-        return new Result<>(true, "获取部门管理员成功", user);
+        return new Result<>(true, GET_DEPARTMENT_ADMIN_SUCCESS, user);
     }
 
     /**
@@ -102,12 +128,12 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     public Result updateDepartmentAdmin(User user) {
-        String username = user.getUsername();
-        if(username == null || "".equals(username)) {
-            return new Result(false, "用户名不能为空");
+        String password = user.getPassword();
+        if(password == null || "".equals(password)) {
+            return new Result(false, PASSWORD_NOT_BE_EMPTY);
         }
         userMapper.updateDepartmentAdmin(user);
-        return new Result(true, "修改部门管理员成功");
+        return new Result(true, UPDATE_DEPARTMENT_ADMIN_SUCCESS);
     }
 
     /**
@@ -118,9 +144,9 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     public Result deleteDepartmentAdmin(int departmentId) {
         if(userMapper.deleteDepartmentAdmin(departmentId) != 0) {
-            return new Result(true, "删除部门管理信息成功");
+            return new Result(true, DELETE_DEPARTMENT_ADMIN_SUCCESS);
         } else {
-            return new Result(false, "删除部门管理信息失败");
+            return new Result(false, DELETE_DEPARTMENT_ADMIN_FAILURE);
         }
     }
 

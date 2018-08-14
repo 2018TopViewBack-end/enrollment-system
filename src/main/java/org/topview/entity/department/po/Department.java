@@ -1,10 +1,5 @@
 package org.topview.entity.department.po;
 
-import org.topview.entity.organization.po.User;
-
-import java.util.List;
-import java.util.Map;
-
 /**
  * 部门实体类
  * @author Medwin。
@@ -12,19 +7,23 @@ import java.util.Map;
 public class Department {
     private int id;
 
+    private int organizationId;
+
     private String name;
 
     private String logoUrl;
 
-    private Map<String,String> pics; //key为标识，value为url
-
     private String introduction;
 
-    private Integer messageNum;//发送短信数量，便于统计
+    /**
+     * 发送短信数量,便于统计
+     */
+    private Integer messageNum;
 
-    private List<String> stages;//用于保存部门所有阶段名称，需排序
-
-    private User departAdmin;//部门管理员
+    /**
+     * 部门管理员id
+     */
+    private int userId;
 
     public Department() {
     }
@@ -35,6 +34,14 @@ public class Department {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(int organizationId) {
+        this.organizationId = organizationId;
     }
 
     public String getName() {
@@ -53,14 +60,6 @@ public class Department {
         this.logoUrl = logoUrl;
     }
 
-    public Map<String, String> getPics() {
-        return pics;
-    }
-
-    public void setPics(Map<String, String> pics) {
-        this.pics = pics;
-    }
-
     public String getIntroduction() {
         return introduction;
     }
@@ -77,33 +76,24 @@ public class Department {
         this.messageNum = messageNum;
     }
 
-    public List<String> getStages() {
-        return stages;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setStages(List<String> stages) {
-        this.stages = stages;
-    }
-
-    public User getDepartAdmin() {
-        return departAdmin;
-    }
-
-    public void setDepartAdmin(User departAdmin) {
-        this.departAdmin = departAdmin;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Override
     public String toString() {
         return "Department{" +
                 "id=" + id +
+                ", organizationId=" + organizationId +
                 ", name='" + name + '\'' +
                 ", logoUrl='" + logoUrl + '\'' +
-                ", pics=" + pics +
                 ", introduction='" + introduction + '\'' +
                 ", messageNum=" + messageNum +
-                ", stages=" + stages +
-                ", departAdmin=" + departAdmin +
+                ", userId=" + userId +
                 '}';
     }
 }
