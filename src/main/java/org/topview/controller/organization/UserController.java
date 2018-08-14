@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.topview.entity.organization.po.User;
+import org.springframework.web.bind.annotation.*;
+import org.topview.entity.organization.vo.CheckPassword;
 import org.topview.service.organization.UserService;
 import org.topview.util.Result;
 import org.topview.util.TokenManager;
@@ -23,9 +25,17 @@ public class UserController {
     private UserService userService;
 
     @ResponseBody
-    @RequestMapping("/checkOldPassword")
-    public Result checkOldPassword() {
-        return null;
+    @RequestMapping(value = "/updatePassword",method = RequestMethod.POST)
+    public Result checkOldPassword(@SessionAttribute Integer userId, CheckPassword checkPassword) {
+        Result result = userService.checkOldPasswordService(userId,checkPassword.getOldPassword());
+        if (!result.isSuccess()) {
+            //如果原密码错误，直接返回错误信息
+            return result;
+        } else {
+            //如果原密码正确，将结果更改为修改密码的结果并返回
+            result = userService.updatePasswordService(userId,checkPassword.getNewPassword());
+            return result;
+        }
     }
 
     @ResponseBody

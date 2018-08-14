@@ -47,9 +47,9 @@ public interface UserMapper extends BaseMapper<User, Integer> {
     /**
      * 社团修改密码
      *
-     * @param Password 新密码
+     * @param password 新密码
      * @param id       社团id
      * @return 修改成功则返回1
      */
-    Integer updatePassword(String Password, Integer id);
+    Integer updatePassword(String password, Integer id);
 }
