@@ -22,10 +22,9 @@ public interface UserMapper extends BaseMapper<User, Integer> {
      * 用户登录验证
      *
      * @param username 用户名
-     * @param password 密码
      * @return 包含所有信息的user
      */
-    User login(String username,String password);
+    User login(String username);
 
     /**
      * 通过userId查看用户对应的角色

@@ -23,19 +23,19 @@
                 /* = authc
             </value>
         </property>
-        <property name="filters">
-            <map>
-                <entry key="rolesOr" value-ref="rolesOrFilter" />
-            </map>
-        </property>
+        <!--<property name="filters">-->
+            <!--<map>-->
+                <!--<entry key="rolesOr" value-ref="rolesOrFilter" />-->
+            <!--</map>-->
+        <!--</property>-->
     </bean>
 
     <!-- 自定义filter -->
-    <bean id="rolesOrFilter" class="com.zzz.shiro.filter.RolesOrFilter" />
+    <!--<bean id="rolesOrFilter" class="com.zzz.shiro.filter.RolesOrFilter" />-->
 
 
 
-    <bean id="realm" class="com.zzz.shiro.realm.CustomRealm">
+    <bean id="realm" class="org.topview.config.shiro.realm.SampleRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
     </bean>
 
@@ -44,9 +44,9 @@
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="realm"/>
         <!-- shiro缓存管理器 -->
-        <property name="cacheManager" ref="shiroCacheManager"></property>
+        <property name="cacheManager" ref="shiroCacheManager"/>
         <!-- shiro session管理器 -->
-        <property name="sessionManager" ref="sessionManager"></property>
+        <property name="sessionManager" ref="sessionManager"/>
 
     </bean>
     <!-- 相当于调用SecurityUtils.setSecurityManager(securityManager) -->
@@ -60,15 +60,15 @@
         <property name="hashIterations" value="2"/>
     </bean>
 
-    <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.MemorySessionDAO"></bean>
+    <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.MemorySessionDAO"/>
     <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
         <constructor-arg name="name" value="SHRIOSESSIONID"/>
     </bean>
     <!-- 配置shiro session 的一个管理器 -->
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
-        <property name="sessionDAO" ref="sessionDAO"></property>
+        <property name="sessionDAO" ref="sessionDAO"/>
     </bean>
     <!-- 配置shiro 缓存的一个管理器 -->
-    <bean id="shiroCacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"></bean>
+    <bean id="shiroCacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"/>
 
 </beans>
