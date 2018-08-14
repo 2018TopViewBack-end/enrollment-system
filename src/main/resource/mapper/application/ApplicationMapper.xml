@@ -4,4 +4,8 @@
 <mapper namespace="org.topview.dao.application.ApplicationMapper">
 
 
+    <!--<select id="asdasfg" parameterType="Application">-->
+
+
+    <!--</select>-->
 </mapper>

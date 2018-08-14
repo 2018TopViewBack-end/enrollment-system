@@ -16,5 +16,7 @@ public class Constant {
 
     public static final String INFO_NOT_FOUND = "没有找到您的信息";
 
+    public static final String SUBMIT_FAILED = "您已报名，请勿重复报名！";
 
+    public static final String SUBMIT_SUCCEED = "报名成功！";
 }
