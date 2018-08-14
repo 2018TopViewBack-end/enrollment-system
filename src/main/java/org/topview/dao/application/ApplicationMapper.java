@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ApplicationMapper extends BaseMapper<Application, Integer> {
 
-    int checkApplication(String studentId, int departmentId);//检查application是否存在
+    Integer checkApplication(String studentId, int departmentId);//检查application是否存在
 
-    List<Application> getApplication(String tel, int studentId);
+    List<Application> getApplication(String tel, String studentId);
 }

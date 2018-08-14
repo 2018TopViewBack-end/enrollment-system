@@ -20,7 +20,12 @@
     </resultMap>
 
     <!--修改部门-->
-    <update id="updateByExample" parameterType="DepartmentBo">
+    <update id="updateByExample" parameterType="DepartmentBo"/>
+    <select id="selectByPrimaryKey" resultMap="department_map">
+        select * from department where id = #{pk}
+    </select>
+
+    <update id="updateByExample" parameterType="Department">
         update department set name = #{name}, logo_url = #{logoUrl}, introduction = #{introduction} where id = #{id}
     </update>
 

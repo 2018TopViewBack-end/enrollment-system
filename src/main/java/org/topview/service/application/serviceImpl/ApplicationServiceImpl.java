@@ -29,6 +29,7 @@ public class ApplicationServiceImpl implements ApplicationService {
             //若存在,则注册失败
             return Result.fail(Constant.SUBMIT_FAILED);
         } else {
+            applicationMapper.insert(application);
             return Result.success(Constant.SUBMIT_SUCCEED);
         }
     }
@@ -47,10 +48,10 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public boolean checkApplication(String studentId, int departmentId) {
-        if (0 == applicationMapper.checkApplication(studentId, departmentId)){
-            return true;
-        } else {
+        if (null == applicationMapper.checkApplication(studentId, departmentId)){
             return false;
+        } else {
+            return true;
         }
     }
 //

@@ -15,7 +15,7 @@ public class Application {
 
     private String stuName;
 
-    private String gender;
+    private int gender;
 
     private String academy;
 
@@ -38,7 +38,26 @@ public class Application {
     public Application() {
     }
 
-    public Application(int departmentId, int organizationId, String stuName, String gender, String academy, String majorAndClass,
+    @Override
+    public String toString() {
+        return "Application{" +
+                "id=" + id +
+                ", departmentId=" + departmentId +
+                ", organizationId=" + organizationId +
+                ", stuName='" + stuName + '\'' +
+                ", gender=" + gender +
+                ", academy='" + academy + '\'' +
+                ", majorAndClass='" + majorAndClass + '\'' +
+                ", wechat='" + wechat + '\'' +
+                ", tel='" + tel + '\'' +
+                ", stuId='" + stuId + '\'' +
+                ", dormitory='" + dormitory + '\'' +
+                ", adjustable=" + adjustable +
+                ", introduction='" + introduction + '\'' +
+                '}';
+    }
+
+    public Application(int departmentId, int organizationId, String stuName, int gender, String academy, String majorAndClass,
                        String wechat, String tel, String stuId, String dormitory, boolean adjustable,
                        String introduction) {
         this.departmentId = departmentId;
@@ -87,11 +106,11 @@ public class Application {
         this.stuName = stuName;
     }
 
-    public String getGender() {
+    public int getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 

@@ -11,7 +11,7 @@ public interface ApplicationResultMapper extends BaseMapper<ApplicationResult, I
 
     ApplicationResult checkResult(Integer applicationId); //根据appId获取结果
 
-    int handleApplication(int applicationId, int status);//通过报名
+    int handleApplication(int applicationId, int status, int stageId);//通过报名
 
-    int selectMaxStageId(int applicationId);
+//    int selectMaxStageId(int applicationId);
 }
