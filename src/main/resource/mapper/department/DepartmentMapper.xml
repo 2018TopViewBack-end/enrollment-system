@@ -14,4 +14,9 @@
     <select id="selectByPrimaryKey" resultMap="department_map">
         select * from department where id = #{pk}
     </select>
+
+    <update id="updateByExample" parameterType="Department">
+        update department set name = #{name}, logo_url = #{logoUrl}, introduction = #{introduction} where id = #{id}
+    </update>
+
 </mapper>

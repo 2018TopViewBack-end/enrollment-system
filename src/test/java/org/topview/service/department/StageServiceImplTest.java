@@ -8,7 +8,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.topview.dao.department.StageMapper;
 import org.topview.entity.department.po.Stage;
-import org.topview.util.Result;
 
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class StageServiceImplTest {
 	@Test
 	public void testDeleteStage() {
 		int stageId = 1;
-		int flag = stageMapper.deleteByExample(stageId);
+		int flag = stageMapper.deleteByPrimaryKey(stageId);
 		System.out.println(flag);
 	}
 
@@ -47,21 +46,42 @@ public class StageServiceImplTest {
 	 * 测试通过部门id找到同一部门的所有招新阶段
 	 */
 	@Test
-	public void listAllStageByDepartmentId() {
+	public void testListAllStageByDepartmentId() {
 		int departmentId = 1;
-		List<Stage> stages = stageMapper.selectByExample(departmentId);
+		List<Stage> stages = stageMapper.listStageByDepartmentId(departmentId);
 		System.out.println(stages);
 	}
 	/**
 	 * 测试更改招新阶段名称
 	 */
 	@Test
-	public  void updateStage() {
+	public void testUpdateStage() {
 		Stage stage = new Stage();
 		stage.setStageName("面试");
 		stage.setId(6);
 		int flag = stageMapper.updateByPrimaryKey(stage);
 		System.out.println(flag);
 	}
+
+	/**
+	 * 测试获取部门最新阶段
+	 */
+	@Test
+	public void testGetNewestStageByDepartmentId() {
+		int stageId = 6;
+		Stage stage = stageMapper.selectByPrimaryKey(stageId);
+		System.out.println(stage);
+	}
+
+
+
+
+
+
+
+
+
+
+
 
 }
