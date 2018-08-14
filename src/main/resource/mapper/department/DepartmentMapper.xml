@@ -11,4 +11,13 @@
         <result property="userId" column="user_id"/>
     </resultMap>
 
+    <update id="updateByExample" parameterType="Department">
+        update department set name = #{name}, logo_url = #{logoUrl}, introduction = #{introduction} where id = #{id}
+    </update>
+
+
+
+
+
+
 </mapper>

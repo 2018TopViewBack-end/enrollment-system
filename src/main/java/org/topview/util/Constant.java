@@ -19,4 +19,14 @@ public class Constant {
     public static final String SUBMIT_FAILED = "您已报名，请勿重复报名！";
 
     public static final String SUBMIT_SUCCEED = "报名成功！";
+
+    public static final String CAN_NOT_ADD_STAGE = "还有上一轮未审核的报名，无法开启下一轮";
+
+    public static final String ADD_FAIL = "新增阶段失败";
+
+    public static final String FAIL_TO_DELETE = "删除失败";
+
+    public static final String MODIFY_STAGE_FAIL = "修改招新阶段失败";
+
+    public static final String MODIFY_DEPARTMENT_FAIL= "修改部门失败";
 }

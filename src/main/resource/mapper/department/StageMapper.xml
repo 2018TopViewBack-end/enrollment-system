@@ -15,12 +15,12 @@
     </insert>
 
     <!--删除招新阶段-->
-    <delete id="deleteByExample" parameterType="int">
+    <delete id="deleteByPrimaryKey" parameterType="int">
         delete from stage where id = #{id}
     </delete>
 
     <!--查找出同一个部门的所有阶段-->
-    <select id="selectByExample" parameterType="int" resultMap="stage_map">
+    <select id="listStageByDepartmentId" parameterType="int" resultMap="stage_map">
         select * from stage where department_id = #{departmentId}
     </select>
 
@@ -29,6 +29,12 @@
         update stage set stage_name = #{stageName} where id = ${id}
     </update>
 
-
+    <!--通过主键获取部门-->
+    <select id="selectByPrimaryKey" parameterType="int" resultMap="stage_map">
+        select * from stage where id = #{id}
+    </select>
+    
+    
+    
 
 </mapper>
