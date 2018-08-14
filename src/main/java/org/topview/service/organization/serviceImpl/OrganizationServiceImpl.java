@@ -8,6 +8,7 @@ import org.topview.dao.department.DepartmentMapper;
 import org.topview.dao.organization.OrganizationMapper;
 import org.topview.dao.organization.UserMapper;
 import org.topview.entity.organization.bo.DepartmentAdminBo;
+import org.topview.entity.organization.bo.OrganizationBo;
 import org.topview.entity.organization.po.Organization;
 import org.topview.entity.organization.po.User;
 import org.topview.entity.organization.vo.OrganizationPhotoVo;
@@ -195,5 +196,15 @@ public class OrganizationServiceImpl implements OrganizationService {
         PageHelper.startPage(pageNum, pageSize);
         List<OrganizationPhotoVo> list = organizationMapper.getOrganizationPhotosByCategory(category);
         return new PageInfo<>(list);
+    }
+
+    /**
+     * 返回该状态下的所有社团
+     * @param status 状态码 0为待审核，1为可用，2为禁用
+     * @return 一个社团list
+     */
+    @Override
+    public List<OrganizationBo> selectOrganizationService(Integer status) {
+        return organizationMapper.selectOrganizationByStatus(status);
     }
 }

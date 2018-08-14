@@ -24,10 +24,9 @@ public class OrganizationServiceImplTest {
         organization.setId(1);
         organization.setApikey("apikey");
         organization.setLinkman("pan");
-        int result = organizationMapper.updateByPrimaryKey(organization);
-        System.out.println(result);
+        /*int result = organizationMapper.updateByPrimaryKey(organization);*/
+        /*System.out.println(result);*/
         System.out.println("**************");
         System.out.println(organization);
     }
-
 }

@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.topview.dao.organization.OrganizationMapper">
 
-    <resultMap id="organizationMap" type="Organization">
+    <resultMap id="organizationMap" type="org.topview.entity.organization.po.Organization">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="logoUrl" column="logo_url"/>
@@ -32,7 +32,7 @@
         </set>
         <where>id = #{id}</where>
     </update>
-    
+
     <select id="selectByPrimaryKey" parameterType="int" resultMap="organizationMap">
         SELECT
             id,name,logo_url,tel,
@@ -49,11 +49,23 @@
         SELECT status from organization WHERE id = #{id}
     </select>
 
-    <select id="getOrganizationPhotosByCategory" parameterType="String" resultType="OrganizationPhotoVo">
+    <select id="getOrganizationPhotosByCategory" parameterType="String"
+            resultType="org.topview.entity.organization.vo.OrganizationPhotoVo">
         SELECT
         name,logo_url as logoUrl,category
         FROM organization
         WHERE category = #{category}
     </select>
+
+    <select id="selectOrganizationByStatus" resultType="org.topview.entity.organization.bo.OrganizationBo">
+        select o.id id,o.name name,o.category category,o.introduction introduction,o.linkman linkman,
+               o.tel tel,u.id userId,u.wechat wechat from organization o, user u
+        where status=#{status} and o.admin_id=u.id order by o.id
+    </select>
+
+
+    <update id="updateOrganizationStatus">
+        update organization set status=#{status} where id=#{id}
+    </update>
 
 </mapper>

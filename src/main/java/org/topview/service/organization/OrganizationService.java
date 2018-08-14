@@ -2,11 +2,14 @@ package org.topview.service.organization;
 
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import org.topview.entity.organization.bo.OrganizationBo;
 import org.topview.entity.organization.po.Organization;
 import org.topview.entity.organization.po.User;
 import org.topview.entity.organization.bo.DepartmentAdminBo;
 import org.topview.entity.organization.vo.OrganizationPhotoVo;
 import org.topview.util.Result;
+
+import java.util.List;
 
 /**
  * @author Pan梓涵
@@ -84,4 +87,7 @@ public interface OrganizationService {
      * @return 获取的结果集
      */
     PageInfo<OrganizationPhotoVo> getOrganizationPhoto(int pageNum, int pageSize, String category);
+
+    List<OrganizationBo> selectOrganizationService(Integer status);
+
 }

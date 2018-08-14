@@ -7,5 +7,11 @@ import java.util.List;
 
 public interface ApplicationResultMapper extends BaseMapper<ApplicationResult, Integer> {
 
-//    List<ApplicationResult> listAppResultByStage(int stageId);
+    List<Integer> listSpecificAppId(int status, int stageId);
+
+    ApplicationResult checkResult(Integer applicationId); //根据appId获取结果
+
+    int handleApplication(int applicationId, int status, int stageId);//通过报名
+
+//    int selectMaxStageId(int applicationId);
 }

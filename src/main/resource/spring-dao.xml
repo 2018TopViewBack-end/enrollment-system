@@ -6,6 +6,7 @@
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context ">
 
+    <import resource="spring-shiro.xml"/>
     <!-- 引入配置文件 -->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:dbcp.properties" />
@@ -22,12 +23,14 @@ http://www.springframework.org/schema/context ">
         <property name="minIdle" value="${dbcp.minIdle}" />
         <property name="maxWait" value="${dbcp.maxWait}" />
     </bean>
+
     <!-- spring和MyBatis整合 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <!-- MyBatis的配置文件 -->
         <!--<property name="configLocation" value="classpath:conf.xml" />-->
-        <property name="typeAliasesPackage" value="org.topview.entity"/>
+        <property name="typeAliasesPackage" value="org.topview.entity.application,
+        org.topview.entity.department"/>
         <property name="mapperLocations" value="classpath:mapper/*/*.xml" />
         <property name="plugins">
             <array>
@@ -42,10 +45,13 @@ http://www.springframework.org/schema/context ">
             </array>
         </property>
     </bean>
+
     <!-- mapper批量扫描 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="org.topview.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
     <context:component-scan base-package="org.topview.service"/>
+    <bean class="org.topview.config.shiro.realm.SampleRealm" name="sampleRealm"/>
+
 </beans>

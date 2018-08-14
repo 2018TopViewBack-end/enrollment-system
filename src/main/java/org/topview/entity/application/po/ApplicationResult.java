@@ -26,6 +26,16 @@ public class ApplicationResult {
         this.endTime = endTime;
     }
 
+    @Override
+    public String toString() {
+        return "ApplicationResult{" +
+                "applicationId=" + applicationId +
+                ", stageId=" + stageId +
+                ", status=" + status +
+                ", endTime=" + endTime +
+                '}';
+    }
+
     public int getApplicationId() {
         return applicationId;
     }

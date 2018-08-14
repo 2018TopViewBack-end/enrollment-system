@@ -2,20 +2,20 @@ package org.topview.service.application;
 
 import org.springframework.stereotype.Service;
 import org.topview.entity.application.po.Application;
+import org.topview.util.Result;
 
 import java.util.List;
 
 @Service
 public interface ApplicationService {
 
-    int addApplication(Application application);
+    Result addApplication(Application application);
 
-//    int deleteApplication(int id);
-
-//    List<Application> listApplicationOfOrganization(int organizationId);
-
-//    List<Application> listApplicationOfDepartment(int departmentId, );
+    boolean checkApplication(String studentId , int departmentId);
 
     //选出特定阶段和部门的报名表
-    List<Application> listApplicationOf(int departmentId, int stageId);
+    List<Application> listApplicationOf(int status, int stageId);
+
+//    //查看是否还有上一轮未审核的报名，若有，则无法开启下一轮
+//    boolean checkApplicationToPass(int stageId);
 }

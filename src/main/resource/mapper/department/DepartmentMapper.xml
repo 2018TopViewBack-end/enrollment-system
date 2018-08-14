@@ -15,4 +15,32 @@
         <result property="userId" column="user_id"/>
     </resultMap>
 
+    <resultMap id="departmentVo_map" type="org.topview.entity.department.vo.DepartmentVo">
+        <result property="name" column="name"/>
+        <result property="logoUrl"  column="logo_url"/>
+        <result property="introduction" column="introduction"/>
+        <result property="messageNum" column="message_num"/>
+        <association property="user" column="user_id" select="org.topview.dao.organization.UserMapper.selectByPrimaryKey"/>
+    </resultMap>
+
+    <!--修改部门-->
+    <select id="selectByPrimaryKey" resultMap="department_map">
+        select * from department where id = #{pk}
+    </select>
+
+    <update id="updateByExample" parameterType="Department">
+        update department set name = #{name}, logo_url = #{logoUrl}, introduction = #{introduction} where id = #{id}
+    </update>
+
+    <!--新增部门-->
+    <insert id="insert" parameterType="Department">
+        insert into department (organization_id, name, logo_url, introduction) values (#{organizationId}, #{name},
+            #{logoUrl}, #{introduction})
+    </insert>
+
+    <select id="listDepartmentByOrganizationId" parameterType="int" resultMap="departmentVo_map">
+        select * from department where organization_id = #{id}
+    </select>
+
+
 </mapper>

@@ -1,12 +1,21 @@
 package org.topview.entity.organization.po;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
 
 /**
  * 用户实体类
  * @author Medwin。
  */
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    //0:正在审核
+    public static final Integer CHECKING = 0;
+    //1:正常
+    public static final Integer NORMAL = 1;
+    //2:禁止
+    public static final Integer FORBID = 2;
+
     private int id;
 
     private String username;

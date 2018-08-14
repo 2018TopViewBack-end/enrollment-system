@@ -11,7 +11,7 @@ import java.util.Map;
  * @author Medwin。
  */
 public class Organization {
-    private int id;
+    private Integer id;
 
     private String name;
 
