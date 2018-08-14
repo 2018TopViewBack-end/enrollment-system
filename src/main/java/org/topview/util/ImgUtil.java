@@ -3,6 +3,7 @@ package org.topview.util;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGEncodeParam;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReadParam;
@@ -10,17 +11,19 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Iterator;
+import java.util.UUID;
 
 /**
  * 裁剪、缩放图片工具类
  * @author CSDN 没有梦想-何必远方
  */
 public class ImgUtil {
+
     /**
      * * 图片文件读取
      *
@@ -386,5 +389,40 @@ public class ImgUtil {
                 iis.close();
             }
         }
+    }
+
+    /**
+     * @param file 文件对象
+     * @return  要保存到数据库的路径
+     */
+    public static String savePicture(MultipartFile file){
+        //图片的保存路径
+        String storageDir = "C:/pictures";
+        String filePath = null;
+        try (InputStream in = file.getInputStream()){
+            //获得文件类型
+            String contentType=file.getContentType();
+            //获得文件后缀名称
+            String imageName=contentType.substring(contentType.indexOf("/")+1);
+            // 使用UUID作为文件名
+            String newFileName = UUID.randomUUID().toString();
+            //\0000-1111-122222.后缀名
+            filePath  =  newFileName+"."+imageName;
+            // 3.根据配置信息得到文件的存储目录，根据存储目录和第二步生成的路径，构建File或者Path对象。
+            // 假设文件存储在D:\storage，那么完整的Path对象值就是： C:\piturces\0000-1111-122222.后缀名
+            Path path = Paths.get(storageDir, filePath);
+            File file1 = path.toFile();
+            File fileDir = file1.getParentFile();
+            if (!fileDir.exists()) {
+                // 文件目录如果不存在，直接创建目录
+                fileDir.mkdirs();
+            }
+                // 4.保存文件到硬盘
+                Files.copy(in, path);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return filePath;
     }
 }

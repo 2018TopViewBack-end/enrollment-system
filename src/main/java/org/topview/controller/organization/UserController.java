@@ -10,12 +10,12 @@ import org.topview.util.Result;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
+/*    @Autowired
     private UserService userService;
 
     @ResponseBody
     @RequestMapping("/checkOldPassword")
     public Result checkOldPassword() {
         return null;
-    }
+    }*/
 }

@@ -10,5 +10,8 @@
         <result property="messageNum" column="message_num"/>
         <result property="userId" column="user_id"/>
     </resultMap>
-
+    <insert id="saveDepartment" useGeneratedKeys="true" keyProperty="id">
+        insert into department(organization_id,name,logo_url,introduction,message_num,user_id)
+        values (#{organizationId},#{name},#{logoUrl},#{introduction},#{messageNum},#{userId})
+    </insert>
 </mapper>
