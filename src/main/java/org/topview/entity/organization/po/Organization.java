@@ -11,7 +11,7 @@ import java.util.Map;
  * @author Medwin。
  */
 public class Organization {
-    private int id;
+    private Integer id;
 
     private String name;
 
@@ -25,17 +25,13 @@ public class Organization {
 
     private String linkman; //联系人姓名
 
-    private List<Department> departments; //社团名下部门
-
-    private Map<String,String> pics; //key为标识，value为url
-
     private Integer status;           // 0 待审核,1 已通过，2 被封禁
 
     private String apikey;            //短信平台apikey
 
     private BigDecimal accountBalance;//短信平台剩余金额
 
-    private User organizationAdmin;
+    private Integer userId;
 
     public Organization() {
     }
@@ -96,22 +92,6 @@ public class Organization {
         this.linkman = linkman;
     }
 
-    public List<Department> getDepartments() {
-        return departments;
-    }
-
-    public void setDepartments(List<Department> departments) {
-        this.departments = departments;
-    }
-
-    public Map<String, String> getPics() {
-        return pics;
-    }
-
-    public void setPics(Map<String, String> pics) {
-        this.pics = pics;
-    }
-
     public Integer getStatus() {
         return status;
     }
@@ -136,15 +116,16 @@ public class Organization {
         this.accountBalance = accountBalance;
     }
 
-    public User getOrganizationAdmin() {
-        return organizationAdmin;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setOrganizationAdmin(User organizationAdmin) {
-        this.organizationAdmin = organizationAdmin;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    @Override
+
+    /*@Override
     public String toString() {
         return "Organization{" +
                 "id=" + id +
@@ -161,5 +142,5 @@ public class Organization {
                 ", accountBalance=" + accountBalance +
                 ", organizationAdmin=" + organizationAdmin +
                 '}';
-    }
+    }*/
 }
