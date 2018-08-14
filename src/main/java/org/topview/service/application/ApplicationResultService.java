@@ -9,9 +9,9 @@ import java.util.List;
 @Service
 public interface ApplicationResultService {
 
-    Result checkResult(String tel, int studentId); //查看报名状态
+    Result checkResult(String tel, String studentId); //查看报名结果
 
-    void applicationHandle(List<Integer> applicationIds, int status);//通过或拒绝报名
+    Result applicationHandle(List<Integer> applicationIds, int status, int stageId);//通过或拒绝报名
 
 
 }

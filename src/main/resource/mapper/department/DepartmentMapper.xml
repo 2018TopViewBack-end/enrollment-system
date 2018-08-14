@@ -11,4 +11,7 @@
         <result property="userId" column="user_id"/>
     </resultMap>
 
+    <select id="selectByPrimaryKey" resultMap="department_map">
+        select * from department where id = #{pk}
+    </select>
 </mapper>

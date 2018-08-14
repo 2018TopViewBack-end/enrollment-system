@@ -25,11 +25,13 @@ public class TestMessage {
         List<String> mobile = new ArrayList<String>();
 //        mobile.add("15521070771");
         mobile.add("15521079814");//清林
-        mobile.add("15521301561");
-        mobile.add("15521212294");//学委
-        mobile.add("18476977625");//上荣
-        mobile.add("15521055850");//zh
-        String text = "【邓哲睿】您购买的topview订单已成功消费，祝您生活愉快！";
+//        mobile.add("15521301561");
+//        mobile.add("15521212294");//学委
+//        mobile.add("18476977625");//上荣
+//        mobile.add("15521055850");//zh
+        String text = "【邓哲睿】清林同学你好，恭喜你通过了我们的一面，请于8月20到教一参加二面";
+
+
         MessageUtil.send(text,mobile);
 
 //     * @param apikey 成功注册后登录云片官网,进入后台可查看

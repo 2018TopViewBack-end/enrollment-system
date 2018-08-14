@@ -18,6 +18,4 @@ public interface ApplicationService {
 
 //    //查看是否还有上一轮未审核的报名，若有，则无法开启下一轮
 //    boolean checkApplicationToPass(int stageId);
-
-    //批量通过一轮报名
 }
