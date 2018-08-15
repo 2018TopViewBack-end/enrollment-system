@@ -22,6 +22,19 @@ public interface UserService {
     User login(String username);
 
     /**
+     * 是否存在同名的user
+     * @param user
+     * @return
+     */
+    Boolean isUserExist(User user);
+
+    /**
+     * @param user
+     * @return 返回带有userId的user对象
+     */
+    Result register(User user);
+
+    /**
      * 封装该用户对应的用户与角色信息
      * @param roleName 角色名
      * @param user 用户信息

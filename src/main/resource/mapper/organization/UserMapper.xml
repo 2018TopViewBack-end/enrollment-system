@@ -17,12 +17,12 @@
         id, username, password, tel, wechat, role_id, status
     </sql>
 
-    <insert id="insertUser" parameterType="org.topview.entity.organization.po.User" useGeneratedKeys="true">
+    <insert id="insertUser" parameterType="org.topview.entity.organization.po.User" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO user (username,password,tel,wechat,role_id,status)
         VALUES (#{username},#{password},#{tel},#{wechat},#{roleId},#{status})
     </insert>
-    <select id="login" resultType="org.topview.entity.organization.po.User"
-            parameterType="org.topview.entity.organization.po.User">
+
+    <select id="selectUserByUsername" resultType="org.topview.entity.organization.po.User" parameterType="org.topview.entity.organization.po.User">
         SELECT
         <include refid="Base_Column_List" />
         FROM user

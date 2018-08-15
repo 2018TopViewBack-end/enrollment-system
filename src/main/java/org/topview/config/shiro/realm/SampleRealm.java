@@ -4,7 +4,6 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
@@ -15,7 +14,6 @@ import org.topview.entity.organization.po.User;
 import org.topview.service.organization.UserService;
 import org.topview.util.TokenManager;
 
-import java.util.Date;
 import java.util.Set;
 
 /**
@@ -42,21 +40,22 @@ public class SampleRealm extends AuthorizingRealm {
         User user = userService.login(token.getUsername());
         if (null == user) {
             throw new AccountException("帐号或密码不正确！");
-            /**
-             * 如果用户的status为禁用。那么就抛出<code>DisabledAccountException</code>
-             */
+
         } else if (User.FORBID.equals(user.getStatus())) {
             throw new DisabledAccountException("帐号已经禁止登录！");
-        } else if (User.CHECKING.equals(user.getStatus())){
+
+        } else if (User.CHECKING.equals(user.getStatus())) {
             throw new DisabledAccountException("帐号正在审核中！");
+
         }
 
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo
                 (user, user.getPassword(), "customRealm");
-        System.out.println("加盐啦");
+
         // 加盐值
         authenticationInfo.setCredentialsSalt(ByteSource.Util.bytes(user.getUsername()));
         return authenticationInfo;
+
     }
 
     /**

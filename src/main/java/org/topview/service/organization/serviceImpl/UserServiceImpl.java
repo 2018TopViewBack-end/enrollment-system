@@ -30,7 +30,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User login(String username) {
-        return userMapper.login(username);
+        return userMapper.selectUserByUsername(username);
+    }
+
+    @Override
+    public Boolean isUserExist(User user) {
+        return userMapper.selectUserByUsername(user.getUsername()) != null;
+    }
+
+
+    @Override
+    public Result register(User user) {
+        Integer num = userMapper.insertUser(user);
+        System.out.println("register" + user);
+        if (num == 1) {
+            return Result.success(user);
+        }
+        return Result.fail("对不起,注册失败");
     }
 
     @Override
@@ -58,6 +74,8 @@ public class UserServiceImpl implements UserService {
             case Constant.ORGANIZATION:
                 //存储社团信息
                 map.put(Constant.ORGANIZATION, organizationService.getOrganizationIdByAdminId(user.getId()));
+                //存储社团首页URL
+                map.put("url","/organization/ ");
                 break;
             case Constant.DEPARTMENT:
                 //存储部门信息
