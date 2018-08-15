@@ -24,8 +24,8 @@ public class Result<T> {
         return new Result(true, Constant.OK);
     }
 
-    public static Result success(Object data) {
-        return new Result(true, Constant.OK, data);
+    public static Result<Object> success(Object data) {
+        return new Result<>(true, Constant.OK, data);
     }
 
     public static Result fail(String msg) {
@@ -33,7 +33,7 @@ public class Result<T> {
     }
 
     public static Result fail(String msg, Object data) {
-        return new Result(false, msg, data);
+        return new Result<>(false, msg, data);
     }
 
     public boolean isSuccess() {

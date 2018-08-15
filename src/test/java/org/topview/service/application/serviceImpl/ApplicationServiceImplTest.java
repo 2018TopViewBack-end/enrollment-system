@@ -10,7 +10,6 @@ import org.topview.entity.application.po.Application;
 import org.topview.service.application.ApplicationResultService;
 import org.topview.service.application.ApplicationService;
 
-import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring-dao.xml","classpath:spring-mvc.xml"})
@@ -29,8 +28,8 @@ public class ApplicationServiceImplTest {
         application.setDepartmentId(1);
         application.setOrganizationId(1);
         application.setStuId("3117001440");
-        application.setGender("male");
-        application.setAcademy("自动化");
+        application.setGender(0);
+        application.setAcademy("自动化学院");
         application.setMajorAndClass("物联网五班");
         application.setAdjustable(true);
         application.setDormitory("西九512");
@@ -43,11 +42,11 @@ public class ApplicationServiceImplTest {
 
     @Test
     public void listApplicationOf() {
-        applicationService.listApplicationOf(0,1);
+        System.out.println(applicationService.listApplicationOf(1,2));
     }
 
     @Test
     public void checkApplication() {
-        applicationService.checkApplication("3117001440",1);
+        System.out.println(applicationService.checkApplication("3117001440",1));
     }
 }

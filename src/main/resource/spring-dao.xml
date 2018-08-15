@@ -32,6 +32,18 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
         <property name="typeAliasesPackage" value="org.topview.entity.application,org.topview.entity.organization,
         org.topview.entity.department"/>
         <property name="mapperLocations" value="classpath:mapper/*/*.xml" />
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <!-- 这里的几个配置主要演示如何使用，如果不理解，一定要去掉下面的配置 -->
+                    <property name="properties">
+                        <value>
+                            helperDialect=mysql
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
     </bean>
 
     <!-- mapper批量扫描 -->

@@ -10,6 +10,7 @@ import org.topview.service.department.StageService;
 import org.topview.util.Result;
 
 @Controller
+@RequestMapping("/department/stage")
 public class StageController {
 
 	@Autowired

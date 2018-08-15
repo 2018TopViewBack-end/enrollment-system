@@ -1,10 +1,8 @@
 package org.topview.service.application.serviceImpl;
 
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.topview.dao.application.ApplicationMapper;
 import org.topview.dao.application.ApplicationResultMapper;
@@ -19,9 +17,7 @@ import org.topview.util.Constant;
 import org.topview.util.Result;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -45,7 +41,7 @@ public class ApplicationResultServiceImpl implements ApplicationResultService {
     private StageMapper stageMapper;
 
     @Override
-    public Result checkResult(String tel, int studentId) {
+    public Result checkResult(String tel, String studentId) {
         //取得该学生所有申请
         List<Application> applications = applicationMapper.getApplication(tel, studentId);
         List<ApplicationResultVo> results = new ArrayList<>();
@@ -55,37 +51,42 @@ public class ApplicationResultServiceImpl implements ApplicationResultService {
             int departmentId = application.getDepartmentId();
 //            int newestStageId = departmentMapper.getNewestStageByDepartmentId(departmentId);
             //获取最新一轮结果
-            int newestStageId = applicationResultMapper.selectMaxStageId(application.getId());
+//            int newestStageId = applicationResultMapper.selectMaxStageId(application.getId());
+            //获取stageid最大那个的result
             ApplicationResult applicationResult = applicationResultMapper.checkResult(application.getId());
 
-            if (newestStageId == applicationResult.getStageId()){
-                ApplicationResultVo applicationResultVo= new ApplicationResultVo();
-                //复制和设置vo字段值
-                BeanUtils.copyProperties(application,applicationResultVo);
-                BeanUtils.copyProperties(applicationResult,applicationResultVo);
+//            if (newestStageId == applicationResult.getStageId()){
+            ApplicationResultVo applicationResultVo= new ApplicationResultVo();
+            //复制和设置vo字段值
+            BeanUtils.copyProperties(application,applicationResultVo);
+            BeanUtils.copyProperties(applicationResult,applicationResultVo);
 
-                applicationResultVo.setOrganizationName(organizationMapper.selectByPrimaryKey(application.getOrganizationId()).getName());
-                applicationResultVo.setDepartmentName(departmentMapper.selectByPrimaryKey(application.getDepartmentId()).getName());
-                String stageName = stageMapper.selectByPrimaryKey(applicationResult.getStageId()).getStageName();
-                applicationResultVo.setStage(stageName);
+            String organizationName = organizationMapper.selectByPrimaryKey(application.getOrganizationId()).getName();
+            String departmentName = departmentMapper.selectByPrimaryKey(application.getDepartmentId()).getName();
 
-                if (0 == applicationResult.getStatus()){
-                    applicationResultVo.setResult(Constant.TO_BE_DECIDED);
-                } else if (1 == applicationResult.getStatus()){
-                    applicationResultVo.setResult(Constant.SUBMIT_SUCCEED);
-                } else {
-                    applicationResultVo.setResult(Constant.SUBMIT_FAILED);
-                }
-                results.add(applicationResultVo);
+            applicationResultVo.setOrganizationName(organizationName);
+            applicationResultVo.setDepartmentName(departmentName);
+            String stageName = stageMapper.selectByPrimaryKey(applicationResult.getStageId()).getStageName();
+            applicationResultVo.setStage(stageName);
+
+            if (0 == applicationResult.getStatus()){
+                applicationResultVo.setResult(Constant.TO_BE_DECIDED);
+            } else if (1 == applicationResult.getStatus()){
+                applicationResultVo.setResult(Constant.SUBMIT_SUCCEED);
+            } else {
+                applicationResultVo.setResult(Constant.SUBMIT_FAILED);
             }
+            results.add(applicationResultVo);
+//            }
         }
         return Result.success(results);
     }
 
     @Override
-    public void applicationHandle(List<Integer> applicationIds, int status) {
+    public Result applicationHandle(List<Integer> applicationIds, int status, int stageId) {
         for (Integer id : applicationIds){
-            applicationResultMapper.handleApplication(id,status);
+            applicationResultMapper.handleApplication(id , status, stageId);
         }
+        return Result.success();
     }
 }

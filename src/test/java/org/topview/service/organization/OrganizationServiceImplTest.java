@@ -7,7 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.topview.dao.organization.OrganizationMapper;
-import org.topview.entity.organization.po.OrganizationPo;
+import org.topview.entity.organization.po.Organization;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -20,7 +20,7 @@ public class OrganizationServiceImplTest {
 
     @Test
     public void testUpdateOrganization() {
-        OrganizationPo organization = new OrganizationPo();
+        Organization organization = new Organization();
         organization.setId(1);
         organization.setApikey("apikey");
         organization.setLinkman("pan");

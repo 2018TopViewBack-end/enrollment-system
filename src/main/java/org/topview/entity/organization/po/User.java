@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 /**
  * 用户实体类
- *
  * @author Medwin。
  */
 public class User implements Serializable {
@@ -30,19 +29,6 @@ public class User implements Serializable {
     private int roleId;
 
     private int status;
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", tel='" + tel + '\'' +
-                ", wechat='" + wechat + '\'' +
-                ", roleId=" + roleId +
-                ", status=" + status +
-                '}';
-    }
 
     public User() {
     }
@@ -79,20 +65,20 @@ public class User implements Serializable {
         this.tel = tel;
     }
 
-    public String getWechat() {
-        return wechat;
-    }
-
-    public void setWechat(String wechat) {
-        this.wechat = wechat;
-    }
-
     public int getRoleId() {
         return roleId;
     }
 
     public void setRoleId(int roleId) {
         this.roleId = roleId;
+    }
+
+    public String getWechat() {
+        return wechat;
+    }
+
+    public void setWechat(String wechat) {
+        this.wechat = wechat;
     }
 
     public int getStatus() {
@@ -103,4 +89,16 @@ public class User implements Serializable {
         this.status = status;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", tel='" + tel + '\'' +
+                ", wechat='" + wechat + '\'' +
+                ", roleId=" + roleId +
+                ", status=" + status +
+                '}';
+    }
 }

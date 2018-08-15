@@ -1,12 +1,16 @@
 package org.topview.entity.organization.po;
 
+import org.topview.entity.department.po.Department;
+
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 社团实体类
  * @author Medwin。
  */
-public class OrganizationPo {
+public class Organization {
     private Integer id;
 
     private String name;
@@ -27,9 +31,9 @@ public class OrganizationPo {
 
     private BigDecimal accountBalance;//短信平台剩余金额
 
-    private Integer userId;
+    private int adminId;
 
-    public OrganizationPo() {
+    public Organization() {
     }
 
     public int getId() {
@@ -112,11 +116,28 @@ public class OrganizationPo {
         this.accountBalance = accountBalance;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public int getAdminId() {
+        return adminId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setAdminId(int userId) {
+        this.adminId = userId;
+    }
+
+    @Override
+    public String toString() {
+        return "Organization{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", logoUrl='" + logoUrl + '\'' +
+                ", tel='" + tel + '\'' +
+                ", category='" + category + '\'' +
+                ", introduction='" + introduction + '\'' +
+                ", linkman='" + linkman + '\'' +
+                ", status=" + status +
+                ", apikey='" + apikey + '\'' +
+                ", accountBalance=" + accountBalance +
+                ", adminId=" + adminId +
+                '}';
     }
 }

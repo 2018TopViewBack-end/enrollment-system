@@ -2,6 +2,7 @@ package org.topview.dao.organization;
 
 import org.apache.ibatis.annotations.Param;
 import org.topview.dao.BaseMapper;
+import org.topview.entity.organization.bo.DepartmentAdminBo;
 import org.topview.entity.organization.po.User;
 import java.util.Set;
 import java.util.List;
@@ -62,9 +63,53 @@ public interface UserMapper extends BaseMapper<User, Integer> {
     Integer updateUserStatus(@Param("status") Integer status, @Param("id") Integer id);
 
     /**
+     * 判断是否存在该username
+     * @param username 用户名
+     * @return 有返回1,否则返回0
+     */
+    int hasUsername(String username);
+
+    /**
+     * 添加部门管理员
+     * @param departmentAdminBo 部门管理员对象
+     * @return 添加成功返回1,否则返回0
+     */
+    int addDepartmentAdmin(DepartmentAdminBo departmentAdminBo);
+
+    /**
+     * 获取部门管理员的信息
+     * @param departmentId 部门id
+     * @return 查询到返回对应的user对象，否则返回null
+     */
+    User getDepartmentAdmin(Integer departmentId);
+
+    /**
+     * 修改部门管理员的信息
+     * @param user 部门管理员对象
+     * @return 修改成功返回1,否则返回0
+     */
+    int updateDepartmentAdmin(User user);
+
+    /**
+     * 删除部门管理员的信息
+     * @param departmentId 部门id
+     * @return 删除成功返回1,否则返回0
+     */
+    int deleteDepartmentAdmin(Integer departmentId);
+
+    /**
      * 通过社团id获取所有部门的userId
      * @param organizationId 社团id
      * @return 该社团下的部门管理员 userIdList
      */
     List<Integer> selectDepartmentUserId(Integer organizationId);
+
+    /**
+     * 通过userId获得user
+     * @param userId
+     * @return
+     */
+    @Override
+    User selectByPrimaryKey(Integer userId);
+
 }

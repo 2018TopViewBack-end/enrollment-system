@@ -26,6 +26,7 @@
     </bean>
     <context:component-scan base-package="org.topview.controller"/>
     <aop:aspectj-autoproxy proxy-target-class="true"/>
+
     <!-- 解决跨域请求问题，spring版本需4.2以上 -->
     <mvc:cors>
         <mvc:mapping path="/**/**"
