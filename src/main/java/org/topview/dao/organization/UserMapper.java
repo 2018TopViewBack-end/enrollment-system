@@ -17,7 +17,7 @@ public interface UserMapper extends BaseMapper<User, Integer> {
      * @param user 包含该填写的所有信息
      * @return 含id的user信息
      */
-    User insertUser(User user);
+    Integer insertUser(User user);
 
     /**
      * 用户登录验证
@@ -25,7 +25,7 @@ public interface UserMapper extends BaseMapper<User, Integer> {
      * @param username 用户名
      * @return 包含所有信息的user
      */
-    User login(String username);
+    User selectUserByUsername(String username);
 
     /**
      * 通过userId查看用户对应的角色

@@ -73,6 +73,16 @@ public class TokenManager {
 
 
     /**
+     * 从当前登录用户的Session里取值
+     *
+     * @param key
+     * @return
+     */
+    public static Object getVal2Session(Object key) {
+        return getSession().getAttribute(key);
+    }
+
+    /**
      * 登录
      *
      * @param user
@@ -102,4 +112,6 @@ public class TokenManager {
     public static void logout() {
         SecurityUtils.getSubject().logout();
     }
+
+
 }
