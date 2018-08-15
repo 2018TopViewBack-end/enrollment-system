@@ -2,67 +2,66 @@ package org.topview.entity.department.vo;
 
 import org.topview.entity.organization.po.User;
 
-import java.util.Map;
-
 public class DepartmentVo {
 
-    private String departmentName;
+	private String name;
 
-    private String organizationName;
+	private String logoUrl;
 
-    private String introduction;
+	private String introduction;
 
-    private Map<String, String> pics;//key为图片标识，value为url
+	private Integer messageNum;//发送短信数量，便于统计
 
-    private Integer messageNum;//发送短信数量，便于统计
+	private User user;//部门管理员
 
-    private User user;//部门管理员
+	public String getName() {
+		return name;
+	}
 
-    public String getDepartmentName() {
-        return departmentName;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
-    }
+	public String getLogoUrl() {
+		return logoUrl;
+	}
 
-    public String getOrganizationName() {
-        return organizationName;
-    }
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
+	}
 
-    public void setOrganizationName(String organizationName) {
-        this.organizationName = organizationName;
-    }
+	public String getIntroduction() {
+		return introduction;
+	}
 
-    public String getIntroduction() {
-        return introduction;
-    }
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
 
-    public void setIntroduction(String introduction) {
-        this.introduction = introduction;
-    }
+	public Integer getMessageNum() {
+		return messageNum;
+	}
 
-    public Integer getMessageNum() {
-        return messageNum;
-    }
+	public void setMessageNum(Integer messageNum) {
+		this.messageNum = messageNum;
+	}
 
-    public void setMessageNum(Integer messageNum) {
-        this.messageNum = messageNum;
-    }
+	public User getUser() {
+		return user;
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Map<String, String> getPics() {
-        return pics;
-    }
-
-    public void setPics(Map<String, String> pics) {
-        this.pics = pics;
-    }
+	@Override
+	public String toString() {
+		return "DepartmentVo{" +
+				"name='" + name + '\'' +
+				", logoUrl='" + logoUrl + '\'' +
+				", introduction='" + introduction + '\'' +
+				", messageNum=" + messageNum +
+				", user=" + user +
+				'}';
+	}
 }

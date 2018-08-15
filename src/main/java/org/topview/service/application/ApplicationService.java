@@ -16,6 +16,6 @@ public interface ApplicationService {
     //选出特定阶段和部门的报名表
     List<Application> listApplicationOf(int status, int stageId);
 
-    //查看是否还有上一轮未审核的报名，若有，则无法开启下一轮
-    boolean checkApplicationToPass(int stageId);
+//    //查看是否还有上一轮未审核的报名，若有，则无法开启下一轮
+//    boolean checkApplicationToPass(int stageId);
 }

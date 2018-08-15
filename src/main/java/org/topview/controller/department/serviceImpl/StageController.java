@@ -1,4 +1,4 @@
-package org.topview.controller.department;
+package org.topview.controller.department.serviceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +10,7 @@ import org.topview.service.department.StageService;
 import org.topview.util.Result;
 
 @Controller
+@RequestMapping("/department/stage")
 public class StageController {
 
 	@Autowired

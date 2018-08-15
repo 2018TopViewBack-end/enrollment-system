@@ -1,4 +1,4 @@
-package org.topview.controller.department;
+package org.topview.controller.department.serviceImpl;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +26,7 @@ public class StageControllerTest {
 		Stage stage = new Stage();
 		stage.setStageName("三轮");
 		stage.setDepartmentId(1);
+		stage.setId(20);
 		System.out.println("插入前id：" + stage.getId());
 		Result result = stageService.addStage(stage);
 		System.out.println("插入后id：" + stage.getId() + " " + result.getMsg());

@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress MybatisMapperXmlInspection -->
 <mapper namespace="org.topview.dao.application.ApplicationMapper">
 
 
-    <!--<select id="asdasfg" parameterType="Application">-->
+    <select id="getApplication" resultType="Application">
+        select id,department_id departmentId, orginaziton_id organizationId, name stuName, gender gender, academy academy,
+        major_and_class majorAndClass, wechat wechat, tel tel,student_number stuId,dormitory dormitory,
+        is_adjust adjustable,introduction introduction
+        from application where tel = #{param1} and student_number = #{param2}
+    </select>
+    
+    <select id="checkApplication" resultType="integer">
+        select id from application where student_number = #{param1} and department_id = #{param2}
+    </select>
 
+    <select id="selectByPrimaryKey" resultType="Application">
+        select id,department_id departmentId, orginaziton_id organizationId, name stuName, gender gender, academy academy,
+            major_and_class majorAndClass, wechat wechat, tel tel,student_number stuId,dormitory dormitory,is_adjust adjustable,introduction introduction
+        from application where id = #{applicationId}
+    </select>
 
-    <!--</select>-->
+    <insert id="insert" parameterType="Application">
+       insert into application(department_id, orginaziton_id, name, gender, academy, major_and_class, wechat, tel, student_number, dormitory, is_adjust, introduction)
+               values (#{departmentId}, #{organizationId}, #{stuName}, #{gender}, #{academy}, #{majorAndClass}, #{wechat}, #{tel},
+               #{stuId}, #{dormitory}, #{adjustable}, #{introduction})
+    </insert>
 </mapper>

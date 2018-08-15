@@ -1,4 +1,4 @@
-package org.topview.service.department;
+package org.topview.controller.department.serviceImpl;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -6,30 +6,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.topview.dao.department.DepartmentMapper;
 import org.topview.entity.department.bo.DepartmentBo;
 import org.topview.entity.department.po.Department;
-import org.topview.entity.department.vo.DepartmentVo;
-
-import java.util.List;
 import org.topview.service.department.DepartmentService;
+import org.topview.util.Result;
 
+import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring-dao.xml","classpath:spring-mvc.xml"})
 @WebAppConfiguration("src/main/resources")
-public class DepartmentServiceImplTest {
+public class DepartmentControllerTest {
 
 	@Autowired
-	private DepartmentMapper departmentMapper;
+	private DepartmentService departmentService;
 
+    /**
+     * 测试保存部门信息
+     */
+    @Test
+    public void saveDepartment() {
+        Department department = new Department(1,"jdf","fsd","dfjsk",2,2);
+        departmentService.saveDepartment(department);
+    }
 	@Test
 	public void testUpdateDepartment() {
 		DepartmentBo department = new DepartmentBo();
 		department.setId(1);
 		department.setName("公关部");
-		department.setIntroduction("略略略");
-		int flag = departmentMapper.updateByExample(department);
-		System.out.println(flag);
+		department.setIntroduction("啦啦啦");
+		Result result = departmentService.updateDepartment(department);
+		System.out.println(result.getMsg());
 	}
 
 	@Test
@@ -38,25 +44,15 @@ public class DepartmentServiceImplTest {
 		department.setIntroduction("777");
 		department.setLogoUrl("666.jpg");
 		department.setOrganizationId(1);
-		department.setName("前端");
-		int flag = departmentMapper.insert(department);
-		System.out.println(flag);
+		department.setName("安卓");
+		Result result = departmentService.addDepartment(department);
+		System.out.println(result.getMsg());
 	}
 
 	@Test
-	public void testListDepartmentByOrganizationId() {
+	public void testGetOrganizationDepartment() {
 		int ogId = 1;
-		List<DepartmentVo> departments = departmentMapper.listDepartmentByOrganizationId(ogId);
-		for (DepartmentVo department : departments){
-			System.out.println(department);
-		}
+		Result result = departmentService.listDepartmentByOrganizationId(ogId);
+		System.out.println(result.getData());
 	}
-    @Autowired
-    private DepartmentService departmentService;
-    @Test
-    public void saveDepartment() {
-        /*Department department = new Department(1,"dsfs","dfsa","fdsakl",12,1);
-        departmentService.saveDepartment(department);
-        System.out.println(department);*/
-    }
 }
