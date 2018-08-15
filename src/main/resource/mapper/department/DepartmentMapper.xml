@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.topview.dao.department.DepartmentMapper">
+
+    <update id="updateDepartmentAdmin">
+        UPDATE department SET user_id = #{userId} WHERE id = #{departmentId}
+    </update>
     <resultMap id="department_map" type="Department">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
@@ -15,7 +19,7 @@
         values (#{organizationId},#{name},#{logoUrl},#{introduction},#{messageNum},#{userId})
     </insert>
 
-    <resultMap id="departmentVo_map" type="DepartmentVo">
+    <resultMap id="departmentVo_map" type="org.topview.entity.department.vo.DepartmentVo">
         <result property="name" column="name"/>
         <result property="logoUrl"  column="logo_url"/>
         <result property="introduction" column="introduction"/>
@@ -34,8 +38,7 @@
 
     <!--新增部门-->
     <insert id="insert" parameterType="Department">
-        insert into department (organization_id, name, logo_url, introduction) values (#{organizationId}, #{name},
-            #{logoUrl}, #{introduction})
+        insert into department (organization_id, name, logo_url, introduction) values (#{organizationId}, #{name},#{logoUrl}, #{introduction})
     </insert>
 
     <select id="listDepartmentByOrganizationId" parameterType="int" resultMap="departmentVo_map">

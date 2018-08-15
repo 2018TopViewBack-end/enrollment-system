@@ -27,28 +27,24 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 	@Override
 	public Result addDepartment(Department department) {
-		int flag = departmentMapper.insert(department);
-		if (flag != 0) {
-			return Result.success();
+		String filePath = department.getLogoUrl();
+		if (filePath != null) {
+			int flag = departmentMapper.insert(department);
+			if (flag != 0) {
+				return Result.success(department);
+			}
+			return Result.fail(Constant.ADD_DEPARTMENT_FAIL);
+		} else {
+			return Result.fail(Constant.ADD_DEPARTMENT_FAIL);
 		}
-		return Result.fail(Constant.ADD_DEPARTMENT_FAIL);
 	}
 
 	@Override
-	public Result listDepartmentByOrganizationId(int organizationId) {
+	public Result listDepartmentByOrganizationId ( int organizationId){
 		List<DepartmentVo> departments = departmentMapper.listDepartmentByOrganizationId(organizationId);
 		if (departments.size() != 0) {
 			return Result.success(departments);
 		}
 		return Result.fail(Constant.EMPTY_DEPARTMENT);
 	}
-
-	/**
-	 *  部门申请时，保存部门信息
-	 * @param department
-	 */
-    @Override
-    public void saveDepartment(Department department) {
-         departmentMapper.saveDepartment(department);
-    }
 }

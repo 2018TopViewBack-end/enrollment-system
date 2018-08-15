@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.topview.dao.department.StageMapper">
 
-    <resultMap id="stage_map" type="Stage">
+    <resultMap id="stage_map" type="org.topview.entity.department.po.Stage">
         <id property="id" column="id"/>
         <result property="stageName" column="stage_name"/>
         <result property="departmentId"  column="department_id"/>

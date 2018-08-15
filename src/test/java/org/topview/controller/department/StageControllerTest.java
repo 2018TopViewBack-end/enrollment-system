@@ -1,4 +1,4 @@
-package org.topview.controller.department.serviceImpl;
+package org.topview.controller.department;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

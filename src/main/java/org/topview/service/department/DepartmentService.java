@@ -29,9 +29,4 @@ public interface DepartmentService {
 	 */
 	Result listDepartmentByOrganizationId(int organizationId);
 
-    /**
-     * 部门报名时保存部门的信息
-     * @param department
-     */
-    void saveDepartment(Department department);
 }

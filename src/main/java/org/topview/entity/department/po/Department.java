@@ -15,9 +15,15 @@ public class Department {
 
     private String introduction;
 
-    private Integer messageNum;//发送短信数量，便于统计
+    /**
+     * 发送短信数量,便于统计
+     */
+    private Integer messageNum;
 
-    private int userId;//部门管理员id
+    /**
+     * 部门管理员id
+     */
+    private int userId;
 
     public Department() {
     }

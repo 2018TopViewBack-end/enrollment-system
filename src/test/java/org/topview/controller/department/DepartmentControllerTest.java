@@ -1,4 +1,4 @@
-package org.topview.controller.department.serviceImpl;
+package org.topview.controller.department;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +26,7 @@ public class DepartmentControllerTest {
     @Test
     public void saveDepartment() {
         Department department = new Department(1,"jdf","fsd","dfjsk",2,2);
-        departmentService.saveDepartment(department);
+        departmentService.addDepartment(department);
     }
 	@Test
 	public void testUpdateDepartment() {

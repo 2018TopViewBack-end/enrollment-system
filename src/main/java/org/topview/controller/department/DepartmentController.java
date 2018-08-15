@@ -1,4 +1,4 @@
-package org.topview.controller.department.serviceImpl;
+package org.topview.controller.department;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,21 +24,15 @@ public class DepartmentController {
      * @param department  要保存的部门对象
      * @return Result
      */
-    @PostMapping("/saveDepartment")
+    @RequestMapping("/saveDepartment")
     @ResponseBody
     public Result saveDepartment(@RequestParam(value = "file",required = false) MultipartFile file,
                                  Department department
     ) {
         //接收返回的要保存到数据库的路径
         String filePath = ImgUtil.savePicture(file);
-        if(filePath !=null){
-            department.setLogoUrl(filePath);
-            departmentService.saveDepartment(department);
-            return Result.success(department);
-        }else {
-            return Result.fail("上传图片失败");
-        }
-
+        department.setLogoUrl(filePath);
+       return departmentService.addDepartment(department);
     }
 	/**
 	 * 修改部门信息

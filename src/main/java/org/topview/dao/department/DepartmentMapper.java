@@ -1,5 +1,6 @@
 package org.topview.dao.department;
 
+import org.apache.ibatis.annotations.Param;
 import org.topview.dao.BaseMapper;
 import org.topview.entity.department.bo.DepartmentBo;
 import org.topview.entity.department.po.Department;
@@ -9,6 +10,15 @@ import java.util.List;
 
 public interface DepartmentMapper extends BaseMapper<Department, Integer> {
 
+    /**
+     * 更新部门管理员
+     * @param userId 部门管理员id
+     * @param departmentId 部门id
+     * @return 更新成功返回1,否则返回0
+     */
+    int updateDepartmentAdmin(@Param("userId") int userId, @Param("departmentId") int departmentId);
+
+
 	/**
 	 * 修改部门信息
 	 * @param departmentBo
@@ -17,10 +27,11 @@ public interface DepartmentMapper extends BaseMapper<Department, Integer> {
 	int updateByExample(DepartmentBo departmentBo);
 
 	/**
-	 * 新增部门
+	 * 部门申请时，保存部门信息
 	 * @param department
 	 * @return
 	 */
+	@Override
 	int insert(Department department);
 
 	/**
@@ -30,9 +41,4 @@ public interface DepartmentMapper extends BaseMapper<Department, Integer> {
 	 */
 	List<DepartmentVo> listDepartmentByOrganizationId(int organizationId);
 
-    /**
-     * 部门申请时，保存部门信息
-     * @param department
-     */
-    void saveDepartment(Department department);
 }

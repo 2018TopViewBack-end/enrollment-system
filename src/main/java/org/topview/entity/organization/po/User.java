@@ -1,10 +1,21 @@
 package org.topview.entity.organization.po;
 
+import java.io.Serializable;
+
 /**
  * 用户实体类
  * @author Medwin。
  */
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    //0:正在审核
+    public static final Integer CHECKING = 0;
+    //1:正常
+    public static final Integer NORMAL = 1;
+    //2:禁止
+    public static final Integer FORBID = 2;
+
     private int id;
 
     private String username;
@@ -13,23 +24,13 @@ public class User {
 
     private String tel;
 
-    private String email;
+    private String wechat;
 
     private int roleId;
 
-    public User() {
-    }
+    private int status;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", tel='" + tel + '\'' +
-                ", email='" + email + '\'' +
-                ", roleId=" + roleId +
-                '}';
+    public User() {
     }
 
     public int getId() {
@@ -64,14 +65,6 @@ public class User {
         this.tel = tel;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public int getRoleId() {
         return roleId;
     }
@@ -80,5 +73,32 @@ public class User {
         this.roleId = roleId;
     }
 
+    public String getWechat() {
+        return wechat;
+    }
 
+    public void setWechat(String wechat) {
+        this.wechat = wechat;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", tel='" + tel + '\'' +
+                ", wechat='" + wechat + '\'' +
+                ", roleId=" + roleId +
+                ", status=" + status +
+                '}';
+    }
 }

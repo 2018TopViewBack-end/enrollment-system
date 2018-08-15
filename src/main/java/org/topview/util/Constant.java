@@ -38,6 +38,23 @@ public class Constant {
 
     public static final String MODIFY_STAGE_FAIL = "修改招新阶段失败";
 
+    public static class OrganizationCategory {
+        public static final String COLLEGE = "校级";
+        public static final String ACADEMY = "院级";
+        public static final String INTERESTS = "兴趣类";
+    }
+
+    public static class OrganizationStatus {
+        public static final int DOWNLINE = 0;
+        public static final int ONLINE = 1;
+        public static final int FORBIDDEN = 2;
+    }
+
+    public static class Page {
+        public static final int DEFAULT_PAGE_NUM = 0;
+        public static final int PAGE_SIZE = 8;
+    }
+
     public static final String MODIFY_DEPARTMENT_FAIL= "修改部门失败";
 
     public static final String ADD_DEPARTMENT_FAIL = "新增部门失败";

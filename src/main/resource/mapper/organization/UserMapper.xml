@@ -17,11 +17,12 @@
         id, username, password, tel, wechat, role_id, status
     </sql>
 
-    <insert id="insertUser" parameterType="org.topview.entity.organization.po.User" useGeneratedKeys="true">
+    <insert id="insertUser" parameterType="org.topview.entity.organization.po.User" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO user (username,password,tel,wechat,role_id,status)
         VALUES (#{username},#{password},#{tel},#{wechat},#{roleId},#{status})
     </insert>
-    <select id="login" resultType="org.topview.entity.organization.po.User" parameterType="org.topview.entity.organization.po.User">
+
+    <select id="selectUserByUsername" resultType="org.topview.entity.organization.po.User" parameterType="org.topview.entity.organization.po.User">
         SELECT
         <include refid="Base_Column_List" />
         FROM user
@@ -35,6 +36,45 @@
     <update id="updatePassword" >
         update user set password=md5(#{password}) where id=#{id}
     </update>
+
+    <insert id="addDepartmentAdmin"
+            parameterType="org.topview.entity.organization.bo.DepartmentAdminBo"
+            keyProperty="user.id"
+            useGeneratedKeys="true">
+        INSERT INTO
+        user(username, password, tel, wechat, role_id, status)
+        VALUE
+        (#{user.username},#{user.password},#{user.tel},#{user.wechat},#{user.roleId},#{user.status});
+    </insert>
+
+    <select id="hasUsername" parameterType="String" resultType="Integer">
+        SELECT COUNT(*) FROM user WHERE username = #{username}
+    </select>
+
+    <select id="getDepartmentAdmin"
+            parameterType="Integer"
+            resultType="org.topview.entity.organization.po.User">
+        SELECT id,username,password,tel,wechat,role_id as roleId
+        FROM user
+        WHERE id = (SELECT user_id From department WHERE id = #{departmentId})
+    </select>
+
+    <update id="updateDepartmentAdmin" parameterType="org.topview.entity.organization.po.User">
+        UPDATE user
+        <set>
+            <if test="password != null">password=#{password},</if>
+            <if test="tel != null">tel=#{tel},</if>
+            <if test="wechat != null">wechat=#{wechat},</if>
+        </set>
+        <where>
+            id=#{id}
+        </where>
+    </update>
+
+    <delete id="deleteDepartmentAdmin" parameterType="Integer">
+        DELETE FROM user WHERE id = (SELECT user_id FROM department WHERE id = #{departmentId});
+        UPDATE department SET user_id = 0 WHERE id = #{departmentId}
+    </delete>
 
     <select id="selectRoleByUserId" resultType="java.lang.String" parameterType="java.lang.Integer">
         SELECT name FROM role r, user u WHERE r.id=u.role_id AND u.id=#{userId}
@@ -51,9 +91,4 @@
     <select id="selectByPrimaryKey" parameterType="int" resultMap="BaseResultMap">
         select * from user where id = #{id}
     </select>
-
-    <!--<select id="" parameterType="arraylist">
-
-    </select>-->
-
 </mapper>
