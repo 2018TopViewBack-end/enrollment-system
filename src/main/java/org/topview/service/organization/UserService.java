@@ -14,7 +14,6 @@ import java.util.Set;
 @Service
 public interface UserService {
 
-
     /**
      * 登陆
      * @param username 用户名
@@ -36,6 +35,7 @@ public interface UserService {
      * @return 角色名
      */
     Set<String> getRoleNameByUserIdService(Integer userId);
+
     /**
      * 修改密码时先检查输入的旧密码是否正确
      * @param userId
