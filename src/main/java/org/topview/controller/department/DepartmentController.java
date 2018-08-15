@@ -26,13 +26,11 @@ public class DepartmentController {
      */
     @RequestMapping("/saveDepartment")
     @ResponseBody
-    public Result saveDepartment(@RequestParam(value = "file",required = false) MultipartFile file,
-                                 Department department
-    ) {
+    public Result saveDepartment(@RequestParam(value = "file",required = false) MultipartFile file, Department department) {
         //接收返回的要保存到数据库的路径
         String filePath = ImgUtil.savePicture(file);
         department.setLogoUrl(filePath);
-       return departmentService.addDepartment(department);
+       	return departmentService.addDepartment(department);
     }
 	/**
 	 * 修改部门信息
@@ -41,20 +39,13 @@ public class DepartmentController {
 	 */
 	@RequestMapping("/updateDepartment")
 	@ResponseBody
-	public Result updateDepartment(DepartmentBo departmentBo) {
+	public Result updateDepartment(@RequestParam(value = "file",required = false) MultipartFile file, DepartmentBo departmentBo) {
+		//接收返回的要保存到数据库的路径
+		String filePath = ImgUtil.savePicture(file);
+		departmentBo.setLogoUrl(filePath);
 		return departmentService.updateDepartment(departmentBo);
 	}
 
-	/**
-	 * 新增部门
-	 * @param department
-	 * @return
-	 */
-	@RequestMapping("/addDepartment")
-	@ResponseBody
-	public Result addDepartment(Department department) {
-		return departmentService.addDepartment(department);
-	}
 
 	/**
 	 * 得到同一社团所有部门

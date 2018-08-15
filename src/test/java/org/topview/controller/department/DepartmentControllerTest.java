@@ -38,16 +38,6 @@ public class DepartmentControllerTest {
 		System.out.println(result.getMsg());
 	}
 
-	@Test
-	public void testAddDepartment() {
-		Department department = new Department();
-		department.setIntroduction("777");
-		department.setLogoUrl("666.jpg");
-		department.setOrganizationId(1);
-		department.setName("安卓");
-		Result result = departmentService.addDepartment(department);
-		System.out.println(result.getMsg());
-	}
 
 	@Test
 	public void testGetOrganizationDepartment() {

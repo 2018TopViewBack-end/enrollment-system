@@ -18,11 +18,11 @@ public class DepartmentServiceImpl implements DepartmentService {
 	private DepartmentMapper departmentMapper;
 
 	public Result updateDepartment(DepartmentBo departmentBo) {
-		int flag = departmentMapper.updateByExample(departmentBo);
-		if (flag != 0) {
-			return Result.success(departmentBo);
-		}
-		return Result.fail(Constant.MODIFY_DEPARTMENT_FAIL);
+			int flag = departmentMapper.updateByExample(departmentBo);
+			if (flag != 0) {
+				return Result.success();
+			}
+			return Result.fail(Constant.MODIFY_DEPARTMENT_FAIL);
 	}
 
 	@Override
