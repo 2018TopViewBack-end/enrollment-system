@@ -11,7 +11,6 @@ import org.topview.entity.department.po.Department;
 import org.topview.service.department.DepartmentService;
 import org.topview.util.Result;
 
-import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring-dao.xml","classpath:spring-mvc.xml"})
 @WebAppConfiguration("src/main/resources")
@@ -23,11 +22,17 @@ public class DepartmentControllerTest {
     /**
      * 测试保存部门信息
      */
-    @Test
-    public void saveDepartment() {
-        Department department = new Department(1,"jdf","fsd","dfjsk",2,2);
-        departmentService.addDepartment(department);
-    }
+	@Test
+	public void testAddDepartment() {
+		Department department = new Department();
+		department.setIntroduction("777");
+		department.setLogoUrl("666.jpg");
+		department.setOrganizationId(1);
+		department.setName("安卓");
+		Result result = departmentService.addDepartment(department);
+		System.out.println(result.getMsg());
+	}
+
 	@Test
 	public void testUpdateDepartment() {
 		DepartmentBo department = new DepartmentBo();
@@ -37,7 +42,6 @@ public class DepartmentControllerTest {
 		Result result = departmentService.updateDepartment(department);
 		System.out.println(result.getMsg());
 	}
-
 
 	@Test
 	public void testGetOrganizationDepartment() {

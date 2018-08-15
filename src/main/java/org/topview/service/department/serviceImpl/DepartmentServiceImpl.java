@@ -27,16 +27,11 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 	@Override
 	public Result addDepartment(Department department) {
-		String filePath = department.getLogoUrl();
-		if (filePath != null) {
 			int flag = departmentMapper.insert(department);
 			if (flag != 0) {
 				return Result.success(department);
 			}
 			return Result.fail(Constant.ADD_DEPARTMENT_FAIL);
-		} else {
-			return Result.fail(Constant.ADD_DEPARTMENT_FAIL);
-		}
 	}
 
 	@Override

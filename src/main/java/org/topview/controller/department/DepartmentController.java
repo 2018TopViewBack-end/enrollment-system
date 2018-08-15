@@ -12,6 +12,8 @@ import org.topview.service.department.DepartmentService;
 import org.topview.util.ImgUtil;
 import org.topview.util.Result;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/department")
 public class DepartmentController {
@@ -26,9 +28,9 @@ public class DepartmentController {
      */
     @RequestMapping("/saveDepartment")
     @ResponseBody
-    public Result saveDepartment(@RequestParam(value = "file",required = false) MultipartFile file, Department department) {
+    public Result saveDepartment(HttpServletRequest request, @RequestParam(value = "file",required = false) MultipartFile file, Department department) {
         //接收返回的要保存到数据库的路径
-        String filePath = ImgUtil.savePicture(file);
+        String filePath = ImgUtil.savePicture(request, file);
         department.setLogoUrl(filePath);
        	return departmentService.addDepartment(department);
     }
@@ -39,9 +41,9 @@ public class DepartmentController {
 	 */
 	@RequestMapping("/updateDepartment")
 	@ResponseBody
-	public Result updateDepartment(@RequestParam(value = "file",required = false) MultipartFile file, DepartmentBo departmentBo) {
+	public Result updateDepartment(HttpServletRequest request, @RequestParam(value = "file",required = false) MultipartFile file, DepartmentBo departmentBo) {
 		//接收返回的要保存到数据库的路径
-		String filePath = ImgUtil.savePicture(file);
+		String filePath = ImgUtil.savePicture(request, file);
 		departmentBo.setLogoUrl(filePath);
 		return departmentService.updateDepartment(departmentBo);
 	}
