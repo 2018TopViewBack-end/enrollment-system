@@ -39,7 +39,7 @@ public interface OrganizationService {
      * @param departmentAdminBo 部门管理员vo对象
      * @return 结果集(包含是否操作成功, 以及描述信息)
      */
-    Result addDepartmentAdmin(DepartmentAdminBo departmentAdminBo);
+    Result addDepartmentAdmin(DepartmentAdminBo departmentAdminBo) throws Exception;
 
     /**
      * 获取部门管理员的信息

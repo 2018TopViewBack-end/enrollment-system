@@ -1,5 +1,7 @@
 package org.topview.entity.organization.po;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
 /**

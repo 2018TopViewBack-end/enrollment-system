@@ -37,16 +37,6 @@
         update user set password=md5(#{password}) where id=#{id}
     </update>
 
-    <insert id="addDepartmentAdmin"
-            parameterType="org.topview.entity.organization.bo.DepartmentAdminBo"
-            keyProperty="user.id"
-            useGeneratedKeys="true">
-        INSERT INTO
-        user(username, password, tel, wechat, role_id, status)
-        VALUE
-        (#{user.username},#{user.password},#{user.tel},#{user.wechat},#{user.roleId},#{user.status});
-    </insert>
-
     <select id="hasUsername" parameterType="String" resultType="Integer">
         SELECT COUNT(*) FROM user WHERE username = #{username}
     </select>
