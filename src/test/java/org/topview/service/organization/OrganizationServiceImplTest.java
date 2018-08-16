@@ -40,4 +40,5 @@ public class OrganizationServiceImplTest {
         organizationVo.setUser(user);
         System.out.println(objectMapper.writeValueAsString(organizationVo));
     }
+
 }

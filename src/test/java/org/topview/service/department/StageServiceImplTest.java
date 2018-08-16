@@ -62,7 +62,7 @@ public class StageServiceImplTest {
 	@Test
 	public void testListAllStageByDepartmentId() {
 		int departmentId = 1;
-		List<Stage> stages = stageMapper.listStageByDepartmentId(departmentId);
+		List<Stage> stages = stageMapper.selectByExample(departmentId);
 		System.out.println(stages);
 	}
 	/**

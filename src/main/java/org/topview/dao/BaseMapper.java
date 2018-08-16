@@ -24,7 +24,7 @@ public interface BaseMapper<T, PK extends Serializable> {
 
     List<T> listAll();
 
-    int updateByExample(T example);
+//    int updateByExample(T example);
 
     int deleteByExample(T example);//根据example删除对象
 }

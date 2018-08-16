@@ -1,5 +1,7 @@
 package org.topview.entity.organization.vo;
 
+
+
 public class OrganizationStatus {
     private Integer organizationId;
     private Integer userId;

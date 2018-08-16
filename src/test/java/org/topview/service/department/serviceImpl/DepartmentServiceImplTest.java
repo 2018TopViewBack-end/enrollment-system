@@ -12,6 +12,7 @@ import org.topview.entity.department.po.Department;
 import org.topview.entity.department.vo.DepartmentVo;
 
 import java.util.List;
+import org.topview.service.department.DepartmentService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring-dao.xml","classpath:spring-mvc.xml"})
@@ -50,4 +51,12 @@ public class DepartmentServiceImplTest {
 			System.out.println(department);
 		}
 	}
+    @Autowired
+    private DepartmentService departmentService;
+    @Test
+    public void saveDepartment() {
+        /*Department department = new Department(1,"dsfs","dfsa","fdsakl",12,1);
+        departmentService.saveDepartment(department);
+        System.out.println(department);*/
+    }
 }

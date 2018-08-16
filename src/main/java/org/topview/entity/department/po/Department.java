@@ -28,6 +28,15 @@ public class Department {
     public Department() {
     }
 
+    public Department(int organizationId, String name, String logoUrl, String introduction, Integer messageNum, int userId) {
+        this.organizationId = organizationId;
+        this.name = name;
+        this.logoUrl = logoUrl;
+        this.introduction = introduction;
+        this.messageNum = messageNum;
+        this.userId = userId;
+    }
+
     public int getId() {
         return id;
     }

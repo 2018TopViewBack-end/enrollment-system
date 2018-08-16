@@ -4,6 +4,8 @@ import org.topview.entity.organization.po.User;
 
 public class DepartmentVo {
 
+	private int id;
+
 	private String name;
 
 	private String logoUrl;
@@ -13,6 +15,14 @@ public class DepartmentVo {
 	private Integer messageNum;//发送短信数量，便于统计
 
 	private User user;//部门管理员
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -55,9 +65,11 @@ public class DepartmentVo {
 	}
 
 	@Override
-	public String toString() {
+	public String
+	toString() {
 		return "DepartmentVo{" +
-				"name='" + name + '\'' +
+				"id=" + id +
+				", name='" + name + '\'' +
 				", logoUrl='" + logoUrl + '\'' +
 				", introduction='" + introduction + '\'' +
 				", messageNum=" + messageNum +

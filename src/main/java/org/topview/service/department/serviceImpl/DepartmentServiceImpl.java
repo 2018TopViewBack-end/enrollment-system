@@ -18,24 +18,24 @@ public class DepartmentServiceImpl implements DepartmentService {
 	private DepartmentMapper departmentMapper;
 
 	public Result updateDepartment(DepartmentBo departmentBo) {
-		int flag = departmentMapper.updateByExample(departmentBo);
-		if (flag != 0) {
-			return Result.success(departmentBo);
-		}
-		return Result.fail(Constant.MODIFY_DEPARTMENT_FAIL);
+			int flag = departmentMapper.updateByExample(departmentBo);
+			if (flag != 0) {
+				return Result.success();
+			}
+			return Result.fail(Constant.MODIFY_DEPARTMENT_FAIL);
 	}
 
 	@Override
 	public Result addDepartment(Department department) {
-		int flag = departmentMapper.insert(department);
-		if (flag != 0) {
-			return Result.success();
-		}
-		return Result.fail(Constant.ADD_DEPARTMENT_FAIL);
+			int flag = departmentMapper.insert(department);
+			if (flag != 0) {
+				return Result.success(department);
+			}
+			return Result.fail(Constant.ADD_DEPARTMENT_FAIL);
 	}
 
 	@Override
-	public Result listDepartmentByOrganizationId(int organizationId) {
+	public Result listDepartmentByOrganizationId ( int organizationId){
 		List<DepartmentVo> departments = departmentMapper.listDepartmentByOrganizationId(organizationId);
 		if (departments.size() != 0) {
 			return Result.success(departments);
