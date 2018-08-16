@@ -68,4 +68,11 @@
         update organization set status=#{status} where id=#{id}
     </update>
 
+    <insert id="insert" parameterType="org.topview.entity.organization.po.Organization"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into organization
+            (name,logo_url,category,introduction,linkman,tel,status,apikey,account_balance,admin_id)
+        values
+            (#{name},#{logoUrl},#{category},#{introduction},#{linkman},#{tel},#{status},#{apikey},#{accountBalance},#{adminId})
+    </insert>
 </mapper>

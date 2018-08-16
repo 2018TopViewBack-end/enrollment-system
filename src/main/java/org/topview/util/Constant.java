@@ -60,4 +60,13 @@ public class Constant {
     public static final String ADD_DEPARTMENT_FAIL = "新增部门失败";
 
     public static final String EMPTY_DEPARTMENT = "没有部门";
+
+    /**
+     * 角色用到的常量类
+     */
+    public static class Role {
+        public static final int SUPER_ADMIN = 1;
+        public static final int ORGANIZATION_ADMIN = 2;
+        public static final int DEPARTMENT_ADMIN = 3;
+    }
 }
