@@ -47,4 +47,22 @@ public class DepartmentServiceImpl implements DepartmentService {
 		}
 		return Result.fail(Constant.EMPTY_DEPARTMENT);
 	}
+
+	@Override
+	public Result updateDepartmentMessageNum(int id, int messageNum) {
+		int oldMessageNum = findMessageNum(id);
+		int newMessageNum = oldMessageNum + messageNum;
+		int flog = departmentMapper.updateDepartmentMessageNum(id,newMessageNum);
+		if (flog == 1){
+			return Result.success("已使用了"+newMessageNum+"条短信");
+		}else {
+			return Result.fail("修改失败");
+		}
+	}
+
+	@Override
+	public int findMessageNum(int id) {
+		return departmentMapper.findMessageNum(id);
+
+	}
 }

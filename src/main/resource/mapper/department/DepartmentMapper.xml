@@ -44,6 +44,12 @@
     <select id="listDepartmentByOrganizationId" parameterType="int" resultMap="departmentVo_map">
         select * from department where organization_id = #{id}
     </select>
-
-
+    <!--修改部门短信使用量-->
+    <update id="updateDepartmentMessageNum" parameterType="int">
+        update department set message_num = #{messageNum} where id = #{id}
+    </update>
+    <!--修改数量前要先查出已经使用了多少-->
+    <select id="findMessageNum" parameterType="int" resultType="int">
+        select message_num from department where id = #{id}
+    </select>
 </mapper>

@@ -15,6 +15,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.Iterator;
 import java.util.UUID;
 
@@ -397,7 +398,7 @@ public class ImgUtil {
      */
     public static String savePicture(MultipartFile file){
         //图片的保存路径
-        String storageDir = "C:/pictures";
+        String storageDir =  "C:/pictures";
         String filePath = null;
         try (InputStream in = file.getInputStream()){
             //获得文件类型
@@ -408,8 +409,9 @@ public class ImgUtil {
             String newFileName = UUID.randomUUID().toString();
             //\0000-1111-122222.后缀名
             filePath  =  newFileName+"."+imageName;
+            System.out.println(filePath);
             // 3.根据配置信息得到文件的存储目录，根据存储目录和第二步生成的路径，构建File或者Path对象。
-            // 假设文件存储在D:\storage，那么完整的Path对象值就是： C:\piturces\0000-1111-122222.后缀名
+            // 假设文件存储在D:\storage，那么完整的Path对象值就是： D:\storage\0000-1111-122222.后缀名
             Path path = Paths.get(storageDir, filePath);
             File file1 = path.toFile();
             File fileDir = file1.getParentFile();
@@ -417,12 +419,12 @@ public class ImgUtil {
                 // 文件目录如果不存在，直接创建目录
                 fileDir.mkdirs();
             }
-                // 4.保存文件到硬盘
-                Files.copy(in, path);
+            // 4.保存文件到硬盘
+            Files.copy(in, path);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
-        return filePath;
+        return storageDir + "/" + filePath;
     }
 }

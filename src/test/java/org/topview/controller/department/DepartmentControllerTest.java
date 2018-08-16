@@ -55,4 +55,9 @@ public class DepartmentControllerTest {
 		Result result = departmentService.listDepartmentByOrganizationId(ogId);
 		System.out.println(result.getData());
 	}
+	@Test
+	public void testupdateDepartmentMessageNum(){
+    	Result result = departmentService.updateDepartmentMessageNum(2,10);
+		System.out.println(result.getData());
+	}
 }

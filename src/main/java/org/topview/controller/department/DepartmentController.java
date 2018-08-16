@@ -20,15 +20,17 @@ public class DepartmentController {
 	private DepartmentService departmentService;
 
     /**
+	 * 保存部门信息
      * @param file  文件对象
      * @param department  要保存的部门对象
-     * @return Result
+	 * @return Result
      */
     @RequestMapping("/saveDepartment")
     @ResponseBody
-    public Result saveDepartment(@RequestParam(value = "file",required = false) MultipartFile file,
+    public Result saveDepartment(@RequestParam("file") MultipartFile file,
                                  Department department
     ) {
+
         //接收返回的要保存到数据库的路径
         String filePath = ImgUtil.savePicture(file);
         department.setLogoUrl(filePath);
@@ -67,4 +69,15 @@ public class DepartmentController {
 		return departmentService.listDepartmentByOrganizationId(organizationId);
 	}
 
+	/**
+	 * 记录部门使用的短信数量
+	 * @param id 部门id
+	 * @param messageNum  部门使用的短信数量
+	 * @return 是否成功
+	 */
+	@RequestMapping("/updateDepartmentMessageNum")
+	@ResponseBody
+	public Result updateDepartmentMessageNum( int id, int messageNum){
+		return departmentService.updateDepartmentMessageNum(id,messageNum);
+	}
 }
