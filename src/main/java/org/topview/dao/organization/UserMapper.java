@@ -70,13 +70,6 @@ public interface UserMapper extends BaseMapper<User, Integer> {
     int hasUsername(String username);
 
     /**
-     * 添加部门管理员
-     * @param departmentAdminBo 部门管理员对象
-     * @return 添加成功返回1,否则返回0
-     */
-    int addDepartmentAdmin(DepartmentAdminBo departmentAdminBo);
-
-    /**
      * 获取部门管理员的信息
      * @param departmentId 部门id
      * @return 查询到返回对应的user对象，否则返回null

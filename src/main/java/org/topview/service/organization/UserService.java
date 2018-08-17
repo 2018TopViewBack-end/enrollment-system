@@ -1,11 +1,13 @@
 package org.topview.service.organization;
 
 import org.springframework.stereotype.Service;
+import org.topview.config.exception.RegisterFailException;
+import org.topview.entity.organization.po.Organization;
 import org.topview.entity.organization.po.User;
 import org.topview.entity.organization.vo.OrganizationStatus;
 import org.topview.util.Result;
-import org.topview.util.Result;
 
+import javax.naming.AuthenticationException;
 import java.util.Set;
 
 /**
@@ -13,7 +15,6 @@ import java.util.Set;
  */
 @Service
 public interface UserService {
-
 
     /**
      * 登陆
@@ -30,10 +31,12 @@ public interface UserService {
     Boolean isUserExist(User user);
 
     /**
-     * @param user
+     * 注册
+     * @param user 用戶信息
+     * @param organization 社团信息
      * @return 返回带有userId的user对象
      */
-    Result register(User user);
+    Result register(User user, Organization organization) throws RegisterFailException;
 
     /**
      * 封装该用户对应的用户与角色信息
@@ -49,6 +52,7 @@ public interface UserService {
      * @return 角色名
      */
     Set<String> getRoleNameByUserIdService(Integer userId);
+
     /**
      * 修改密码时先检查输入的旧密码是否正确
      * @param userId

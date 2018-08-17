@@ -1,5 +1,7 @@
 package org.topview.entity.organization.po;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
 /**
@@ -31,6 +33,15 @@ public class User implements Serializable {
     private int status;
 
     public User() {
+    }
+
+    public User(String username, String password, String tel, String wechat, int roleId, int status) {
+        this.username = username;
+        this.password = password;
+        this.tel = tel;
+        this.wechat = wechat;
+        this.roleId = roleId;
+        this.status = status;
     }
 
     public int getId() {
