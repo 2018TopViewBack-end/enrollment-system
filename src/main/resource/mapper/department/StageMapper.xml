@@ -34,7 +34,9 @@
         select * from stage where id = #{id}
     </select>
     
-    
+    <update id="modifyStageStatus" parameterType="int">
+         update stage set status = #{status} where id = ${id}
+    </update>
     
 
 </mapper>

@@ -59,4 +59,10 @@ public interface DepartmentMapper extends BaseMapper<Department, Integer> {
 	 */
 	int findMessageNum(int id);
 
+	/**
+	 *查询部门信息显示
+	 * @param id
+	 * @return 部门的相关信息
+	 */
+    DepartmentVo findById(int id);
 }

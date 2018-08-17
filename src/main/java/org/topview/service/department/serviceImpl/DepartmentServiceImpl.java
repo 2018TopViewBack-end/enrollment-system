@@ -18,25 +18,20 @@ public class DepartmentServiceImpl implements DepartmentService {
 	private DepartmentMapper departmentMapper;
 
 	public Result updateDepartment(DepartmentBo departmentBo) {
-		int flag = departmentMapper.updateByExample(departmentBo);
-		if (flag != 0) {
-			return Result.success(departmentBo);
-		}
-		return Result.fail(Constant.MODIFY_DEPARTMENT_FAIL);
+			int flag = departmentMapper.updateByExample(departmentBo);
+			if (flag != 0) {
+				return Result.success();
+			}
+			return Result.fail(Constant.MODIFY_DEPARTMENT_FAIL);
 	}
 
 	@Override
 	public Result addDepartment(Department department) {
-		String filePath = department.getLogoUrl();
-		if (filePath != null) {
 			int flag = departmentMapper.insert(department);
 			if (flag != 0) {
 				return Result.success(department);
 			}
 			return Result.fail(Constant.ADD_DEPARTMENT_FAIL);
-		} else {
-			return Result.fail(Constant.ADD_DEPARTMENT_FAIL);
-		}
 	}
 
 	@Override
@@ -64,5 +59,11 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public int findMessageNum(int id) {
 		return departmentMapper.findMessageNum(id);
 
+	}
+
+	@Override
+	public Result findById(int id) {
+		DepartmentVo departmentInfoVo = departmentMapper.findById(id);
+		return Result.success(departmentInfoVo);
 	}
 }

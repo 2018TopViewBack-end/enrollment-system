@@ -12,6 +12,8 @@ import org.topview.service.department.DepartmentService;
 import org.topview.util.ImgUtil;
 import org.topview.util.Result;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/department")
 public class DepartmentController {
@@ -23,18 +25,15 @@ public class DepartmentController {
 	 * 保存部门信息
      * @param file  文件对象
      * @param department  要保存的部门对象
-	 * @return Result
+     * @return Result
      */
     @RequestMapping("/saveDepartment")
     @ResponseBody
-    public Result saveDepartment(@RequestParam("file") MultipartFile file,
-                                 Department department
-    ) {
-
+    public Result saveDepartment(HttpServletRequest request, @RequestParam(value = "file",required = false) MultipartFile file, Department department) {
         //接收返回的要保存到数据库的路径
-        String filePath = ImgUtil.savePicture(file);
+        String filePath = ImgUtil.savePicture(request, file);
         department.setLogoUrl(filePath);
-       return departmentService.addDepartment(department);
+       	return departmentService.addDepartment(department);
     }
 	/**
 	 * 修改部门信息
@@ -43,20 +42,13 @@ public class DepartmentController {
 	 */
 	@RequestMapping("/updateDepartment")
 	@ResponseBody
-	public Result updateDepartment(DepartmentBo departmentBo) {
+	public Result updateDepartment(HttpServletRequest request, @RequestParam(value = "file",required = false) MultipartFile file, DepartmentBo departmentBo) {
+		//接收返回的要保存到数据库的路径
+		String filePath = ImgUtil.savePicture(request, file);
+		departmentBo.setLogoUrl(filePath);
 		return departmentService.updateDepartment(departmentBo);
 	}
 
-	/**
-	 * 新增部门
-	 * @param department
-	 * @return
-	 */
-	@RequestMapping("/addDepartment")
-	@ResponseBody
-	public Result addDepartment(Department department) {
-		return departmentService.addDepartment(department);
-	}
 
 	/**
 	 * 得到同一社团所有部门
@@ -79,5 +71,16 @@ public class DepartmentController {
 	@ResponseBody
 	public Result updateDepartmentMessageNum( int id, int messageNum){
 		return departmentService.updateDepartmentMessageNum(id,messageNum);
+	}
+
+	/**
+	 * 查出部门信息
+	 * @param id 部门id
+	 * @return 部门信息与是否成功
+	 */
+	@RequestMapping("/findById")
+	@ResponseBody
+	public Result findById(Integer id){
+		return departmentService.findById(id);
 	}
 }

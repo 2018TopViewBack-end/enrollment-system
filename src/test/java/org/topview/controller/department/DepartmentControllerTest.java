@@ -1,5 +1,7 @@
 package org.topview.controller.department;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,6 @@ import org.topview.entity.department.po.Department;
 import org.topview.service.department.DepartmentService;
 import org.topview.util.Result;
 
-import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring-dao.xml","classpath:spring-mvc.xml"})
 @WebAppConfiguration("src/main/resources")
@@ -23,21 +24,6 @@ public class DepartmentControllerTest {
     /**
      * 测试保存部门信息
      */
-    @Test
-    public void saveDepartment() {
-        Department department = new Department(1,"jdf","fsd","dfjsk",2,2);
-        departmentService.addDepartment(department);
-    }
-	@Test
-	public void testUpdateDepartment() {
-		DepartmentBo department = new DepartmentBo();
-		department.setId(1);
-		department.setName("公关部");
-		department.setIntroduction("啦啦啦");
-		Result result = departmentService.updateDepartment(department);
-		System.out.println(result.getMsg());
-	}
-
 	@Test
 	public void testAddDepartment() {
 		Department department = new Department();
@@ -46,6 +32,16 @@ public class DepartmentControllerTest {
 		department.setOrganizationId(1);
 		department.setName("安卓");
 		Result result = departmentService.addDepartment(department);
+		System.out.println(result.getMsg());
+	}
+
+	@Test
+	public void testUpdateDepartment() {
+		DepartmentBo department = new DepartmentBo();
+		department.setId(1);
+		department.setName("公关部");
+		department.setIntroduction("啦啦啦");
+		Result result = departmentService.updateDepartment(department);
 		System.out.println(result.getMsg());
 	}
 
@@ -59,5 +55,11 @@ public class DepartmentControllerTest {
 	public void testupdateDepartmentMessageNum(){
     	Result result = departmentService.updateDepartmentMessageNum(2,10);
 		System.out.println(result.getData());
+	}
+	@Test
+	public void testFindById() throws JsonProcessingException {
+		Result result = departmentService.findById(2);
+		System.out.println(result.getData());
+		System.out.println(result.getMsg());
 	}
 }

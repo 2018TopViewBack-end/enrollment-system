@@ -1,6 +1,5 @@
 package org.topview.service.department;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.topview.entity.department.bo.DepartmentBo;
 import org.topview.entity.department.po.Department;
@@ -37,10 +36,18 @@ public interface DepartmentService {
 	 * @return
 	 */
 	Result updateDepartmentMessageNum( int id,  int messageNum);
+
 	/**
 	 * 修改使用短信数量前要查出以使用的短信数量
 	 * @param id 部门id
 	 * @return 已使用的短息数量
 	 */
 	int findMessageNum(int id);
+
+	/**
+	 *查询部门信息显示
+	 * @param id
+	 * @return 部门的相关信息
+	 */
+	Result findById(int id);
 }

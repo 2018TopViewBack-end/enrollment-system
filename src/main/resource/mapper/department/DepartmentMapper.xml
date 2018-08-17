@@ -2,10 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.topview.dao.department.DepartmentMapper">
-
-    <update id="updateDepartmentAdmin">
-        UPDATE department SET user_id = #{userId} WHERE id = #{departmentId}
-    </update>
     <resultMap id="department_map" type="Department">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
@@ -14,18 +10,19 @@
         <result property="messageNum" column="message_num"/>
         <result property="userId" column="user_id"/>
     </resultMap>
-    <insert id="saveDepartment" useGeneratedKeys="true" keyProperty="id">
-        insert into department(organization_id,name,logo_url,introduction,message_num,user_id)
-        values (#{organizationId},#{name},#{logoUrl},#{introduction},#{messageNum},#{userId})
-    </insert>
 
     <resultMap id="departmentVo_map" type="org.topview.entity.department.vo.DepartmentVo">
+        <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="logoUrl"  column="logo_url"/>
         <result property="introduction" column="introduction"/>
         <result property="messageNum" column="message_num"/>
         <association property="user" column="user_id" select="org.topview.dao.organization.UserMapper.selectByPrimaryKey"/>
     </resultMap>
+
+    <update id="updateDepartmentAdmin">
+        UPDATE department SET user_id = #{userId} WHERE id = #{departmentId}
+    </update>
 
     <!--修改部门-->
     <select id="selectByPrimaryKey" resultMap="department_map">
@@ -51,5 +48,8 @@
     <!--修改数量前要先查出已经使用了多少-->
     <select id="findMessageNum" parameterType="int" resultType="int">
         select message_num from department where id = #{id}
+    </select>
+    <select id="findById" resultMap="departmentVo_map" parameterType="int">
+        select name ,introduction ,logo_url from department where id = #{id}
     </select>
 </mapper>

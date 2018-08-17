@@ -9,13 +9,13 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
+import javax.servlet.http.HttpServletRequest;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Base64;
 import java.util.Iterator;
 import java.util.UUID;
 
@@ -396,35 +396,35 @@ public class ImgUtil {
      * @param file 文件对象
      * @return  要保存到数据库的路径
      */
-    public static String savePicture(MultipartFile file){
-        //图片的保存路径
-        String storageDir =  "C:/pictures";
+    public static String savePicture(HttpServletRequest request, MultipartFile file){
+        if(file == null)return null;
+        String storageDir = request.getSession().getServletContext().getRealPath("/picture/upload"); //图片的保存路径
         String filePath = null;
         try (InputStream in = file.getInputStream()){
-            //获得文件类型
-            String contentType=file.getContentType();
-            //获得文件后缀名称
-            String imageName=contentType.substring(contentType.indexOf("/")+1);
-            // 使用UUID作为文件名
-            String newFileName = UUID.randomUUID().toString();
-            //\0000-1111-122222.后缀名
-            filePath  =  newFileName+"."+imageName;
-            System.out.println(filePath);
-            // 3.根据配置信息得到文件的存储目录，根据存储目录和第二步生成的路径，构建File或者Path对象。
-            // 假设文件存储在D:\storage，那么完整的Path对象值就是： D:\storage\0000-1111-122222.后缀名
+
+            String contentType=file.getContentType();//获得文件类型
+            String imageName=contentType.substring(contentType.indexOf("/")+1); //获得文件后缀名称
+            String newFileName = UUID.randomUUID().toString();// 使用UUID作为文件名
+            filePath  =  newFileName+"."+imageName; //\0000-1111-122222.后缀名
+            storageDir = storageDir.replace("\\", "/");
+
+
+            //3.根据配置信息得到文件的存储目录，根据存储目录和第二步生成的路径，构建File或者Path对象。
+            //假设文件存储在D:\storage，那么完整的Path对象值就是： D:\storage\0000-1111-122222.后缀
             Path path = Paths.get(storageDir, filePath);
             File file1 = path.toFile();
             File fileDir = file1.getParentFile();
             if (!fileDir.exists()) {
-                // 文件目录如果不存在，直接创建目录
-                fileDir.mkdirs();
+                fileDir.mkdirs(); // 文件目录如果不存在，直接创建目录
             }
-            // 4.保存文件到硬盘
-            Files.copy(in, path);
+                Files.copy(in, path); // 4.保存文件到硬盘
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
-        return storageDir + "/" + filePath;
+
+         //int indexOf(String str)返回指定字符在字符串中第一次出现处的索引，如果此字符串中没有这样的字符，则返回 -1
+        String picturePath = storageDir.substring(storageDir.indexOf("/picture"))+ "/" + filePath;// 获得商品图片所在目录;
+        return  picturePath;
     }
 }
