@@ -45,7 +45,6 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
             </array>
         </property>
     </bean>
-
     <!-- mapper批量扫描 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="org.topview.dao"/>

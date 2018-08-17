@@ -1,10 +1,12 @@
 package org.topview.entity.organization.vo;
 
+import java.io.Serializable;
+
 /**
  * @author Pan梓涵
  * 首页社团图片展示
  */
-public class OrganizationPhotoVo {
+public class OrganizationPhotoVo implements Serializable {
 
     /**
     * 社团类别
@@ -20,6 +22,11 @@ public class OrganizationPhotoVo {
     * 图片的url
     */
     private String logoUrl;
+
+    /**
+     * 社团id
+     */
+    private int organizationId;
 
     public OrganizationPhotoVo() {
     }
@@ -46,5 +53,13 @@ public class OrganizationPhotoVo {
 
     public void setLogoUrl(String logoUrl) {
         this.logoUrl = logoUrl;
+    }
+
+    public int getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(int organizationId) {
+        this.organizationId = organizationId;
     }
 }

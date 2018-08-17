@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Param;
 import org.topview.dao.BaseMapper;
 import org.topview.entity.organization.bo.OrganizationBo;
 import org.topview.entity.organization.po.Organization;
+import org.topview.entity.organization.po.User;
 import org.topview.entity.organization.vo.OrganizationPhotoVo;
 
 import java.util.List;
@@ -46,4 +47,11 @@ public interface OrganizationMapper extends BaseMapper<Organization, Integer> {
      */
     Integer updateOrganizationStatus(@Param("status") Integer status, @Param("id") Integer id);
 
+    /**
+     * 添加社团
+     * @param organization 社团
+     * @return 增加的条数
+     */
+    @Override
+    int insert(Organization organization);
 }

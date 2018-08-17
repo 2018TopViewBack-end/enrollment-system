@@ -261,9 +261,9 @@
                     <artifactId>maven-war-plugin</artifactId>
                     <version>3.2.0</version>
                     <configuration>
-                    <!-- 设置WebContent目录为Web目录 -->
-                    <webappDirectory>${basedir}/src/web</webappDirectory>
-                    <warSourceDirectory>${basedir}/src/web</warSourceDirectory>
+                        <!-- 设置WebContent目录为Web目录 -->
+                        <webappDirectory>${basedir}/src/web</webappDirectory>
+                        <warSourceDirectory>${basedir}/src/web</warSourceDirectory>
                     </configuration>
                 </plugin>
                 <plugin>

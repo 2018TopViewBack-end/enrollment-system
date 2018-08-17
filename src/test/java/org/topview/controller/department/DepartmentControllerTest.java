@@ -19,16 +19,9 @@ public class DepartmentControllerTest {
 	@Autowired
 	private DepartmentService departmentService;
 
-	@Test
-	public void testUpdateDepartment() {
-		DepartmentBo department = new DepartmentBo();
-		department.setId(1);
-		department.setName("公关部");
-		department.setIntroduction("啦啦啦");
-		Result result = departmentService.updateDepartment(department);
-		System.out.println(result.getMsg());
-	}
-
+    /**
+     * 测试保存部门信息
+     */
 	@Test
 	public void testAddDepartment() {
 		Department department = new Department();
@@ -37,6 +30,16 @@ public class DepartmentControllerTest {
 		department.setOrganizationId(1);
 		department.setName("安卓");
 		Result result = departmentService.addDepartment(department);
+		System.out.println(result.getMsg());
+	}
+
+	@Test
+	public void testUpdateDepartment() {
+		DepartmentBo department = new DepartmentBo();
+		department.setId(1);
+		department.setName("公关部");
+		department.setIntroduction("啦啦啦");
+		Result result = departmentService.updateDepartment(department);
 		System.out.println(result.getMsg());
 	}
 

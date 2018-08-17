@@ -35,6 +35,15 @@ public class User implements Serializable {
     public User() {
     }
 
+    public User(String username, String password, String tel, String wechat, int roleId, int status) {
+        this.username = username;
+        this.password = password;
+        this.tel = tel;
+        this.wechat = wechat;
+        this.roleId = roleId;
+        this.status = status;
+    }
+
     public int getId() {
         return id;
     }

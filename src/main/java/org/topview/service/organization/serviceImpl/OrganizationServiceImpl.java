@@ -210,7 +210,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     public PageInfo<OrganizationPhotoVo> getOrganizationPhoto(int pageNum, int pageSize, String category) {
         PageHelper.startPage(pageNum, pageSize);
         List<OrganizationPhotoVo> list = organizationMapper.getOrganizationPhotosByCategory(category);
-        return new PageInfo<>(list);
+        return PageInfo.of(list);
     }
 
     /**

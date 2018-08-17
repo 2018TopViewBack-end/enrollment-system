@@ -1,5 +1,8 @@
 package org.topview.util.vcode;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.servlet.http.HttpServletRequest;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,6 +16,7 @@ import java.io.OutputStream;
  */
 public class GifCaptcha extends Captcha
 {
+
     public GifCaptcha()
     {
     }
@@ -38,14 +42,16 @@ public class GifCaptcha extends Captcha
     {
         try
         {
-            GifEncoder gifEncoder = new GifEncoder();   // gif编码类，这个利用了洋人写的编码类，所有类都在附件中
+            // gif编码类，这个利用了洋人写的编码类，所有类都在附件中
+            GifEncoder gifEncoder = new GifEncoder();
             //生成字符
             gifEncoder.start(os);
             gifEncoder.setQuality(180);
             gifEncoder.setDelay(100);
             gifEncoder.setRepeat(0);
             BufferedImage frame;
-            char[] rands =alphas();
+//            char[] rands =alphas();
+            char[] rands = getRands();
             Color fontcolor[]=new Color[len];
             for(int i=0;i<len;i++)
             {
@@ -80,7 +86,7 @@ public class GifCaptcha extends Captcha
     private BufferedImage graphicsImage(Color[] fontcolor,char[] strs,int flag)
     {
         BufferedImage image = new BufferedImage(width, height,BufferedImage.TYPE_INT_RGB);
-        //或得图形上下文
+        //获得图形上下文
         //Graphics2D g2d=image.createGraphics();
         Graphics2D g2d = (Graphics2D)image.getGraphics();
         //利用指定颜色填充背景

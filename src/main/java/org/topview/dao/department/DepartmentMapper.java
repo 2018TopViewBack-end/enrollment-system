@@ -27,7 +27,7 @@ public interface DepartmentMapper extends BaseMapper<Department, Integer> {
 	int updateByExample(DepartmentBo departmentBo);
 
 	/**
-	 * 新增部门
+	 * 部门申请时，保存部门信息
 	 * @param department
 	 * @return
 	 */
@@ -40,4 +40,5 @@ public interface DepartmentMapper extends BaseMapper<Department, Integer> {
 	 * @return
 	 */
 	List<DepartmentVo> listDepartmentByOrganizationId(int organizationId);
+
 }

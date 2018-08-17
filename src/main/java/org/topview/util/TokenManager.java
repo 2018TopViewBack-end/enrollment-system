@@ -5,6 +5,9 @@ import org.apache.shiro.session.Session;
 import org.topview.entity.ShiroToken;
 import org.topview.entity.organization.po.User;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * @author 63023
  * Shiro管理下的Token工具类
@@ -28,7 +31,9 @@ public class TokenManager {
      * @return
      */
     public static Session getSession() {
-        return SecurityUtils.getSubject().getSession();
+        Session session = SecurityUtils.getSubject().getSession();
+        System.out.println("session" + session);
+        return session;
     }
 
     /**
@@ -56,7 +61,14 @@ public class TokenManager {
      * @param value
      */
     public static void setVal2Session(Object key, Object value) {
+
+//        System.out.println("TokenManager中setVal2Session的key:" + key);
+//        System.out.println("TokenManager中setVal2Session的value:" + value);
+        System.out.println("setVal2Session ...");
         getSession().setAttribute(key, value);
+
+//        System.out.println("TokenManager.setVal2Session:" + getSession().getAttribute(key));
+
     }
 
 
@@ -66,8 +78,12 @@ public class TokenManager {
      * @return
      */
     public static String getYZM() {
-        String code = (String) getSession().getAttribute("CODE");
-        getSession().removeAttribute("CODE");
+
+        String code = (String) getSession().getAttribute(VerifyCodeUtils.V_CODE);
+
+        System.out.println("TokenManager.getYZM:" + code);
+
+        getSession().removeAttribute("_CODE");
         return code;
     }
 
@@ -79,6 +95,10 @@ public class TokenManager {
      * @return
      */
     public static Object getVal2Session(Object key) {
+
+        System.out.println("TokenManager中getVal2Session的key:" + key);
+        System.out.println("TokenManager中getVal2Session的sessionKey:" + getSession().getAttribute(key));
+
         return getSession().getAttribute(key);
     }
 

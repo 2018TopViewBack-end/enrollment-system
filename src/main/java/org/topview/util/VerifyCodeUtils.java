@@ -82,7 +82,7 @@ public class VerifyCodeUtils {
      * 对比验证码   
      */
     public static boolean verifyCode(String code){
-    	String v = (String)TokenManager.getVal2Session(V_CODE);
+    	String v = TokenManager.getYZM();
     	return StringUtils.equals(v, StringUtils.lowerCase(code));
     }
 

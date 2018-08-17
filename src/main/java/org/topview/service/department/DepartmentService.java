@@ -28,4 +28,5 @@ public interface DepartmentService {
 	 * @return
 	 */
 	Result listDepartmentByOrganizationId(int organizationId);
+
 }
