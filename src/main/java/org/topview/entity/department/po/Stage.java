@@ -8,6 +8,8 @@ public class Stage {
 
     private String stageName;
 
+    private int status;
+
     public Stage() {
     }
 
@@ -40,12 +42,21 @@ public class Stage {
         this.stageName = stageName;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Stage{" +
                 "id=" + id +
                 ", departmentId=" + departmentId +
                 ", stageName='" + stageName + '\'' +
+                ", status=" + status +
                 '}';
     }
 }

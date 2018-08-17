@@ -60,4 +60,15 @@ public class DepartmentController {
 		return departmentService.listDepartmentByOrganizationId(organizationId);
 	}
 
+	/**
+	 * 得到正在允许报名的部门
+	 * @param organizationId
+	 * @return
+	 */
+	@RequestMapping("/getSigningDepartment")
+	@ResponseBody
+	public Result getSigningDepartment(int organizationId) {
+		return departmentService.getSigningDepartment(organizationId);
+	}
+
 }

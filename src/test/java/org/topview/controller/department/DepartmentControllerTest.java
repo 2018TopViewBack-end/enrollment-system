@@ -49,4 +49,11 @@ public class DepartmentControllerTest {
 		Result result = departmentService.listDepartmentByOrganizationId(ogId);
 		System.out.println(result.getData());
 	}
+
+	@Test
+	public void testGetsigningDepartment() {
+		int oid = 1;
+		Result result = departmentService.getSigningDepartment(oid);
+		System.out.println(result.getData());
+	}
 }

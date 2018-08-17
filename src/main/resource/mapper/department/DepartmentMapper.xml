@@ -24,11 +24,12 @@
         UPDATE department SET user_id = #{userId} WHERE id = #{departmentId}
     </update>
 
-    <!--修改部门-->
+
     <select id="selectByPrimaryKey" resultMap="department_map">
         select * from department where id = #{pk}
     </select>
 
+    <!--修改部门-->
     <update id="updateByExample" parameterType="Department">
         update department set name = #{name}, logo_url = #{logoUrl}, introduction = #{introduction} where id = #{id}
     </update>
@@ -38,9 +39,9 @@
         insert into department (organization_id, name, logo_url, introduction) values (#{organizationId}, #{name},#{logoUrl}, #{introduction})
     </insert>
 
+    <!--获取社团部门-->
     <select id="listDepartmentByOrganizationId" parameterType="int" resultMap="departmentVo_map">
         select * from department where organization_id = #{id}
     </select>
-
 
 </mapper>

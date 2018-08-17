@@ -7,10 +7,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.topview.dao.department.DepartmentMapper;
+import org.topview.dao.department.StageMapper;
 import org.topview.entity.department.bo.DepartmentBo;
 import org.topview.entity.department.po.Department;
 import org.topview.entity.department.vo.DepartmentVo;
 
+import java.util.Iterator;
 import java.util.List;
 import org.topview.service.department.DepartmentService;
 
@@ -21,6 +23,9 @@ public class DepartmentServiceImplTest {
 
 	@Autowired
 	private DepartmentMapper departmentMapper;
+
+	@Autowired
+	private StageMapper stageMapper;
 
 	@Test
 	public void testUpdateDepartment() {
@@ -51,12 +56,23 @@ public class DepartmentServiceImplTest {
 			System.out.println(department);
 		}
 	}
-    @Autowired
-    private DepartmentService departmentService;
-    @Test
-    public void saveDepartment() {
-        /*Department department = new Department(1,"dsfs","dfsa","fdsakl",12,1);
-        departmentService.saveDepartment(department);
-        System.out.println(department);*/
-    }
+
+	/**
+	 * 测试：获得没有结束报名的状态
+	 */
+	@Test
+	public void testGetSigningDepartment() {
+		int oid = 1;
+		List<DepartmentVo> departmentVos = departmentMapper.listDepartmentByOrganizationId(oid);
+		if (null != departmentVos && departmentVos.size() > 0) {
+			Iterator it = departmentVos.iterator();
+			while(it.hasNext()){
+				DepartmentVo departmentVo = (DepartmentVo)it.next();
+				if (stageMapper.selectByExample(departmentVo.getId()).size() != 0) {
+					it.remove();
+				}
+			}
+		}
+		System.out.println(departmentVos);
+	}
 }

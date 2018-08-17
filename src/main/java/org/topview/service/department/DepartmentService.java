@@ -29,4 +29,10 @@ public interface DepartmentService {
 	 */
 	Result listDepartmentByOrganizationId(int organizationId);
 
+	/**
+	 * 获得没有阶段的部门
+	 * @return
+	 */
+	Result getSigningDepartment(int organizationId);
+
 }

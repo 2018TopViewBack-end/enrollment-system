@@ -32,7 +32,7 @@ public class TestMessage {
         String text = "【邓哲睿】清林同学你好，恭喜你通过了我们的一面，请于8月20到教一参加二面";
 
 
-        MessageUtil.send(text,mobile);
+        MessageUtil.send(text,mobile, null);
 
 //     * @param apikey 成功注册后登录云片官网,进入后台可查看
 //     * @param text   需要使用已审核通过的模板或者默认模板
