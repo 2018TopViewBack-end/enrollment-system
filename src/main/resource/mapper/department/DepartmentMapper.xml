@@ -43,7 +43,13 @@
     <select id="listDepartmentByOrganizationId" parameterType="int" resultMap="departmentVo_map">
         select * from department where organization_id = #{id}
     </select>
-    <select id="findById" resultMap="departmentVo_map" resultType="int">
+    <select id="findById" resultMap="departmentVo_map" parameterType="int">
         select name,introduction,logo_url from department where id = #{id}
     </select>
+    <select id="findMessageNum" parameterType="int" resultType="int">
+        select message_num from department where id = #{id}
+    </select>
+    <update id="updateDepartmentMessageNum" parameterType="int">
+        update department set message_num = #{messageNum} where id = #{id}
+    </update>
 </mapper>

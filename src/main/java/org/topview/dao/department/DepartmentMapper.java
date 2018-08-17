@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Param;
 import org.topview.dao.BaseMapper;
 import org.topview.entity.department.bo.DepartmentBo;
 import org.topview.entity.department.po.Department;
+import org.topview.entity.department.po.SMS;
 import org.topview.entity.department.vo.DepartmentVo;
 
 import java.util.List;
@@ -65,4 +66,5 @@ public interface DepartmentMapper extends BaseMapper<Department, Integer> {
 	 * @return 部门的相关信息
 	 */
     DepartmentVo findById(int id);
+
 }

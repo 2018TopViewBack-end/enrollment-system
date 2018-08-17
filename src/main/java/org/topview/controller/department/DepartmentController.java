@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.topview.entity.department.bo.DepartmentBo;
 import org.topview.entity.department.po.Department;
+import org.topview.entity.department.po.SMS;
 import org.topview.service.department.DepartmentService;
 import org.topview.util.ImgUtil;
 import org.topview.util.Result;
