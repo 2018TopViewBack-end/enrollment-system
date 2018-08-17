@@ -2,8 +2,10 @@ package org.topview.service.organization.serviceImpl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.session.SqlSessionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.topview.dao.department.DepartmentMapper;
 import org.topview.dao.organization.OrganizationMapper;
 import org.topview.dao.organization.UserMapper;
@@ -16,6 +18,7 @@ import org.topview.service.organization.OrganizationService;
 import org.topview.util.Constant;
 import org.topview.util.Result;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,7 +71,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         //判断社团当前的状态
         Integer status = organizationMapper.getOrganizationStatusById(organization.getId());
         if(Constant.OrganizationStatus.FORBIDDEN != status) {
-            organization.setStatus(1);
+            organization.setStatus(Constant.OrganizationStatus.ONLINE);
         }
         organizationMapper.updateByPrimaryKey(organization);
         return Result.success();
@@ -94,6 +97,7 @@ public class OrganizationServiceImpl implements OrganizationService {
      * @return 结果集(包含是否操作成功,以及描述信息)
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Result addDepartmentAdmin(DepartmentAdminBo departmentAdminBo) {
         //判断数据库是否存在该用户名
         String username = departmentAdminBo.getUser().getUsername();
@@ -103,20 +107,23 @@ public class OrganizationServiceImpl implements OrganizationService {
         if(userMapper.hasUsername(username) > 0) {
             return Result.fail(USERNAME_ALREADY_EXIST);
         }
-        departmentAdminBo.getUser().setRoleId(3);
-        departmentAdminBo.getUser().setStatus(1);
-        //在用户表添加社团管理员的信息
-        userMapper.addDepartmentAdmin(departmentAdminBo);
-        //在部门表添加社团管理员的信息
-        departmentMapper.updateDepartmentAdmin(departmentAdminBo.getUser().getId(),
-                departmentAdminBo.getDepartmentId());
+
+        //包装注册用户的信息
+        User user = departmentAdminBo.getUser();
+        user.setRoleId(Constant.Role.DEPARTMENT_ADMIN);
+        user.setStatus(User.NORMAL);
+
+        //在用户表添加部门管理员的信息
+        userMapper.insertUser(user);
+        //在部门表添加部门管理员的信息
+        departmentMapper.updateDepartmentAdmin(user.getId(), departmentAdminBo.getDepartmentId());
         return Result.success();
     }
 
     /**
      * 获取部门管理员的信息
      * @param departmentId 部门的id
-     * @return 结果集(包含是否操作成功,描述信息,请求结果)
+     * @return 结果集(包含否操作成功,描述信息,请求结果)
      */
     @Override
     public Result getDepartmentAdmin(Integer departmentId) {
@@ -171,6 +178,7 @@ public class OrganizationServiceImpl implements OrganizationService {
      * @return 返回获取的结果
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Result getAllOrganizationPhoto() {
         //获取校级的图片
         PageInfo<OrganizationPhotoVo> collegePageInfo = getOrganizationPhoto(Constant.Page.DEFAULT_PAGE_NUM,
@@ -191,11 +199,18 @@ public class OrganizationServiceImpl implements OrganizationService {
         return Result.success(map);
     }
 
+    /**
+     * 首页社团获取一组图片
+     * @param pageNum 当前页
+     * @param pageSize 每页大小
+     * @param category 社团类别
+     * @return 获取的结果集
+     */
     @Override
     public PageInfo<OrganizationPhotoVo> getOrganizationPhoto(int pageNum, int pageSize, String category) {
         PageHelper.startPage(pageNum, pageSize);
         List<OrganizationPhotoVo> list = organizationMapper.getOrganizationPhotosByCategory(category);
-        return new PageInfo<>(list);
+        return PageInfo.of(list);
     }
 
     /**

@@ -34,11 +34,4 @@ public interface StageMapper extends BaseMapper<Stage, Integer> {
 	 * @return
 	 */
 	int updateByPrimaryKey(Stage stage);
-
-	/**
-	 * 修改阶段状态
-	 * @param status
-	 * @return
-	 */
-	int modifyStageStatus(int status);
 }

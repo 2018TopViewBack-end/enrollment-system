@@ -1,7 +1,5 @@
 package org.topview.controller.department;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,9 +55,16 @@ public class DepartmentControllerTest {
 		System.out.println(result.getData());
 	}
 	@Test
-	public void testFindById() throws JsonProcessingException {
+	public void testFindById()  {
 		Result result = departmentService.findById(2);
 		System.out.println(result.getData());
 		System.out.println(result.getMsg());
+	}
+
+	@Test
+	public void testGetsigningDepartment() {
+		int oid = 1;
+		Result result = departmentService.getSigningDepartment(oid);
+		System.out.println(result.getData());
 	}
 }

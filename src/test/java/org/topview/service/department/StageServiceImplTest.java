@@ -9,8 +9,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.topview.dao.application.ApplicationResultMapper;
 import org.topview.dao.department.StageMapper;
 import org.topview.entity.department.po.Stage;
-import org.topview.util.Constant;
-import org.topview.util.Result;
+
 
 import java.util.List;
 
@@ -86,16 +85,4 @@ public class StageServiceImplTest {
 		Stage stage = stageMapper.selectByPrimaryKey(stageId);
 		System.out.println(stage);
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 }

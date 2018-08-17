@@ -36,7 +36,7 @@ public class Organization {
     public Organization() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

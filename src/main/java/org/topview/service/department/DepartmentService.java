@@ -50,4 +50,10 @@ public interface DepartmentService {
 	 * @return 部门的相关信息
 	 */
 	Result findById(int id);
+	/**
+	 * 获得没有阶段的部门
+	 * @return
+	 */
+	Result getSigningDepartment(int organizationId);
+
 }

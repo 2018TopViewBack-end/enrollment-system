@@ -62,6 +62,17 @@ public class DepartmentController {
 	}
 
 	/**
+	 * 得到正在允许报名的部门
+	 * @param organizationId
+	 * @return
+	 */
+	@RequestMapping("/getSigningDepartment")
+	@ResponseBody
+	public Result getSigningDepartment(int organizationId) {
+		return departmentService.getSigningDepartment(organizationId);
+	}
+
+	/**
 	 * 记录部门使用的短信数量
 	 * @param id 部门id
 	 * @param messageNum  部门使用的短信数量
