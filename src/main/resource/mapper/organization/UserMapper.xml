@@ -21,6 +21,7 @@
         INSERT INTO user (username,password,tel,wechat,role_id,status)
         VALUES (#{username},#{password},#{tel},#{wechat},#{roleId},#{status})
     </insert>
+
     <select id="login" resultType="org.topview.entity.organization.po.User" parameterType="org.topview.entity.organization.po.User">
         SELECT
         <include refid="Base_Column_List" />
@@ -29,18 +30,25 @@
     </select>
 
     <select id="checkOldPassword" resultType="java.lang.Integer">
-        select password=md5(#{password}) isEqual from user where id=#{id}
+        select password=#{password} isEqual from user where username=#{username}
     </select>
 
     <update id="updatePassword" >
-        update user set password=md5(#{password}) where id=#{id}
+        update user set password=#{password} where username=#{username}
     </update>
 
     <select id="selectRoleByUserId" resultType="java.lang.String" parameterType="java.lang.Integer">
         SELECT name FROM role r, user u WHERE r.id=u.role_id AND u.id=#{userId}
     </select>
 
-    <update id="updateUserStatus">
+    <update id="updateUserStatus1" parameterType="java.util.List">
+        update user set status=#{status} where id in
+        <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <update id="updateUserStatus2">
         update user set status=#{status} where id=#{id}
     </update>
 
@@ -51,5 +59,4 @@
     <!--<select id="" parameterType="arraylist">
 
     </select>-->
-
 </mapper>

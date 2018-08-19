@@ -14,8 +14,6 @@ import org.topview.dao.organization.OrganizationMapper;
 import org.topview.entity.application.po.Application;
 import org.topview.entity.application.po.ApplicationResult;
 import org.topview.entity.application.vo.ApplicationResultVo;
-import org.topview.entity.department.po.Department;
-import org.topview.entity.organization.po.Organization;
 import org.topview.service.application.ApplicationResultService;
 import org.topview.util.Constant;
 import org.topview.util.Result;

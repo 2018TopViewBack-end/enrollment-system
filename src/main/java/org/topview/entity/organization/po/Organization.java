@@ -6,7 +6,7 @@ import java.math.BigDecimal;
  * 社团实体类
  * @author Medwin。
  */
-public class OrganizationPo {
+public class Organization {
     private Integer id;
 
     private String name;
@@ -29,7 +29,7 @@ public class OrganizationPo {
 
     private Integer userId;
 
-    public OrganizationPo() {
+    public Organization() {
     }
 
     public int getId() {
