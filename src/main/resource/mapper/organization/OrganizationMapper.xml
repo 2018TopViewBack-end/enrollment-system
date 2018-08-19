@@ -3,6 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.topview.dao.organization.OrganizationMapper">
 
+<<<<<<< HEAD
     <resultMap id="organizationMap" type="org.topview.entity.organization.po.Organization">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
@@ -41,11 +42,11 @@
         WHERE id = #{organizationId}
     </select>
 
-    <select id="getOrganizationIdByAdminId" parameterType="Integer" resultType="Integer">
+    <select id="getOrganizationIdByAdminId" parameterType="Integer" resultType="java.lang.Integer">
         SELECT id FROM organization WHERE admin_id = #{adminId }
     </select>
 
-    <select id="getOrganizationStatusById" parameterType="Integer" resultType="Integer">
+    <select id="getOrganizationStatusById" parameterType="Integer" resultType="java.lang.Integer">
         SELECT status from organization WHERE id = #{id}
     </select>
 
@@ -62,12 +63,20 @@
                o.tel tel,u.id userId,u.wechat wechat from organization o, user u
         where status=#{status} and o.admin_id=u.id order by o.id
     </select>
+=======
+    <!--<select id="selectOrganizationByStatus" resultType="org.topview.entity.organization.bo.OrganizationBo">
+        select o.id id,o.name name,o.category category,o.introduction introduction,o.linkman linkman,
+            o.tel tel,u.id userId,u.wechat wechat,p.photo_url certificate from organization o, user u, organization_photo p
+        where status=#{status} and p.photo_tag='certificate' and o.admin_id=u.id and p.organization_id=o.id order by o.id
+    </select>-->
+>>>>>>> sb
 
 
     <update id="updateOrganizationStatus">
         update organization set status=#{status} where id=#{id}
     </update>
 
+<<<<<<< HEAD
     <insert id="insert" parameterType="org.topview.entity.organization.po.Organization"
             useGeneratedKeys="true" keyProperty="id">
         insert into organization
@@ -75,4 +84,40 @@
         values
             (#{name},#{logoUrl},#{category},#{introduction},#{linkman},#{tel},#{status},#{apikey},#{accountBalance},#{adminId})
     </insert>
+=======
+    <!--<select id="selectAllOrganization" resultType="org.topview.entity.organization.bo.OrganizationBo">
+        select o.id id,o.name name,o.category category,o.introduction introduction,o.linkman linkman,
+       o.tel tel,u.id userId,u.wechat wechat,p.photo_url certificate from organization o, user u , organization_photo p
+        where p.photo_tag='certificate' and o.admin_id=u.id and p.organization_id=o.id order by o.id
+    </select>-->
+
+    <select id="selectOrganizationByStatus" resultType="org.topview.entity.organization.bo.OrganizationBo">
+        select o.id id,o.name name,o.category category,o.linkman linkman,o.tel tel,u.id userId,u.wechat wechat,u.status status
+        from organization o, user u where u.status=#{status} and o.admin_id=u.id order by o.id
+    </select>
+
+    <select id="selectOrganizationByCategory" resultType="org.topview.entity.organization.bo.OrganizationBo">
+        select o.id id,o.name name,o.category category,o.linkman linkman,o.tel tel,u.id userId,u.wechat wechat,u.status status
+        from organization o, user u where o.category=#{category} and o.admin_id=u.id order by o.id
+    </select>
+
+    <select id="selectOrganization" resultType="org.topview.entity.organization.bo.OrganizationBo">
+        select o.id id,o.name name,o.category category,o.linkman linkman,o.tel tel,u.id userId,u.wechat wechat,u.status status
+        from organization o, user u where o.category=#{category} and u.status=#{status} and o.admin_id=u.id order by o.id
+    </select>
+
+    <select id="selectAllOrganization" resultType="org.topview.entity.organization.bo.OrganizationBo">
+        select o.id id,o.name name,o.category category,o.linkman linkman,o.tel tel,u.id userId,u.wechat wechat,u.status status
+        from organization o, user u where o.admin_id=u.id order by o.id
+    </select>
+
+    <select id="selectOrganizationByName" resultType="org.topview.entity.organization.bo.OrganizationBo">
+        select o.id id,o.name name,o.category category,o.linkman linkman,o.tel tel,u.id userId,u.wechat wechat,u.status status
+        from organization o, user u where o.name like #{name} and o.admin_id=u.id order by o.id
+    </select>
+
+    <update id="addApiKey">
+        update organization set apikey=#{apiKey} where id=#{id}
+    </update>
+>>>>>>> sb
 </mapper>

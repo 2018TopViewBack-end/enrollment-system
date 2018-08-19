@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.topview.config.exception.RegisterFailException;
 import org.topview.entity.organization.po.User;
 import org.topview.entity.organization.vo.CheckPassword;
+
 import org.topview.entity.organization.vo.OrganizationStatus;
 import org.topview.entity.organization.vo.OrganizationVo;
 import org.topview.service.organization.UserService;
@@ -17,6 +18,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 @Controller
+@CrossOrigin
 @RequestMapping("/user")
 public class UserController {
 
@@ -25,22 +27,23 @@ public class UserController {
 
     /**
      * 修改密码
-     *
-     * @param userId
-     * @param checkPassword
+     * @param user 用户在登录后session中存放着一个user对象
+     * @param checkPassword 修改密码的vo类对象，包含用户输入的原密码和新密码
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
-    public Result updateOldPassword(@SessionAttribute Integer userId, CheckPassword checkPassword) {
-        Result result = userService.checkOldPasswordService(userId, checkPassword.getOldPassword());
-        if (!result.isSuccess()) {
-            //如果原密码错误，直接返回错误信息
-            return result;
-        } else {
+    @RequestMapping(value = "/updatePassword",method = RequestMethod.POST)
+    public Result updateOldPassword(@SessionAttribute User user, @RequestBody CheckPassword checkPassword) {
+        if (userService.checkOldPasswordService(user.getUsername(),checkPassword.getOldPassword())) {
             //如果原密码正确，将结果更改为修改密码的结果并返回
-            result = userService.updatePasswordService(userId, checkPassword.getNewPassword());
-            return result;
+            if(userService.updatePasswordService(user.getUsername(),checkPassword.getNewPassword())) {
+                return Result.success();
+            } else {
+                return Result.fail("很抱歉，密码修改失败，请稍后再试");
+            }
+        } else {
+            //如果原密码错误，直接返回错误信息
+            return Result.fail("原密码错误，请重新输入");
         }
     }
 
@@ -79,13 +82,11 @@ public class UserController {
     }
 
     /**
-     * 注册 && 登录
-     *
+     * 注册 && 登录*
      * @param organizationVo 社团VO对象
      * @param request  httpRequest
      * @return Result
      */
-
     @ResponseBody
     @RequestMapping(value = "/register")
     public Result subRegister(@RequestBody OrganizationVo organizationVo, HttpServletRequest request) {
@@ -130,15 +131,35 @@ public class UserController {
 
     /**
      * 修改账号的状态（用于审核新增的社团管理员，将社团管理员设置为不可用等,同时其下的部门管理员也一起设置为不可用）
-     *
      * @param organizationStatus
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/updateUserStatus")
-    public Result updateUserStatus(OrganizationStatus organizationStatus) {
-        return userService.updateUserStatusService(organizationStatus);
+    @RequestMapping(value = "/updateUserStatus",method = RequestMethod.POST)
+    public Result updateUserStatus(@RequestBody OrganizationStatus organizationStatus){
+        try {
+            userService.updateUserStatusService(organizationStatus);
+            return Result.success();
+        } catch (Exception e) {
+            return Result.fail("很抱歉，修改失败，请稍后再试");
+        }
+    }
 
+    /**
+     * 通过待审核社团，并向社团表中添加该社团发短信使用的apiKey
+     * @param organizationStatus 包含社团管理员userId，社团Id，目标status
+     * @param apiKey 发短信使用的apiKey
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/updateUserStatus/{apiKey}", method = RequestMethod.POST)
+    public Result acceptOrganization(@RequestBody OrganizationStatus organizationStatus, @PathVariable String apiKey) {
+        try {
+            userService.updateUserStatusService(organizationStatus,apiKey);
+            return Result.success();
+        } catch (Exception e) {
+            return Result.fail("通过失败，请稍后再试");
+        }
     }
 
 //    @ResponseBody

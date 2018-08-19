@@ -1,5 +1,7 @@
 package org.topview.dao;
 
+import org.springframework.stereotype.Repository;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,6 +12,7 @@ import java.util.List;
  * @param <PK>
  * @author Medwin。
  */
+@Repository
 public interface BaseMapper<T, PK extends Serializable> {
 
     T selectByPrimaryKey(PK pk);  //根据主键选择对象

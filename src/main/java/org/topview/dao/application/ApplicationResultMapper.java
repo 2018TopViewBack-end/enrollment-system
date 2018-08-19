@@ -1,10 +1,12 @@
 package org.topview.dao.application;
 
+import org.springframework.stereotype.Repository;
 import org.topview.dao.BaseMapper;
 import org.topview.entity.application.po.ApplicationResult;
 
 import java.util.List;
 
+@Repository
 public interface ApplicationResultMapper extends BaseMapper<ApplicationResult, Integer> {
 
     List<Integer> listSpecificAppId(int status, int stageId);

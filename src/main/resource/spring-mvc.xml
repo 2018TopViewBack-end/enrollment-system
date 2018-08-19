@@ -25,6 +25,8 @@
         <property name="maxUploadSizePerFile" value="1024000" />
     </bean>
     <context:component-scan base-package="org.topview.controller"/>
+    <context:component-scan base-package="org.topview.service"/>
+    <context:component-scan base-package="org.topview.dao"/>
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
     <!-- 解决跨域请求问题，spring版本需4.2以上 -->

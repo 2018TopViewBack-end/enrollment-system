@@ -1,6 +1,7 @@
 package org.topview.dao.department;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 import org.topview.dao.BaseMapper;
 import org.topview.entity.department.bo.DepartmentBo;
 import org.topview.entity.department.po.Department;
@@ -12,6 +13,7 @@ import java.util.List;
 /**
  *
  */
+@Repository
 public interface DepartmentMapper extends BaseMapper<Department, Integer> {
 
     /**

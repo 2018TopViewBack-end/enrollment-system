@@ -1,6 +1,7 @@
 package org.topview.dao.organization;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 import org.topview.dao.BaseMapper;
 import org.topview.entity.organization.bo.DepartmentAdminBo;
 import org.topview.entity.organization.po.User;
@@ -10,6 +11,7 @@ import java.util.List;
 /**
  * @author 63023
  */
+@Repository
 public interface UserMapper extends BaseMapper<User, Integer> {
 
     /**
@@ -38,21 +40,27 @@ public interface UserMapper extends BaseMapper<User, Integer> {
 
     /**
      * 检查输入的旧密码正确
-     *
      * @param password 旧密码
-     * @param id       用户id
+     * @param username 用户名
      * @return isEqual 输入的旧密码与数据库中的一致则返回1，不一致则返回0
      */
-    Integer checkOldPassword(String password, Integer id);
+    Integer checkOldPassword(@Param("password") String password, @Param("username") String username);
 
     /**
      * 社团修改密码
-     *
      * @param password 新密码
-     * @param id       社团id
+     * @param username 用户名
      * @return 修改成功则返回1
      */
-    Integer updatePassword(String password, Integer id);
+    Integer updatePassword(@Param("password") String password, @Param("username") String username);
+
+    /**
+     * 批量更新User的状态
+     * @param status 状态码 0为待审核，1为可用，2为禁用
+     * @param idList
+     * @return
+     */
+    Integer updateUserStatus1(@Param("status") Integer status, @Param("idList") List<Integer> idList);
 
     /**
      * 更新User的状态
@@ -60,7 +68,7 @@ public interface UserMapper extends BaseMapper<User, Integer> {
      * @param id
      * @return
      */
-    Integer updateUserStatus(@Param("status") Integer status, @Param("id") Integer id);
+    Integer updateUserStatus2(@Param("status") Integer status, @Param("id") Integer id);
 
     /**
      * 判断是否存在该username
