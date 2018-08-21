@@ -16,6 +16,8 @@ public class Constant {
 
     public static final String INFO_NOT_FOUND = "没有找到您的信息";
 
+    public static final String NO_INFO = "暂无";
+
     public static final String LOGIN_SUCCESS = "登陆成功";
 
     public static final String LOGIN_FAIL = "帐号或密码错误";
@@ -37,6 +39,8 @@ public class Constant {
     public static final String FAIL_TO_DELETE = "删除失败";
 
     public static final String MODIFY_STAGE_FAIL = "修改招新阶段失败";
+
+    public static final String PREFIX_OF_STUDENT_ID = "311";
 
     public static class OrganizationCategory {
         public static final String COLLEGE = "校级";

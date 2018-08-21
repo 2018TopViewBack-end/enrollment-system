@@ -5,14 +5,14 @@
 <mapper namespace="org.topview.dao.application.ApplicationMapper">
 
 
-    <select id="getApplication" resultType="Application">
+    <select id="getApplication" resultType="org.topview.entity.application.po.Application">
         select id,department_id departmentId, orginaziton_id organizationId, name stuName, gender gender, academy academy,
         major_and_class majorAndClass, wechat wechat, tel tel,student_number stuId,dormitory dormitory,
         is_adjust adjustable,introduction introduction
         from application where tel = #{param1} and student_number = #{param2}
     </select>
     
-    <select id="checkApplication" resultType="integer">
+    <select id="checkApplication" resultType="java.lang.Integer">
         select id from application where student_number = #{param1} and department_id = #{param2}
     </select>
 
@@ -20,6 +20,12 @@
         select id,department_id departmentId, orginaziton_id organizationId, name stuName, gender gender, academy academy,
             major_and_class majorAndClass, wechat wechat, tel tel,student_number stuId,dormitory dormitory,is_adjust adjustable,introduction introduction
         from application where id = #{applicationId}
+    </select>
+
+    <select id="listAllOfDepartment" resultType="org.topview.entity.application.po.Application">
+        select id,department_id departmentId, orginaziton_id organizationId, name stuName, gender gender, academy academy,
+                  major_and_class majorAndClass, wechat wechat, tel tel,student_number stuId,dormitory dormitory,is_adjust adjustable,introduction introduction
+        from application where department_id = #{departmentId}
     </select>
 
     <insert id="insert" parameterType="Application">
