@@ -1,6 +1,7 @@
 package org.topview.dao.organization;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 import org.topview.dao.BaseMapper;
 import org.topview.entity.organization.bo.OrganizationBo;
 import org.topview.entity.organization.po.Organization;
@@ -8,6 +9,7 @@ import org.topview.entity.organization.vo.OrganizationPhotoVo;
 
 import java.util.List;
 
+@Repository
 public interface OrganizationMapper extends BaseMapper<Organization, Integer> {
 
     /**
@@ -39,6 +41,19 @@ public interface OrganizationMapper extends BaseMapper<Organization, Integer> {
     List<OrganizationPhotoVo> getOrganizationPhotosByCategory(String category);
 
     /**
+     * 查询所有社团
+     * @return 社团list
+     */
+    List<OrganizationBo> selectAllOrganization();
+
+    /**
+     * 通过名字进行社团的模糊查询
+     * @param name
+     * @return
+     */
+    List<OrganizationBo> selectOrganizationByName(String name);
+
+    /**
      * 更新社团的状态
      * @param id 社团id
      * @param status 社团新的状态
@@ -46,4 +61,34 @@ public interface OrganizationMapper extends BaseMapper<Organization, Integer> {
      */
     Integer updateOrganizationStatus(@Param("status") Integer status, @Param("id") Integer id);
 
+    /**
+     * 添加社团
+     * @param organization 社团
+     * @return 增加的条数
+     */
+    @Override
+    int insert(Organization organization);
+
+    /**
+     * 同意社团申请时，向社团表中加入apiKey
+     * @param apiKey 发送短信用的apiKey
+     * @param id 社团id
+     * @return
+     */
+    Integer addApiKey(@Param("apiKey") String apiKey,@Param("id") Integer id);
+
+    /**
+     * 分类筛选社团
+     * @param category
+     * @return
+     */
+    List<OrganizationBo> selectOrganizationByCategory(String category);
+
+    /**
+     * 通过社团类别和状态筛选社团
+     * @param category
+     * @param status
+     * @return
+     */
+    List<OrganizationBo> selectOrganization(@Param("category") String category,@Param("status") Integer status);
 }

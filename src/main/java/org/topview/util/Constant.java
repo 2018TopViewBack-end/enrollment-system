@@ -40,6 +40,15 @@ public class Constant {
 
     public static final String MODIFY_STAGE_FAIL = "修改招新阶段失败";
 
+    public static final String MODIFY_DEPARTMENT_FAIL= "修改部门失败";
+
+    public static final String ADD_DEPARTMENT_FAIL = "新增部门失败";
+
+    public static final String EMPTY_DEPARTMENT = "没有部门";
+
+    /**
+     * 社团类别用到的常量类
+     */
     public static final String PREFIX_OF_STUDENT_ID = "311";
 
     public static class OrganizationCategory {
@@ -48,20 +57,29 @@ public class Constant {
         public static final String INTERESTS = "兴趣类";
     }
 
+    /**
+     * 社团状态用到的常量类
+     */
     public static class OrganizationStatus {
         public static final int DOWNLINE = 0;
         public static final int ONLINE = 1;
         public static final int FORBIDDEN = 2;
     }
 
+    /**
+     * 分页用到的常量类
+     */
     public static class Page {
-        public static final int DEFAULT_PAGE_NUM = 0;
+        public static final int DEFAULT_PAGE_NUM = 1;
         public static final int PAGE_SIZE = 8;
     }
 
-    public static final String MODIFY_DEPARTMENT_FAIL= "修改部门失败";
-
-    public static final String ADD_DEPARTMENT_FAIL = "新增部门失败";
-
-    public static final String EMPTY_DEPARTMENT = "没有部门";
+    /**
+     * 角色用到的常量类
+     */
+    public static class Role {
+        public static final int SUPER_ADMIN = 1;
+        public static final int ORGANIZATION_ADMIN = 2;
+        public static final int DEPARTMENT_ADMIN = 3;
+    }
 }

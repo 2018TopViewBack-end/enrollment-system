@@ -1,10 +1,12 @@
 package org.topview.dao.department;
 
+import org.springframework.stereotype.Repository;
 import org.topview.dao.BaseMapper;
 import org.topview.entity.department.po.Stage;
 
 import java.util.List;
 
+@Repository
 public interface StageMapper extends BaseMapper<Stage, Integer> {
 
 	/**
@@ -34,11 +36,4 @@ public interface StageMapper extends BaseMapper<Stage, Integer> {
 	 * @return
 	 */
 	int updateByPrimaryKey(Stage stage);
-
-	/**
-	 * 修改阶段状态
-	 * @param status
-	 * @return
-	 */
-	int modifyStageStatus(int status);
 }

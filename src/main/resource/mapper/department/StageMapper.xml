@@ -20,7 +20,7 @@
     </delete>
 
     <!--查找出同一个部门的所有阶段-->
-    <select id="listStageByDepartmentId" parameterType="int" resultMap="stage_map">
+    <select id="selectByExample" parameterType="int" resultMap="stage_map">
         select * from stage where department_id = #{departmentId}
     </select>
 
@@ -33,10 +33,5 @@
     <select id="selectByPrimaryKey" parameterType="int" resultMap="stage_map">
         select * from stage where id = #{id}
     </select>
-    
-    <update id="modifyStageStatus" parameterType="int">
-         update stage set status = #{status} where id = ${id}
-    </update>
-    
 
 </mapper>

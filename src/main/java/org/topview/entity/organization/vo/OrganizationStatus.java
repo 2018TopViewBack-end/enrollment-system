@@ -14,6 +14,9 @@ public class OrganizationStatus {
         this.status = status;
     }
 
+    public OrganizationStatus() {
+    }
+
     public Integer getOrganizationId() {
         return organizationId;
     }

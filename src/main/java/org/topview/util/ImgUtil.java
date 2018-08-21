@@ -398,7 +398,7 @@ public class ImgUtil {
      */
     public static String savePicture(HttpServletRequest request, MultipartFile file){
         if(file == null)return null;
-        String storageDir = request.getSession().getServletContext().getRealPath("/picture/upload"); //图片的保存路径
+        String storageDir = request.getSession().getServletContext().getRealPath(""); //图片的保存路径
         String filePath = null;
         try (InputStream in = file.getInputStream()){
 
@@ -407,8 +407,8 @@ public class ImgUtil {
             String newFileName = UUID.randomUUID().toString();// 使用UUID作为文件名
             filePath  =  newFileName+"."+imageName; //\0000-1111-122222.后缀名
             storageDir = storageDir.replace("\\", "/");
-
-
+            int index = storageDir.indexOf("enrollment-system");
+            storageDir = storageDir.substring(0, index) + "/picture/upload";
             //3.根据配置信息得到文件的存储目录，根据存储目录和第二步生成的路径，构建File或者Path对象。
             //假设文件存储在D:\storage，那么完整的Path对象值就是： D:\storage\0000-1111-122222.后缀
             Path path = Paths.get(storageDir, filePath);

@@ -1,28 +1,24 @@
 package org.topview.controller.organization;
 
 import org.apache.shiro.authc.DisabledAccountException;
-import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.topview.entity.organization.po.User;
 import org.springframework.web.bind.annotation.*;
+import org.topview.config.exception.RegisterFailException;
+import org.topview.entity.organization.po.User;
 import org.topview.entity.organization.vo.CheckPassword;
+
 import org.topview.entity.organization.vo.OrganizationStatus;
+import org.topview.entity.organization.vo.OrganizationVo;
 import org.topview.service.organization.UserService;
-import org.topview.util.Result;
-import org.topview.util.TokenManager;
-import org.topview.util.VerifyCodeUtils;
-import net.sf.json.JSONObject;
+import org.topview.util.*;
+
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
 
 @Controller
+@CrossOrigin
 @RequestMapping("/user")
 public class UserController {
 
@@ -31,21 +27,23 @@ public class UserController {
 
     /**
      * 修改密码
-     * @param userId
-     * @param checkPassword
+     * @param user 用户在登录后session中存放着一个user对象
+     * @param checkPassword 修改密码的vo类对象，包含用户输入的原密码和新密码
      * @return
      */
     @ResponseBody
     @RequestMapping(value = "/updatePassword",method = RequestMethod.POST)
-    public Result updateOldPassword(@SessionAttribute Integer userId, CheckPassword checkPassword) {
-        Result result = userService.checkOldPasswordService(userId,checkPassword.getOldPassword());
-        if (!result.isSuccess()) {
-            //如果原密码错误，直接返回错误信息
-            return result;
-        } else {
+    public Result updateOldPassword(@SessionAttribute User user, @RequestBody CheckPassword checkPassword) {
+        if (userService.checkOldPasswordService(user.getUsername(),checkPassword.getOldPassword())) {
             //如果原密码正确，将结果更改为修改密码的结果并返回
-            result = userService.updatePasswordService(userId,checkPassword.getNewPassword());
-            return result;
+            if(userService.updatePasswordService(user.getUsername(),checkPassword.getNewPassword())) {
+                return Result.success();
+            } else {
+                return Result.fail("很抱歉，密码修改失败，请稍后再试");
+            }
+        } else {
+            //如果原密码错误，直接返回错误信息
+            return Result.fail("原密码错误，请重新输入");
         }
     }
 
@@ -74,7 +72,7 @@ public class UserController {
                 roleName = (String) iterator.next();
             }
 
-            return Result.success(userService.getRoleResourceByRoleName(roleName, user));
+            return userService.getRoleResourceByRoleName(roleName, user);
         } catch (DisabledAccountException e) {
             return Result.fail(e.getLocalizedMessage());
         } catch (Exception e) {
@@ -82,51 +80,86 @@ public class UserController {
             return Result.fail("帐号或密码错误");
         }
     }
+
     /**
-     * 注册 && 登录
-     * @param vCode		验证码
-     * @param user	User实体
-     * @return
+     * 注册 && 登录*
+     * @param organizationVo 社团VO对象
+     * @param request  httpRequest
+     * @return Result
      */
-
     @ResponseBody
-    @RequestMapping(value="/register",method=RequestMethod.POST)
-    public Result subRegister(@RequestParam(value = "vCode", required = false) String vCode, User user){
-        if(!VerifyCodeUtils.verifyCode(vCode)){
-            System.out.println("/register中" + "验证码错误");
-            return Result.fail("验证码不正确！");
+    @RequestMapping(value = "/register")
+    public Result subRegister(@RequestBody OrganizationVo organizationVo, HttpServletRequest request) {
+        try {
+            User user = organizationVo.getUser();
+            String vCode = organizationVo.getvCode();
+
+            //如果该角色不为社团管理员,则启用验证码登录
+            if (user.getRoleId() != Constant.Role.ORGANIZATION_ADMIN) {
+
+                System.out.println("userControllerSession:" + request.getSession());
+                String rightVcode = (String) request.getSession().getAttribute(VerifyCodeUtils.V_CODE);
+                request.getSession().removeAttribute(VerifyCodeUtils.V_CODE);
+                System.out.println("vCode:" + vCode);
+                System.out.println("rightVcode:" + rightVcode);
+                if (!rightVcode.equalsIgnoreCase(vCode)) {
+                    return Result.fail("验证码不正确！");
+                }
+            }
+
+            if (userService.isUserExist(user)) {
+                return Result.fail("该用户名已存在!");
+            }
+
+            //MD5加密
+            organizationVo.getUser().setPassword(Md5Util.getMD5Password(user.getUsername(), user.getPassword()));
+            //设置有效
+            user.setStatus(User.NORMAL);
+
+            return userService.register(user, organizationVo.getOrganization());
+        }
+//    catch (RegisterFailException e){
+//        return Result.fail(e.getLocalizedMessage());
+//    }
+        catch (RegisterFailException e) {
+            return Result.fail(e.getLocalizedMessage());
+        } catch (Exception e) {
+            return Result.fail(e.getLocalizedMessage());
         }
 
-        if(userService.isUserExist(user)){
-            return Result.fail("该用户名已存在!");
-        }
-        System.out.println("password:" + user.getPassword());
-        //把密码md5
-        Md5Hash md5Hash2 = new Md5Hash(user.getPassword(),user.getUsername(), 2);
-        System.out.println("md5 Password:" + md5Hash2.toString());
-        //设置有效
-        user.setStatus(User.NORMAL);
-        user.setPassword(md5Hash2.toString());
-        return userService.register(user);
-//        user = userService.insert(user);
-//        LoggerUtils.fmtDebug(getClass(), "注册插入完毕！", JSONObject.fromObject(user).toString());
-//        user = TokenManager.login(user, Boolean.TRUE);
-//        LoggerUtils.fmtDebug(getClass(), "注册后，登录完毕！", JSONObject.fromObject(user).toString());
-//        resultMap.put("message", "注册成功！");
-//        resultMap.put("status", 200);
-//        return resultMap;
     }
 
     /**
-     *  修改账号的状态（用于审核新增的社团管理员，将社团管理员设置为不可用等,同时其下的部门管理员也一起设置为不可用）
+     * 修改账号的状态（用于审核新增的社团管理员，将社团管理员设置为不可用等,同时其下的部门管理员也一起设置为不可用）
      * @param organizationStatus
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/updateUserStatus")
-    public Result updateUserStatus(OrganizationStatus organizationStatus) {
-        return userService.updateUserStatusService(organizationStatus);
+    @RequestMapping(value = "/updateUserStatus",method = RequestMethod.POST)
+    public Result updateUserStatus(@RequestBody OrganizationStatus organizationStatus){
+        try {
+            userService.updateUserStatusService(organizationStatus);
+            return Result.success();
+        } catch (Exception e) {
+            return Result.fail("很抱歉，修改失败，请稍后再试");
+        }
+    }
 
+    /**
+     * 通过待审核社团，并向社团表中添加该社团发短信使用的apiKey
+     * @param organizationStatus 包含社团管理员userId，社团Id，目标status
+     * @param apiKey 发短信使用的apiKey
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/updateUserStatus/{apiKey}", method = RequestMethod.POST)
+    public Result acceptOrganization(@RequestBody OrganizationStatus organizationStatus, @PathVariable String apiKey) {
+        try {
+            userService.updateUserStatusService(organizationStatus,apiKey);
+            return Result.success();
+        } catch (Exception e) {
+            return Result.fail("通过失败，请稍后再试");
+        }
     }
 
 //    @ResponseBody

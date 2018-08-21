@@ -17,6 +17,15 @@ public abstract class Captcha extends Randoms {
 	protected int width = 150; // 验证码显示跨度
 	protected int height = 40; // 验证码显示高度
 	private String chars = null; // 随机字符串
+	private char[] rands = null;
+
+	public char[] getRands() {
+		return rands;
+	}
+
+	public void setRands(char[] rands) {
+		this.rands = rands;
+	}
 
 	/**
 	 * 生成随机字符数组
@@ -31,6 +40,7 @@ public abstract class Captcha extends Randoms {
 		chars = new String(cs);
 		return cs;
 	}
+
 
 	public Font getFont() {
 		return font;
