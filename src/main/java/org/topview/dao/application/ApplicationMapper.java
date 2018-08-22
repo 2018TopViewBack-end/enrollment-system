@@ -13,4 +13,6 @@ public interface ApplicationMapper extends BaseMapper<Application, Integer> {
     Integer checkApplication(String studentId, int departmentId);//检查application是否存在
 
     List<Application> getApplication(String tel, String studentId);
+
+    List<Application> listAllOfDepartment(Integer departmentId);
 }

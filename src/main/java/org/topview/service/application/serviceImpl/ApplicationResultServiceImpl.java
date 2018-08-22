@@ -17,10 +17,12 @@ import org.topview.util.Constant;
 import org.topview.util.Result;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
- *
+ * 报名表结果service
+ * @author Medwin。
  */
 @Service
 public class ApplicationResultServiceImpl implements ApplicationResultService {
@@ -40,53 +42,121 @@ public class ApplicationResultServiceImpl implements ApplicationResultService {
     @Autowired
     private StageMapper stageMapper;
 
+    //可改进
+
+    /**
+     * 查看报名结果
+     * @param tel
+     * @param studentId
+     * @return Result
+     */
     @Override
     public Result checkResult(String tel, String studentId) {
         //取得该学生所有申请
         List<Application> applications = applicationMapper.getApplication(tel, studentId);
+
+        List<ApplicationResultVo> results = setProperties(applications);
+        return Result.success(results);
+    }
+
+    /**
+     *
+     */
+    private List<ApplicationResultVo> setProperties(List<Application> applications){
         List<ApplicationResultVo> results = new ArrayList<>();
 
         for (Application application: applications){
             //遍历该学生每一张报名表
-            int departmentId = application.getDepartmentId();
-//            int newestStageId = departmentMapper.getNewestStageByDepartmentId(departmentId);
-            //获取最新一轮结果
-//            int newestStageId = applicationResultMapper.selectMaxStageId(application.getId());
-            //获取stageid最大那个的result
+//            int departmentId = application.getDepartmentId();
+            //获取stageid最大的result
             ApplicationResult applicationResult = applicationResultMapper.checkResult(application.getId());
 
-//            if (newestStageId == applicationResult.getStageId()){
             ApplicationResultVo applicationResultVo= new ApplicationResultVo();
             //复制和设置vo字段值
             BeanUtils.copyProperties(application,applicationResultVo);
-            BeanUtils.copyProperties(applicationResult,applicationResultVo);
+            if (null != applicationResult){
+                BeanUtils.copyProperties(applicationResult,applicationResultVo);
+                String stageName = stageMapper.selectByPrimaryKey(applicationResult.getStageId()).getStageName();
+                applicationResultVo.setStage(stageName);
+
+                if (0 == applicationResult.getStatus()){
+                    applicationResultVo.setResult(Constant.TO_BE_DECIDED);
+                } else if (1 == applicationResult.getStatus()){
+                    applicationResultVo.setResult(Constant.PASSED);
+                } else {
+                    applicationResultVo.setResult(Constant.DID_NOT_PASS);
+                }
+            } else {
+                //若没有结果信息
+                applicationResultVo.setStage(Constant.NO_INFO);
+                applicationResultVo.setResult(Constant.NO_INFO);
+            }
 
             String organizationName = organizationMapper.selectByPrimaryKey(application.getOrganizationId()).getName();
             String departmentName = departmentMapper.selectByPrimaryKey(application.getDepartmentId()).getName();
-
             applicationResultVo.setOrganizationName(organizationName);
             applicationResultVo.setDepartmentName(departmentName);
-            String stageName = stageMapper.selectByPrimaryKey(applicationResult.getStageId()).getStageName();
-            applicationResultVo.setStage(stageName);
 
-            if (0 == applicationResult.getStatus()){
-                applicationResultVo.setResult(Constant.TO_BE_DECIDED);
-            } else if (1 == applicationResult.getStatus()){
-                applicationResultVo.setResult(Constant.SUBMIT_SUCCEED);
+            if (1 == application.getGender()){
+                applicationResultVo.setGender("女");
             } else {
-                applicationResultVo.setResult(Constant.SUBMIT_FAILED);
+                applicationResultVo.setGender("男");
             }
+//            return applicationResultVo;
             results.add(applicationResultVo);
-//            }
         }
-        return Result.success(results);
+        return  results;
+    }
+
+    /**
+     * 批量通过或拒绝报名
+     * @param applicationIds
+     * @param status
+     * @param stageId
+     * @return Result
+     */
+    @Override
+    public Result applicationHandle(List<Integer> applicationIds, int status, int stageId) {
+        java.util.Date dt = new java.util.Date();
+
+        java.text.SimpleDateFormat sdf =
+                new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        String currentTime = sdf.format(dt);
+        for (Integer id : applicationIds){
+            applicationResultMapper.handleApplication(id, status, stageId, currentTime);
+        }
+        return Result.success();
     }
 
     @Override
-    public Result applicationHandle(List<Integer> applicationIds, int status, int stageId) {
-        for (Integer id : applicationIds){
-            applicationResultMapper.handleApplication(id , status, stageId);
+    public Result searchResult(String condition, int status, int stageId) {
+        List<Integer> applications = applicationResultMapper.listSpecificApplicationId(status, stageId);
+        //获取id列表
+        List<Application> resultApplications = new ArrayList<>();
+        for (Integer applicationId : applications){
+            Application application = applicationMapper.selectByPrimaryKey(applicationId);
+            resultApplications.add(application);
+            }
+        List<ApplicationResultVo> applicationResultVos =  setProperties(resultApplications);
+
+        ApplicationResultVo selectedApplicationResult = new ApplicationResultVo();
+        if (condition.contains(Constant.PREFIX_OF_STUDENT_ID)){
+            //condition为学号形式
+            for (ApplicationResultVo resultApplication : applicationResultVos){
+                if (resultApplication.getStuId().equals(condition)){
+                    //若找到匹配项
+                    selectedApplicationResult = resultApplication;
+                }else {
+                    if (resultApplication.getStuName().equals(condition)){
+                        selectedApplicationResult = resultApplication;
+                    }
+                }
+            }
         }
-        return Result.success();
+        if(selectedApplicationResult.getStuId() != null){
+            return Result.success(selectedApplicationResult);
+        }
+        return Result.fail(Constant.NOT_FOUND);
     }
 }

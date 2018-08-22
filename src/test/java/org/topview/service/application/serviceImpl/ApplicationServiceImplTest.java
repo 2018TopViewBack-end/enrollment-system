@@ -27,22 +27,22 @@ public class ApplicationServiceImplTest {
         Application application = new Application();
         application.setDepartmentId(1);
         application.setOrganizationId(1);
-        application.setStuId("3117001440");
+        application.setStuId("3117001441");
         application.setGender(0);
         application.setAcademy("自动化学院");
         application.setMajorAndClass("物联网五班");
         application.setAdjustable(true);
         application.setDormitory("西九512");
-        application.setIntroduction("a real good person");
-        application.setStuName("Maven");
-        application.setTel("15521300156");
-        application.setWechat("1008611789");
-        applicationService.addApplication(application);
+        application.setIntroduction("a good person");
+        application.setStuName("MMM");
+        application.setTel("15521300166");
+        application.setWechat("1008611780");
+        System.out.println(applicationService.addApplication(application));
     }
 
     @Test
     public void listApplicationOf() {
-        System.out.println(applicationService.listApplicationOf(1,2));
+        System.out.println(applicationService.listApplicationOf(0,2,1,2));
     }
 
     @Test

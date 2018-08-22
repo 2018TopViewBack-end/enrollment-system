@@ -47,4 +47,13 @@ public class Result<T> {
     public T getData() {
         return data;
     }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "success=" + success +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

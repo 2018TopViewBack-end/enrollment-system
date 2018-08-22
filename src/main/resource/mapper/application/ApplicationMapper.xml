@@ -22,6 +22,12 @@
         from application where id = #{applicationId}
     </select>
 
+    <select id="listAllOfDepartment" resultType="org.topview.entity.application.po.Application">
+        select id,department_id departmentId, orginaziton_id organizationId, name stuName, gender gender, academy academy,
+                  major_and_class majorAndClass, wechat wechat, tel tel,student_number stuId,dormitory dormitory,is_adjust adjustable,introduction introduction
+        from application where department_id = #{departmentId}
+    </select>
+
     <insert id="insert" parameterType="Application">
        insert into application(department_id, orginaziton_id, name, gender, academy, major_and_class, wechat, tel, student_number, dormitory, is_adjust, introduction)
                values (#{departmentId}, #{organizationId}, #{stuName}, #{gender}, #{academy}, #{majorAndClass}, #{wechat}, #{tel},
