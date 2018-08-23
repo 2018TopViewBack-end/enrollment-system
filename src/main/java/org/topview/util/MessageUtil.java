@@ -82,6 +82,9 @@ public class MessageUtil {
         params.put("apikey", apiKey);
         params.put("text", text);
         params.put("mobile", nums);
+        root(params,URL_SEND);
+
+        System.out.println(post(URL_SEND,params));
         return root(params,URL_SEND);
     }
 

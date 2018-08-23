@@ -14,14 +14,16 @@ import org.topview.entity.organization.bo.OrganizationBo;
 import org.topview.entity.organization.po.Organization;
 import org.topview.entity.organization.po.User;
 import org.topview.entity.organization.vo.OrganizationPhotoVo;
+import org.topview.entity.organization.bo.OrganizationBo;
 import org.topview.service.organization.OrganizationService;
 import org.topview.util.Constant;
 import org.topview.util.Result;
 
-import java.sql.SQLException;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * @author Pan梓涵
@@ -164,6 +166,57 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     /**
+     * 查询该状态下的所有社团
+     * @param status 状态码 0为待审核，1为可用，2为禁用
+     * @return 一个社团list
+     */
+    @Override
+    public List<OrganizationBo> selectOrganizationService(Integer pageNum, Integer status) {
+        return organizationMapper.selectOrganizationByStatus(status);
+    }
+
+    /**
+     * 通过名字模糊查询社团
+     * @param name
+     * @return 一个社团list
+     */
+    @Override
+    public List<OrganizationBo> selectOrganizationService(Integer pageNum, String name) {
+        name = '%'+name+'%';
+        return organizationMapper.selectOrganizationByName(name);
+    }
+
+    /**
+     * 通过社团分类查询社团
+     * @param category
+     * @return
+     */
+    @Override
+    public List<OrganizationBo> selectOrganizationByCategoryService(Integer pageNum, String category) {
+        return organizationMapper.selectOrganizationByCategory(category);
+    }
+
+    /**
+     * 查询所有社团
+     * @return 一个社团list
+     */
+    @Override
+    public List<OrganizationBo> selectOrganizationService(Integer pageNum) {
+        return organizationMapper.selectAllOrganization();
+    }
+
+    /**
+     * 通过社团分类和状态查询社团
+     * @param category
+     * @param status
+     * @return 一个社团list
+     */
+    @Override
+    public List<OrganizationBo> selectOrganizationService(Integer pageNum, String category, Integer status) {
+        return organizationMapper.selectOrganization(category,status);
+    }
+
+    /**
      * 根据社团管理员id获取社团信息
      * @param adminId 社团管理员的id
      * @return 社团信息id,查询不到,返回null
@@ -214,12 +267,13 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     /**
-     * 返回该状态下的所有社团
-     * @param status 状态码 0为待审核，1为可用，2为禁用
-     * @return 一个社团list
+     * 将社团的状态改为目标状态
+     * @param status 目标状态码
+     * @param organizationId 社团id
+     * @return 修改成功返回1,
      */
     @Override
-    public List<OrganizationBo> selectOrganizationService(Integer status) {
-        return organizationMapper.selectOrganizationByStatus(status);
+    public Integer updateOrganizationStatusService(Integer status, Integer organizationId) {
+        return organizationMapper.updateOrganizationStatus(status,organizationId);
     }
 }

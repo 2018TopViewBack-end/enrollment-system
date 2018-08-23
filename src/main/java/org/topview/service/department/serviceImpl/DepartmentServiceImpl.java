@@ -6,6 +6,7 @@ import org.topview.dao.department.DepartmentMapper;
 import org.topview.dao.department.StageMapper;
 import org.topview.entity.department.bo.DepartmentBo;
 import org.topview.entity.department.po.Department;
+import org.topview.entity.department.po.SMS;
 import org.topview.entity.department.vo.DepartmentVo;
 import org.topview.service.department.DepartmentService;
 import org.topview.util.Constant;
@@ -83,4 +84,29 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 
+
+
+	@Override
+	public Result updateDepartmentMessageNum(int id, int messageNum) {
+		int oldMessageNum = findMessageNum(id);
+		int newMessageNum = oldMessageNum + messageNum;
+		int flog = departmentMapper.updateDepartmentMessageNum(id,newMessageNum);
+		if (flog == 1){
+			return Result.success("已使用了"+newMessageNum+"条短信");
+		}else {
+			return Result.fail("修改失败");
+		}
+	}
+
+	@Override
+	public int findMessageNum(int id) {
+		return departmentMapper.findMessageNum(id);
+
+	}
+
+	@Override
+	public Result findById(int id) {
+		DepartmentVo departmentInfoVo = departmentMapper.findById(id);
+		return Result.success(departmentInfoVo);
+	}
 }

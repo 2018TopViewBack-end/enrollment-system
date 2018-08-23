@@ -34,13 +34,13 @@ public class StageServiceImplTest {
 		stage.setDepartmentId(1);
 		System.out.println("插入前id："+stage.getId());
 		int lastStageId = 18;
-		if (lastStageId != 0) {
-			List<Integer> applicationId = applicationResultMapper.listSpecificAppId(lastStageId, 0);
-			if (applicationId.size() != 0) {
-				System.out.println("fail!!!!!");
-				return;
-			}
-		}
+//		if (lastStageId != 0) {
+//			List<Integer> applicationId = applicationResultMapper.listSpecificAppId(lastStageId, 0);
+//			if (applicationId.size() != 0) {
+//				System.out.println("fail!!!!!");
+//				return;
+//			}
+//		}
 		stageMapper.insert(stage);
 		System.out.println("插入后id："+stage.getId());
 	}

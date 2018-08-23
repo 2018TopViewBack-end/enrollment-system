@@ -55,19 +55,19 @@ public interface UserService {
 
     /**
      * 修改密码时先检查输入的旧密码是否正确
-     * @param userId
+     * @param username
      * @param oldPassword
      * @return 包含错误信息的Result对象
      */
-    Result checkOldPasswordService(Integer userId, String oldPassword);
+    boolean checkOldPasswordService(String username, String oldPassword);
 
     /**
      * 修改密码
-     * @param userId
+     * @param username
      * @param newPassword
      * @return Result对象
      */
-    Result updatePasswordService(Integer userId, String newPassword);
+    boolean updatePasswordService(String username, String newPassword);
 
 
     /**
@@ -75,5 +75,13 @@ public interface UserService {
      * @param organizationStatus 包含社团管理员userId，社团Id，目标status
      * @return
      */
-    Result updateUserStatusService(OrganizationStatus organizationStatus);
+    boolean updateUserStatusService(OrganizationStatus organizationStatus) throws Exception;
+
+    /**
+     * 新增社团，通过审核后输入apiKey
+     * @param organizationStatus 包含社团管理员userId，社团Id
+     * @param apiKey 社团发送短信的apiKey
+     * @return
+     */
+    boolean updateUserStatusService(OrganizationStatus organizationStatus, String apiKey) throws Exception;
 }

@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class ApplicationResultVo {
 
+    private Integer id;
+
     private String departmentName;
 
     private String organizationName;
@@ -32,7 +34,36 @@ public class ApplicationResultVo {
 
     private Date endTime;
 
+    @Override
+    public String toString() {
+        return "ApplicationResultVo{" +
+                "id=" + id +
+                ", departmentName='" + departmentName + '\'' +
+                ", organizationName='" + organizationName + '\'' +
+                ", stuName='" + stuName + '\'' +
+                ", stuId='" + stuId + '\'' +
+                ", gender='" + gender + '\'' +
+                ", academy='" + academy + '\'' +
+                ", majorAndClass='" + majorAndClass + '\'' +
+                ", wechat='" + wechat + '\'' +
+                ", tel='" + tel + '\'' +
+                ", dormitory='" + dormitory + '\'' +
+                ", adjustable=" + adjustable +
+                ", stage='" + stage + '\'' +
+                ", result='" + result + '\'' +
+                ", endTime=" + endTime +
+                '}';
+    }
+
     public ApplicationResultVo() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getDepartmentName() {

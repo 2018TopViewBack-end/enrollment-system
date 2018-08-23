@@ -49,6 +49,17 @@ public class DepartmentControllerTest {
 		Result result = departmentService.listDepartmentByOrganizationId(ogId);
 		System.out.println(result.getData());
 	}
+	@Test
+	public void testupdateDepartmentMessageNum(){
+    	Result result = departmentService.updateDepartmentMessageNum(2,10);
+		System.out.println(result.getData());
+	}
+	@Test
+	public void testFindById()  {
+		Result result = departmentService.findById(2);
+		System.out.println(result.getData());
+		System.out.println(result.getMsg());
+	}
 
 	@Test
 	public void testGetsigningDepartment() {

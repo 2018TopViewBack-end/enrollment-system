@@ -24,7 +24,7 @@
         UPDATE department SET user_id = #{userId} WHERE id = #{departmentId}
     </update>
 
-
+    <!--查询部门部门-->
     <select id="selectByPrimaryKey" resultMap="department_map">
         select * from department where id = #{pk}
     </select>
@@ -48,4 +48,13 @@
      <select id="getDepartmentByUserId" parameterType="int" resultMap="departmentVo_map">
          select * from department where user_id = #{userId}
      </select>
+    <select id="findById" resultMap="departmentVo_map" parameterType="int">
+        select name,introduction,logo_url from department where id = #{id}
+    </select>
+    <select id="findMessageNum" parameterType="int" resultType="int">
+        select message_num from department where id = #{id}
+    </select>
+    <update id="updateDepartmentMessageNum" parameterType="int">
+        update department set message_num = #{messageNum} where id = #{id}
+    </update>
 </mapper>

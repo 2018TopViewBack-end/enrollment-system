@@ -1,5 +1,7 @@
 package org.topview.service.application.serviceImpl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.topview.dao.application.ApplicationMapper;
@@ -14,6 +16,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 报名表service
+ * @author Medwin。
+ */
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
 
@@ -30,30 +36,42 @@ public class ApplicationServiceImpl implements ApplicationService {
             return Result.fail(Constant.SUBMIT_FAILED);
         } else {
             applicationMapper.insert(application);
-            return Result.success(Constant.SUBMIT_SUCCEED);
+            return Result.success();
         }
     }
 
     @Override
-    public List<Application> listApplicationOf(int status, int stageId) {
-        //取得特定阶段报名结果
-        List<Integer> applicationIds = applicationResultMapper.listSpecificAppId(status, stageId);
-        List<Application> applications = new ArrayList<>();
+    public PageInfo<Application> listApplicationOf(int pageNum, int pageSize, int status, int stageId) {
+        PageHelper.startPage(pageNum, pageSize);
 
+        //取得特定阶段报名结果
+        List<Integer> applicationIds = applicationResultMapper.listSpecificApplicationId(status, stageId);
+        List<Application> applications = new ArrayList<>();
         for(Integer applicationId : applicationIds){
             applications.add(applicationMapper.selectByPrimaryKey(applicationId));
         }
-        return applications;
+
+        PageInfo<Application> applicationPageInfo = new PageInfo<>(applications);
+        return applicationPageInfo;
     }
 
     @Override
     public boolean checkApplication(String studentId, int departmentId) {
         if (null == applicationMapper.checkApplication(studentId, departmentId)){
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
+
+    @Override
+    public PageInfo<Application> listAll(int pageNum, int pageSize, Integer departmentId) {
+        PageHelper.startPage(pageNum, pageSize);
+
+        //取得特定部门报名结果
+        List<Application> applications = applicationMapper.listAllOfDepartment(departmentId);
+        return new PageInfo<>(applications);
+    }
+
 //
 //    @Override
 //    public boolean checkApplicationToPass(int stageId) {
@@ -65,4 +83,5 @@ public class ApplicationServiceImpl implements ApplicationService {
 //            return false;
 //        }
 //    }
+
 }

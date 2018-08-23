@@ -3,16 +3,19 @@ package org.topview.entity.organization.bo;
 public class OrganizationBo {
     private Integer id;
     private String name;
-    private String tel;
+
     private String category;
-    private String introduction;
     //联系人姓名
     private String linkman;
+    private String tel;
+
     // 0 待审核,1 已通过，2 被封禁
     private Integer status;
-
     private Integer userId;
     private String wechat;
+
+    public OrganizationBo() {
+    }
 
     public Integer getId() {
         return id;
@@ -54,14 +57,6 @@ public class OrganizationBo {
         this.category = category;
     }
 
-    public String getIntroduction() {
-        return introduction;
-    }
-
-    public void setIntroduction(String introduction) {
-        this.introduction = introduction;
-    }
-
     public String getLinkman() {
         return linkman;
     }
@@ -84,5 +79,20 @@ public class OrganizationBo {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+
+    @Override
+    public String toString() {
+        return "OrganizationBo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", category='" + category + '\'' +
+                ", linkman='" + linkman + '\'' +
+                ", tel='" + tel + '\'' +
+                ", status=" + status +
+                ", userId=" + userId +
+                ", wechat='" + wechat + '\'' +
+                '}';
     }
 }

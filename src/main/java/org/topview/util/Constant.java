@@ -2,7 +2,6 @@ package org.topview.util;
 
 /**
  * 常量类
- * @author
  */
 public class Constant {
     public static final String OK = "OK";
@@ -16,6 +15,8 @@ public class Constant {
     public static final String TO_BE_DECIDED = "待审核";
 
     public static final String INFO_NOT_FOUND = "没有找到您的信息";
+
+    public static final String NO_INFO = "暂无";
 
     public static final String LOGIN_SUCCESS = "登陆成功";
 
@@ -48,6 +49,8 @@ public class Constant {
     /**
      * 社团类别用到的常量类
      */
+    public static final String PREFIX_OF_STUDENT_ID = "311";
+
     public static class OrganizationCategory {
         public static final String COLLEGE = "校级";
         public static final String ACADEMY = "院级";

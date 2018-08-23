@@ -6,14 +6,19 @@ import org.springframework.transaction.annotation.Transactional;
 import org.topview.config.exception.RegisterFailException;
 import org.topview.dao.department.DepartmentMapper;
 import org.topview.dao.department.StageMapper;
+
+import org.springframework.transaction.annotation.Propagation;
+
 import org.topview.dao.organization.OrganizationMapper;
 import org.topview.dao.organization.UserMapper;
 import org.topview.entity.department.vo.DepartmentVo;
 import org.topview.entity.organization.po.Organization;
 import org.topview.entity.organization.po.User;
 import org.topview.entity.organization.vo.OrganizationStatus;
+import org.topview.service.organization.OrganizationService;
 import org.topview.service.organization.UserService;
 import org.topview.util.Constant;
+import org.topview.util.Md5Util;
 import org.topview.util.Result;
 
 import java.util.HashMap;
@@ -41,6 +46,9 @@ public class UserServiceImpl implements UserService {
     private DepartmentMapper departmentMapper;
     @Autowired
     private StageMapper stageMapper;
+    @Autowired
+    private OrganizationService organizationService;
+
 
     @Override
     public User login(String username) {
@@ -136,34 +144,28 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 修改密码时先检查输入的旧密码是否正确
-     *
-     * @param userId
+     * @param username
      * @param oldPassword
      * @return 包含错误信息的Result对象
      */
     @Override
-    public Result checkOldPasswordService(Integer userId, String oldPassword) {
-        if (userMapper.checkOldPassword(oldPassword, userId) == 1) {
-            return Result.success();
-        } else {
-            return Result.fail("原密码错误，请重新输入");
-        }
+    public boolean checkOldPasswordService(String username, String oldPassword) {
+        //将用户输入的旧密码加密后再跟数据库的进行比对
+        oldPassword = Md5Util.getMD5Password(username,oldPassword);
+        return userMapper.checkOldPassword(oldPassword,username) == 1 ;
     }
 
     /**
      * 修改密码
-     *
-     * @param userId
+     * @param username
      * @param newPassword
      * @return Result对象
      */
     @Override
-    public Result updatePasswordService(Integer userId, String newPassword) {
-        if (userMapper.updatePassword(newPassword, userId) == 1) {
-            return Result.success();
-        } else {
-            return Result.fail("很抱歉，密码修改失败，请稍后再试");
-        }
+    public boolean updatePasswordService(String username, String newPassword) {
+        //将用户输入的新密码加密后传入数据库
+        newPassword = Md5Util.getMD5Password(username,newPassword);
+        return userMapper.updatePassword(newPassword,username) == 1;
     }
 
     /**
@@ -173,21 +175,37 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public Result updateUserStatusService(OrganizationStatus os) {
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public boolean updateUserStatusService(OrganizationStatus os) throws Exception{
         List<Integer> departmentUserIdList = userMapper.selectDepartmentUserId(os.getOrganizationId());
         // 如果这个社团管理员下有部门管理员，把部门管理员修改成与社团管理员一样的状态
-        if (departmentUserIdList != null) {
-            for (Integer userId : departmentUserIdList) {
-                Integer result = userMapper.updateUserStatus(os.getStatus(), userId);
-                if (result != 1) {
-                    return Result.fail("很抱歉，修改失败，请稍后再试");
+        if (departmentUserIdList.size() != 0) {
+                Integer result = userMapper.updateUserStatus1(os.getStatus(),departmentUserIdList);
+                if(result != departmentUserIdList.size()) {
+                    throw new Exception();
                 }
-            }
         }
-        if (userMapper.updateUserStatus(os.getStatus(), os.getUserId()) == 1) {
-            return Result.success();
+        if(userMapper.updateUserStatus2(os.getStatus(),os.getUserId()) == 1) {
+            return true;
         } else {
-            return Result.fail("很抱歉，修改失败，请稍后再试");
+            throw new Exception();
+        }
+    }
+
+    /**
+     * 通过待审核社团
+     * @param os 包含社团管理员userId，社团Id，目标status
+     * @param apiKey 社团发送短信的apiKey
+     * @return
+     */
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public boolean updateUserStatusService(OrganizationStatus os, String apiKey) throws Exception {
+        if(userMapper.updateUserStatus2(os.getStatus(),os.getUserId()) == 1
+                && organizationMapper.addApiKey(apiKey,os.getOrganizationId()) == 1) {
+            return true;
+        } else {
+            throw new Exception();
         }
     }
 }

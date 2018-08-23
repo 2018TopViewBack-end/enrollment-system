@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.topview.entity.department.bo.DepartmentBo;
 import org.topview.entity.department.po.Department;
+import org.topview.entity.department.po.SMS;
 import org.topview.service.department.DepartmentService;
 import org.topview.util.ImgUtil;
 import org.topview.util.Result;
@@ -22,6 +23,7 @@ public class DepartmentController {
 	private DepartmentService departmentService;
 
     /**
+	 * 保存部门信息
      * @param file  文件对象
      * @param department  要保存的部门对象
      * @return Result
@@ -71,4 +73,26 @@ public class DepartmentController {
 		return departmentService.getSigningDepartment(organizationId);
 	}
 
+	/**
+	 * 记录部门使用的短信数量
+	 * @param id 部门id
+	 * @param messageNum  部门使用的短信数量
+	 * @return 是否成功
+	 */
+	@RequestMapping("/updateDepartmentMessageNum")
+	@ResponseBody
+	public Result updateDepartmentMessageNum( int id, int messageNum){
+		return departmentService.updateDepartmentMessageNum(id,messageNum);
+	}
+
+	/**
+	 * 查出部门信息
+	 * @param id 部门id
+	 * @return 部门信息与是否成功
+	 */
+	@RequestMapping("/findById")
+	@ResponseBody
+	public Result findById(Integer id){
+		return departmentService.findById(id);
+	}
 }

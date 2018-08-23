@@ -10,7 +10,6 @@
     <packaging>war</packaging>
 
     <dependencies>
-
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-core</artifactId>
@@ -212,7 +211,6 @@
             <version>2.4</version>
             <classifier>jdk15</classifier>
         </dependency>
-
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
