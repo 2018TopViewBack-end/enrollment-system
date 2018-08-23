@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.topview.config.exception.RegisterFailException;
+import org.topview.dao.department.DepartmentMapper;
+import org.topview.dao.department.StageMapper;
 import org.topview.dao.organization.OrganizationMapper;
 import org.topview.dao.organization.UserMapper;
+import org.topview.entity.department.vo.DepartmentVo;
 import org.topview.entity.organization.po.Organization;
 import org.topview.entity.organization.po.User;
 import org.topview.entity.organization.vo.OrganizationStatus;
@@ -34,6 +37,10 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
     @Autowired
     private OrganizationMapper organizationMapper;
+    @Autowired
+    private DepartmentMapper departmentMapper;
+    @Autowired
+    private StageMapper stageMapper;
 
     @Override
     public User login(String username) {
@@ -112,7 +119,9 @@ public class UserServiceImpl implements UserService {
                 break;
             case Constant.DEPARTMENT:
                 //存储部门信息
-                map.put(Constant.DEPARTMENT, null);
+                DepartmentVo departmentVo = departmentMapper.getDepartmentByUserId(user.getId());
+                map.put(Constant.DEPARTMENT, departmentVo);
+                map.put("stage", stageMapper.selectByExample(departmentVo.getId()));
                 break;
             case Constant.ADMIN:
                 //存储超级管理员信息

@@ -44,4 +44,8 @@
         select * from department where organization_id = #{id}
     </select>
 
+     <!--通过用户Id获得部门-->
+     <select id="getDepartmentByUserId" parameterType="int" resultMap="departmentVo_map">
+         select * from department where user_id = #{userId}
+     </select>
 </mapper>

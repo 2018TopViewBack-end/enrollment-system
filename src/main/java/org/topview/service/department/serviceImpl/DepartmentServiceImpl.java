@@ -6,7 +6,6 @@ import org.topview.dao.department.DepartmentMapper;
 import org.topview.dao.department.StageMapper;
 import org.topview.entity.department.bo.DepartmentBo;
 import org.topview.entity.department.po.Department;
-import org.topview.entity.department.po.Stage;
 import org.topview.entity.department.vo.DepartmentVo;
 import org.topview.service.department.DepartmentService;
 import org.topview.util.Constant;
