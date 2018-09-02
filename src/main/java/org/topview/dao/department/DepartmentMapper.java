@@ -7,6 +7,7 @@ import org.topview.entity.department.bo.DepartmentBo;
 import org.topview.entity.department.po.Department;
 import org.topview.entity.department.po.SMS;
 import org.topview.entity.department.vo.DepartmentVo;
+import org.topview.entity.organization.po.User;
 
 import java.util.List;
 
@@ -46,6 +47,13 @@ public interface DepartmentMapper extends BaseMapper<Department, Integer> {
 	 * @return
 	 */
 	List<DepartmentVo> listDepartmentByOrganizationId(int organizationId);
+
+	/**
+	 * 通过用户Id获得部门
+	 * @param userId
+	 * @return
+	 */
+	DepartmentVo getDepartmentByUserId(int userId);
 
 	/**
 	 * 记录部门使用短信的数量

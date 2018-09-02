@@ -67,7 +67,7 @@ public class MessageUtil {
      * @param text 短信内容
      * @param mobile 手机号码
      */
-    public static void send(String text, List<String> mobile, String apiKey){
+    public static String send(String text, List<String> mobile, String apiKey){
         StringBuffer sb = new StringBuffer();
         //将号码列表转换为以逗号分隔的字符串形式
         for (int i = 0; i < mobile.size() ;i++){
@@ -85,6 +85,7 @@ public class MessageUtil {
         root(params,URL_SEND);
 
         System.out.println(post(URL_SEND,params));
+        return root(params,URL_SEND);
     }
 
     /**
@@ -135,7 +136,7 @@ public class MessageUtil {
      *
      * @param url
      */
-    private static void root(Map<String,String> params,String url){
-        System.out.println(post(url,params));
+    private static String root(Map<String,String> params,String url){
+    	return post(url,params);
     }
 }

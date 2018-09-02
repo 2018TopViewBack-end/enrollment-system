@@ -43,6 +43,11 @@
     <select id="listDepartmentByOrganizationId" parameterType="int" resultMap="departmentVo_map">
         select * from department where organization_id = #{id}
     </select>
+
+     <!--通过用户Id获得部门-->
+     <select id="getDepartmentByUserId" parameterType="int" resultMap="departmentVo_map">
+         select * from department where user_id = #{userId}
+     </select>
     <select id="findById" resultMap="departmentVo_map" parameterType="int">
         select name,introduction,logo_url from department where id = #{id}
     </select>
