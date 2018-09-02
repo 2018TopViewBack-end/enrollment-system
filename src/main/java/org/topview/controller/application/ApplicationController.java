@@ -4,14 +4,13 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.topview.entity.application.bo.ApplicationBo;
 import org.topview.entity.application.po.Application;
 import org.topview.service.application.ApplicationResultService;
 import org.topview.service.application.ApplicationService;
 import org.topview.util.Constant;
 import org.topview.util.Result;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,16 +35,19 @@ public class ApplicationController {
      */
     @ResponseBody
     @GetMapping("get")
-    Result getPassedApplications(@RequestBody int pageNum, @RequestBody int pageSize, @RequestBody int status,
-                                 @RequestBody int stageId, HttpServletRequest request){
+    Result getPassedApplications(@RequestParam Integer pageNum, @RequestParam Integer pageSize, @RequestParam Integer status,
+                                 @RequestParam Integer stageId){
         PageInfo<Application> applicationPageInfo = applicationService.listApplicationOf(pageNum, pageSize, status, stageId);
-        request.setAttribute("stageId",stageId);
+//        request.setAttribute("stageId",stageId);
         if (null != applicationPageInfo){
             return Result.success(applicationPageInfo);
         } else {
             return Result.fail(Constant.NOT_FOUND);
         }
     }
+
+
+
 
     /**
      * 查看报名结果
@@ -61,14 +63,16 @@ public class ApplicationController {
 
     /**
      * 批量处理报名
-     * @param applicationIds 报名表id集
-     * @param status 要设置的报名状态
+     * @param application 传入的报名表信息
      * @return
      */
     @ResponseBody
     @PostMapping("handle")
-    Result handle(@RequestBody List<Integer> applicationIds, @RequestBody int status, @RequestBody int stageId){
-        return applicationResultService.applicationHandle(applicationIds, status, stageId);
+    Result handle(@RequestBody ApplicationBo application){
+        List<Integer> appIds = application.getApplicationIds();
+        Integer status = application.getStatus();
+        Integer stageId = application.getStageId();
+        return applicationResultService.applicationHandle(appIds, status, stageId);
     }
 
     /**
@@ -80,6 +84,12 @@ public class ApplicationController {
     @PostMapping("add")
     Result add(@RequestBody Application application){
         return applicationService.addApplication(application);
+    }
+
+    @ResponseBody
+    @PostMapping("search")
+    Result search(@RequestParam Integer stageId, @RequestParam Integer status, @RequestParam String condition){
+        return applicationResultService.searchResult(condition, status, stageId);
     }
 
 //      //查看是否有未审核报名

@@ -20,7 +20,7 @@
     <!--</select>-->
 
     <update id="handleApplication">
-        update application_result set status = #{param2} and end_time = #{param4} where application_id = #{param1} and stage_id = #{param3}
+        update application_result set status = #{param2} ,end_time = #{param4} where application_id = #{param1} and stage_id = #{param3}
     </update>
 </mapper>
 

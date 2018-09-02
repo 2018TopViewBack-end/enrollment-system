@@ -16,6 +16,7 @@ import org.topview.service.application.ApplicationResultService;
 import org.topview.util.Constant;
 import org.topview.util.Result;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -117,10 +118,10 @@ public class ApplicationResultServiceImpl implements ApplicationResultService {
      */
     @Override
     public Result applicationHandle(List<Integer> applicationIds, int status, int stageId) {
-        java.util.Date dt = new java.util.Date();
+        Date dt = new Date();
 
-        java.text.SimpleDateFormat sdf =
-                new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf =
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String currentTime = sdf.format(dt);
         for (Integer id : applicationIds){

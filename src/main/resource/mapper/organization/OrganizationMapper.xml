@@ -3,7 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.topview.dao.organization.OrganizationMapper">
 
-<<<<<<< HEAD
     <resultMap id="organizationMap" type="org.topview.entity.organization.po.Organization">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
@@ -14,7 +13,7 @@
         <result property="status" column="status"/>
         <result property="apikey" column="apikey"/>
         <result property="accountBalance" column="account_balance"/>
-        <result property="userId" column="user_id"/>
+        <result property="adminId" column="user_id"/>
     </resultMap>
 
     <update id="updateByPrimaryKey">
@@ -53,38 +52,30 @@
     <select id="getOrganizationPhotosByCategory" parameterType="String"
             resultType="org.topview.entity.organization.vo.OrganizationPhotoVo">
         SELECT
-        name,logo_url as logoUrl,category
+            name,logo_url as logoUrl,category
         FROM organization
         WHERE category = #{category}
     </select>
 
-    <select id="selectOrganizationByStatus" resultType="org.topview.entity.organization.bo.OrganizationBo">
-        select o.id id,o.name name,o.category category,o.introduction introduction,o.linkman linkman,
-               o.tel tel,u.id userId,u.wechat wechat from organization o, user u
-        where status=#{status} and o.admin_id=u.id order by o.id
-    </select>
-=======
     <!--<select id="selectOrganizationByStatus" resultType="org.topview.entity.organization.bo.OrganizationBo">
         select o.id id,o.name name,o.category category,o.introduction introduction,o.linkman linkman,
             o.tel tel,u.id userId,u.wechat wechat,p.photo_url certificate from organization o, user u, organization_photo p
         where status=#{status} and p.photo_tag='certificate' and o.admin_id=u.id and p.organization_id=o.id order by o.id
     </select>-->
->>>>>>> sb
 
 
     <update id="updateOrganizationStatus">
         update organization set status=#{status} where id=#{id}
     </update>
 
-<<<<<<< HEAD
     <insert id="insert" parameterType="org.topview.entity.organization.po.Organization"
             useGeneratedKeys="true" keyProperty="id">
         insert into organization
-            (name,logo_url,category,introduction,linkman,tel,status,apikey,account_balance,admin_id)
+        (name,logo_url,category,introduction,linkman,tel,status,apikey,account_balance,admin_id)
         values
             (#{name},#{logoUrl},#{category},#{introduction},#{linkman},#{tel},#{status},#{apikey},#{accountBalance},#{adminId})
     </insert>
-=======
+
     <!--<select id="selectAllOrganization" resultType="org.topview.entity.organization.bo.OrganizationBo">
         select o.id id,o.name name,o.category category,o.introduction introduction,o.linkman linkman,
        o.tel tel,u.id userId,u.wechat wechat,p.photo_url certificate from organization o, user u , organization_photo p
@@ -119,5 +110,4 @@
     <update id="addApiKey">
         update organization set apikey=#{apiKey} where id=#{id}
     </update>
->>>>>>> sb
 </mapper>
