@@ -9,7 +9,7 @@
     </select>
 
     <!--suppress MybatisMapperXmlInspection -->
-    <select id="checkResult" resultType="ApplicationResult">
+    <select id="checkResult" resultType="org.topview.entity.application.po.ApplicationResult">
         select application_id applicationId, stage_id stageId, status status, end_time endTime from application_result
         where application_id = #{applicationId} and stage_id =
         (select max(stage_id) from application_result where application_id = #{applicationId})
@@ -22,6 +22,10 @@
     <update id="handleApplication">
         update application_result set status = #{param2} ,end_time = #{param4} where application_id = #{param1} and stage_id = #{param3}
     </update>
+
+    <insert id="addResult">
+        insert into application_result(application_id, stage_id) values (#{param1}, #{param2})
+    </insert>
 </mapper>
 
     <!--<select id="getRole" parameterType="int"  resultType="java.lang.Integer" >-->

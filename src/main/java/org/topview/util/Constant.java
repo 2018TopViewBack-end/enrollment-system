@@ -36,7 +36,7 @@ public class Constant {
 
     public static final String ADD_FAIL = "新增阶段失败";
 
-    public static final String FAIL_TO_DELETE = "删除失败";
+    public static final String FAILED = "操作失败";
 
     public static final String MODIFY_STAGE_FAIL = "修改招新阶段失败";
 

@@ -62,4 +62,11 @@ public class ApplicationResultServiceImplTest {
         String currentTime = sdf.format(dt);
         applicationResultMapper.handleApplication(id, status, stageId, currentTime);
     }
+
+    @Test
+    public void addResult(){
+        Integer departmentId = 1;
+        Integer stageId = 3;
+        applicationResultService.addResult(departmentId, stageId);
+    }
 }

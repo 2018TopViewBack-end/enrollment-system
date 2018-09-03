@@ -1,6 +1,5 @@
 package org.topview.service.application.serviceImpl;
 
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +12,7 @@ import org.topview.entity.application.po.Application;
 import org.topview.entity.application.po.ApplicationResult;
 import org.topview.entity.application.vo.ApplicationResultVo;
 import org.topview.service.application.ApplicationResultService;
+import org.topview.service.application.ApplicationService;
 import org.topview.util.Constant;
 import org.topview.util.Result;
 
@@ -43,7 +43,8 @@ public class ApplicationResultServiceImpl implements ApplicationResultService {
     @Autowired
     private StageMapper stageMapper;
 
-    //可改进
+    @Autowired
+    private ApplicationService applicationService;
 
     /**
      * 查看报名结果
@@ -61,7 +62,9 @@ public class ApplicationResultServiceImpl implements ApplicationResultService {
     }
 
     /**
-     *
+     * 设置ApplicationResultVo字段值
+     * @param applications
+     * @return
      */
     private List<ApplicationResultVo> setProperties(List<Application> applications){
         List<ApplicationResultVo> results = new ArrayList<>();
@@ -103,7 +106,6 @@ public class ApplicationResultServiceImpl implements ApplicationResultService {
             } else {
                 applicationResultVo.setGender("男");
             }
-//            return applicationResultVo;
             results.add(applicationResultVo);
         }
         return  results;
@@ -130,6 +132,13 @@ public class ApplicationResultServiceImpl implements ApplicationResultService {
         return Result.success();
     }
 
+    /**
+     * 搜索报名结果
+     * @param condition
+     * @param status
+     * @param stageId
+     * @return
+     */
     @Override
     public Result searchResult(String condition, int status, int stageId) {
         List<Integer> applications = applicationResultMapper.listSpecificApplicationId(status, stageId);
@@ -159,5 +168,27 @@ public class ApplicationResultServiceImpl implements ApplicationResultService {
             return Result.success(selectedApplicationResult);
         }
         return Result.fail(Constant.NOT_FOUND);
+    }
+
+    /**
+     * 添加报名结果
+     * @param departmentId
+     * @param stageId
+     * @return
+     */
+    @Override
+    public Result addResult(Integer departmentId, Integer stageId) {
+        List<Application> applications = applicationService.listAll(departmentId);
+        Integer result = 0;
+
+        //为每一个报名表添加结果
+        for (Application application : applications) {
+            Integer resultEach = applicationResultMapper.addResult(application.getId(), stageId);
+            result += resultEach;
+        }
+        if (result >= 1){
+            return Result.success();
+        }
+        return Result.fail(Constant.FAILED);
     }
 }

@@ -12,9 +12,7 @@ import org.topview.util.Constant;
 import org.topview.util.Result;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 报名表service
@@ -40,10 +38,17 @@ public class ApplicationServiceImpl implements ApplicationService {
         }
     }
 
+    /**
+     * 取得特定阶段和状态的报名结果并分页
+     * @param pageNum
+     * @param pageSize
+     * @param status
+     * @param stageId
+     * @return
+     */
     @Override
     public PageInfo<Application> listApplicationOf(int pageNum, int pageSize, int status, int stageId) {
         PageHelper.startPage(pageNum, pageSize);
-
         //取得特定阶段报名结果
         List<Integer> applicationIds = applicationResultMapper.listSpecificApplicationId(status, stageId);
         List<Application> applications = new ArrayList<>();
@@ -55,6 +60,12 @@ public class ApplicationServiceImpl implements ApplicationService {
         return applicationPageInfo;
     }
 
+    /**
+     * 检查报名表是否重复提交
+     * @param studentId
+     * @param departmentId
+     * @return
+     */
     @Override
     public boolean checkApplication(String studentId, int departmentId) {
         if (null == applicationMapper.checkApplication(studentId, departmentId)){
@@ -63,16 +74,27 @@ public class ApplicationServiceImpl implements ApplicationService {
         return true;
     }
 
+    /**
+     * 分页列出部门所有报名表
+     * @param pageNum
+     * @param pageSize
+     * @param departmentId
+     * @return
+     */
     @Override
     public PageInfo<Application> listAll(int pageNum, int pageSize, Integer departmentId) {
         PageHelper.startPage(pageNum, pageSize);
-
-        //取得特定部门报名结果
-        List<Application> applications = applicationMapper.listAllOfDepartment(departmentId);
-        return new PageInfo<>(applications);
+        return new PageInfo<>(listAll(departmentId));
     }
 
-//
+    @Override
+    public List<Application> listAll(Integer departmentId) {
+        //取得特定部门报名结果
+        List<Application> applications = applicationMapper.listAllOfDepartment(departmentId);
+        return applications;
+    }
+
+    //
 //    @Override
 //    public boolean checkApplicationToPass(int stageId) {
 //        List<Application> applications = listApplicationOf(0, stageId);
