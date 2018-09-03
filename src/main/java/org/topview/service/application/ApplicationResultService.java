@@ -16,5 +16,5 @@ public interface ApplicationResultService {
 
     Result searchResult(String condition, int status, int stageId);//根据姓名或学号搜索结果
 
-    Result addResult(Integer applicationId, Integer stageId);
+    Result addResult(Integer deparementId, Integer stageId);
 }
