@@ -32,7 +32,7 @@ public class ApplicationResultVo {
 
     private String result;
 
-    private Date endTime;
+    private String endTime;
 
     @Override
     public String toString() {
@@ -170,11 +170,11 @@ public class ApplicationResultVo {
         this.result = result;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 }

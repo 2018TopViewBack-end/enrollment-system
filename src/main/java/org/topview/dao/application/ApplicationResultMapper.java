@@ -2,6 +2,7 @@ package org.topview.dao.application;
 
 import org.springframework.stereotype.Repository;
 import org.topview.dao.BaseMapper;
+import org.topview.entity.application.po.Application;
 import org.topview.entity.application.po.ApplicationResult;
 
 import java.util.List;
@@ -17,5 +18,5 @@ public interface ApplicationResultMapper extends BaseMapper<ApplicationResult, I
 
     int addResult(Integer applicationId, Integer stageId);//为报名表添加结果
 
-//    int selectMaxStageId(int applicationId);
+    List<Application> listSpecificApplication(Integer status, Integer stageId);
 }

@@ -23,30 +23,49 @@ public class ApplicationServiceImplTest {
     ApplicationResultService applicationResultService;
 
     @Test
+    public void add(){
+        applicationResultService.addResult(1,3);
+    }
+
+    @Test
     public void addApplication() {
-        Application application = new Application();
-        application.setDepartmentId(1);
-        application.setOrganizationId(1);
-        application.setStuId("3117001441");
-        application.setGender(0);
-        application.setAcademy("自动化学院");
-        application.setMajorAndClass("物联网五班");
-        application.setAdjustable(true);
-        application.setDormitory("西九512");
-        application.setIntroduction("a good person");
-        application.setStuName("MMM");
-        application.setTel("15521300166");
-        application.setWechat("1008611780");
-        System.out.println(applicationService.addApplication(application));
+        Integer a = 100;
+
+//        for (int i = 0; i < 100 ; i++){
+
+            String stuId = "3117001";
+
+            Application application = new Application();
+            application.setDepartmentId(2);
+            application.setOrganizationId(2);
+            application.setStuId(stuId+a);
+            application.setGender(0);
+            application.setAcademy("计算机学院");
+            application.setMajorAndClass("软工五班");
+            application.setAdjustable(true);
+            application.setDormitory("西九111");
+            application.setIntroduction("test");
+            application.setStuName("TEST");
+            application.setTel("15521300166");
+            application.setWechat("1008611780");
+
+//            a++;
+            System.out.println(applicationService.addApplication(application));
+//        }
     }
 
     @Test
     public void listApplicationOf() {
-        System.out.println(applicationService.listApplicationOf(0,2,1,2));
+        System.out.println(applicationService.listApplicationOf(0,50,0,3));
     }
 
     @Test
     public void checkApplication() {
         System.out.println(applicationService.checkApplication("3117001440",1));
+    }
+
+    @Test
+    public void testtt(){
+        System.out.println(applicationResultService.checkResult("15521300156","3117001440"));
     }
 }

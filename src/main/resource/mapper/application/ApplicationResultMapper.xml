@@ -4,7 +4,7 @@
 <mapper namespace="org.topview.dao.application.ApplicationResultMapper">
 
 
-    <select id="listSpecificApplicationId" resultType="integer">
+    <select id="listSpecificApplicationId" resultType="java.lang.Integer">
         select application_id from application_result where stage_id = #{param2} and status = #{param1}
     </select>
 
@@ -13,6 +13,12 @@
         select application_id applicationId, stage_id stageId, status status, end_time endTime from application_result
         where application_id = #{applicationId} and stage_id =
         (select max(stage_id) from application_result where application_id = #{applicationId})
+    </select>
+
+    <select id="listSpecificApplication" resultType="org.topview.entity.application.po.Application">
+        select id,department_id departmentId, orginaziton_id organizationId, name stuName, gender gender, academy academy,
+                  major_and_class majorAndClass, wechat wechat, tel tel,student_number stuId,dormitory dormitory,is_adjust adjustable,introduction introduction
+        from application where id in (select application_id from application_result where stage_id = #{param2} and status = #{param1})
     </select>
 
     <!--<select id="selectMaxStageId" parameterType="int" resultType="int">-->

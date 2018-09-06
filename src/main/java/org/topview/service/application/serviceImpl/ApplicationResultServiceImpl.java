@@ -98,8 +98,17 @@ public class ApplicationResultServiceImpl implements ApplicationResultService {
 
             String organizationName = organizationMapper.selectByPrimaryKey(application.getOrganizationId()).getName();
             String departmentName = departmentMapper.selectByPrimaryKey(application.getDepartmentId()).getName();
+            String endTime = "";
+            if (null != applicationResult.getEndTime()){
+//                endTime = applicationResult.getEndTime().toString();
+                SimpleDateFormat sDateFormat=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                endTime=sDateFormat.format(applicationResult.getEndTime());
+            } else {
+                endTime = Constant.NO_INFO;
+            }
             applicationResultVo.setOrganizationName(organizationName);
             applicationResultVo.setDepartmentName(departmentName);
+            applicationResultVo.setEndTime(endTime);
 
             if (1 == application.getGender()){
                 applicationResultVo.setGender("女");
@@ -141,14 +150,8 @@ public class ApplicationResultServiceImpl implements ApplicationResultService {
      */
     @Override
     public Result searchResult(String condition, int status, int stageId) {
-        List<Integer> applications = applicationResultMapper.listSpecificApplicationId(status, stageId);
-        //获取id列表
-        List<Application> resultApplications = new ArrayList<>();
-        for (Integer applicationId : applications){
-            Application application = applicationMapper.selectByPrimaryKey(applicationId);
-            resultApplications.add(application);
-            }
-        List<ApplicationResultVo> applicationResultVos =  setProperties(resultApplications);
+        List<Application> applications = applicationResultMapper.listSpecificApplication(status, stageId);
+        List<ApplicationResultVo> applicationResultVos =  setProperties(applications);
 
         ApplicationResultVo selectedApplicationResult = new ApplicationResultVo();
         if (condition.contains(Constant.PREFIX_OF_STUDENT_ID)){
@@ -157,14 +160,19 @@ public class ApplicationResultServiceImpl implements ApplicationResultService {
                 if (resultApplication.getStuId().equals(condition)){
                     //若找到匹配项
                     selectedApplicationResult = resultApplication;
-                }else {
+                }
+            }
+        } else {
+            //condition为姓名
+            for (ApplicationResultVo resultApplication : applicationResultVos){
                     if (resultApplication.getStuName().equals(condition)){
                         selectedApplicationResult = resultApplication;
                     }
-                }
             }
         }
         if(selectedApplicationResult.getStuId() != null){
+//            selectedApplicationResult.setEndTime(selectedApplicationResult.getEndTime().toString());
+
             return Result.success(selectedApplicationResult);
         }
         return Result.fail(Constant.NOT_FOUND);

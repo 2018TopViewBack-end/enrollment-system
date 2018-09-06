@@ -1,7 +1,5 @@
 package org.topview.entity.application.po;
 
-import java.util.List;
-
 /**
  * 报名表实体类
  * @author Medwin。

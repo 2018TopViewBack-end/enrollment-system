@@ -16,7 +16,7 @@ public interface ApplicationService {
 
     PageInfo<Application> listApplicationOf(int pageNum, int pageSize, int status, int stageId);   //选出特定阶段和部门的报名表
 
-    PageInfo<Application> listAll(int pageNum, int pageSize, Integer departmentId);//当部门未截止报名时，列出该部门所有报名表
+    Result listAll(int pageNum, int pageSize, Integer departmentId);//当部门未截止报名时，列出该部门所有报名表
 
     List<Application> listAll(Integer departmentId);//不分页列出该部门所有报名表
 

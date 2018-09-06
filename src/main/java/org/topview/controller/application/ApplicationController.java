@@ -46,9 +46,6 @@ public class ApplicationController {
         }
     }
 
-
-
-
     /**
      * 查看报名结果
      * @param tel 电话号码
@@ -90,6 +87,12 @@ public class ApplicationController {
     @PostMapping("search")
     Result search(@RequestParam Integer stageId, @RequestParam Integer status, @RequestParam String condition){
         return applicationResultService.searchResult(condition, status, stageId);
+    }
+
+    @ResponseBody
+    @PostMapping("listAll")
+    Result search(@RequestParam Integer pageNum, @RequestParam Integer pageSize, @RequestParam Integer departmentId){
+        return applicationService.listAll(pageNum,pageSize,departmentId);
     }
 
 //      //查看是否有未审核报名

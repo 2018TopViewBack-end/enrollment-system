@@ -48,13 +48,16 @@ public class ApplicationServiceImpl implements ApplicationService {
      */
     @Override
     public PageInfo<Application> listApplicationOf(int pageNum, int pageSize, int status, int stageId) {
+
         PageHelper.startPage(pageNum, pageSize);
-        //取得特定阶段报名结果
-        List<Integer> applicationIds = applicationResultMapper.listSpecificApplicationId(status, stageId);
-        List<Application> applications = new ArrayList<>();
-        for(Integer applicationId : applicationIds){
-            applications.add(applicationMapper.selectByPrimaryKey(applicationId));
-        }
+//        //取得特定阶段报名结果
+//        List<Integer> applicationIds = applicationResultMapper.listSpecificApplicationId(status, stageId);
+//        List<Application> applications = new ArrayList<>();
+//
+//        for(Integer applicationId : applicationIds){
+//            applications.add(applicationMapper.selectByPrimaryKey(applicationId));
+//        }
+        List<Application> applications = applicationResultMapper.listSpecificApplication(status,stageId);
 
         PageInfo<Application> applicationPageInfo = new PageInfo<>(applications);
         return applicationPageInfo;
@@ -82,9 +85,9 @@ public class ApplicationServiceImpl implements ApplicationService {
      * @return
      */
     @Override
-    public PageInfo<Application> listAll(int pageNum, int pageSize, Integer departmentId) {
+    public Result listAll(int pageNum, int pageSize, Integer departmentId) {
         PageHelper.startPage(pageNum, pageSize);
-        return new PageInfo<>(listAll(departmentId));
+        return Result.success( new PageInfo<>(listAll(departmentId)));
     }
 
     @Override
