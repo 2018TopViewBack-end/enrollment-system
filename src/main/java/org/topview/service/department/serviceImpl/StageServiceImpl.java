@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.topview.dao.department.StageMapper;
 import org.topview.entity.department.po.Stage;
+import org.topview.service.application.ApplicationResultService;
 import org.topview.service.department.StageService;
 import org.topview.util.Result;
 
@@ -15,6 +16,8 @@ public class StageServiceImpl implements StageService {
 	@Autowired
 	private StageMapper stageMapper;
 
+	@Autowired
+	private ApplicationResultService applicationResultService;
 
 	/**
 	 * 新增招新阶段
@@ -25,6 +28,9 @@ public class StageServiceImpl implements StageService {
 	public Result addStage(Stage stage) {
 		stageMapper.insert(stage);
 		if (stage.getId() != 0) {
+			if (stageMapper.selectByExample(stage.getDepartmentId()).size() == 1) {
+				applicationResultService.addResult(stage.getDepartmentId(), stage.getId());
+			}
 			return  Result.success(stage);
 		} else {
 			return  Result.fail("新增阶段失败");

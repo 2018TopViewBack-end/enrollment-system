@@ -92,7 +92,7 @@ public class DepartmentController {
 	 */
 	@RequestMapping("/findById")
 	@ResponseBody
-	public Result findById(Integer id){
+	public Result findById(@RequestParam Integer id){
 		return departmentService.findById(id);
 	}
 }
