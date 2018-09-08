@@ -95,4 +95,15 @@ public class DepartmentController {
 	public Result findById(@RequestParam Integer id){
 		return departmentService.findById(id);
 	}
+	/**
+	 *修改部门管理员的密码
+	 * @param id 部门ID
+	 * @param newPassword 新的密码
+	 * @return 是否成功
+	 */
+	@RequestMapping("/updateDepartmentUserPassword")
+	@ResponseBody
+	public Result updateDepartmentUserPassword(@RequestParam int id,  @RequestParam String newPassword){
+		return departmentService.updateDepartmentUserPassword(id,newPassword);
+	}
 }

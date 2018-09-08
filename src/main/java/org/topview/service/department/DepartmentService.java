@@ -3,7 +3,6 @@ package org.topview.service.department;
 import org.springframework.stereotype.Service;
 import org.topview.entity.department.bo.DepartmentBo;
 import org.topview.entity.department.po.Department;
-import org.topview.entity.department.po.SMS;
 import org.topview.util.Result;
 
 @Service
@@ -56,4 +55,11 @@ public interface DepartmentService {
 	 * @return
 	 */
 	Result getSigningDepartment(int organizationId);
+	/**
+	 *修改部门管理员的密码
+	 * @param id 部门ID
+	 * @param newPassword 新的密码
+	 * @return 是否成功
+	 */
+	Result updateDepartmentUserPassword(int id,  String newPassword);
 }

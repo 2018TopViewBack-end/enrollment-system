@@ -83,7 +83,15 @@ public class DepartmentServiceImpl implements DepartmentService {
 		return Result.success(departmentVos);
 	}
 
-
+	@Override
+	public Result updateDepartmentUserPassword(int id, String newPassword) {
+		int flag = departmentMapper.updateDepartmentUserPassword(id,newPassword);
+		if(flag!=0){
+			return Result.success();
+		}else{
+			return Result.fail("修改失败");
+		}
+	}
 
 
 	@Override

@@ -76,5 +76,11 @@ public interface DepartmentMapper extends BaseMapper<Department, Integer> {
 	 * @return 部门的相关信息
 	 */
     DepartmentVo findById(int id);
-
+	/**
+	 *修改部门管理员的密码
+	 * @param id 部门ID
+	 * @param newPassword 新的密码
+	 * @return 是否成功
+	 */
+	int updateDepartmentUserPassword(@Param("id") int id,@Param("newPassword") String newPassword);
 }
